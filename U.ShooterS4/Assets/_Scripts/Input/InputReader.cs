@@ -6,9 +6,9 @@ using UnityEngine.InputSystem;
 public class InputReader : ScriptableObject, GameInput.IGameplayActions
 {
     private GameInput gameInput;
-    
+    private PlayerInput playerInput;
     public event Action<Vector2> OnMoveEvent;
-    public event Action<bool> OnAimEvent;
+    public event Action<bool, ControlScheme> OnAimEvent;
 
     private void OnEnable()
     {
@@ -19,28 +19,30 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
             gameInput.Gameplay.Enable();
         }
     }
-    
+
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 moveInputVector = Vector2.zero;
         if (context.phase == InputActionPhase.Performed)
         {
             moveInputVector = context.ReadValue<Vector2>();
-        } else if (context.phase == InputActionPhase.Canceled)
+        }
+        else if (context.phase == InputActionPhase.Canceled)
         {
             moveInputVector = Vector2.zero;
         }
+
         OnMoveEvent?.Invoke(moveInputVector);
     }
 
     public void OnAim(InputAction.CallbackContext context)
     {
         bool isAiming = context.ReadValueAsButton();
-        OnAimEvent?.Invoke(isAiming);
+        ControlScheme controlScheme = context.control.device.name == "Mouse" ? ControlScheme.Keyboard : ControlScheme.Gamepad;
+        OnAimEvent?.Invoke(isAiming, controlScheme);
     }
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        
     }
 }

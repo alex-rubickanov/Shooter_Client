@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,6 +5,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private float moveSpeed;
 
+
+    private Vector3 moveDirection; 
 
     private Vector2 moveInputVector;
     private void Start()
@@ -25,8 +26,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMove()
     {
-        Vector3 moveDirection = new Vector3(moveInputVector.x, 0.0f, moveInputVector.y);
+        moveDirection = new Vector3(moveInputVector.x, 0.0f, moveInputVector.y);
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
-        Debug.Log(moveDirection);
+    }
+
+    public Vector3 GetMoveDirection()
+    {
+        return moveDirection;
     }
 }

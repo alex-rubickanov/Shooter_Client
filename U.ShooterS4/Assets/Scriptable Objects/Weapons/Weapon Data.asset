@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Weapon Data
   m_EditorClassIdentifier: 
   fireRate: 0.1
+  isAutomatic: 1

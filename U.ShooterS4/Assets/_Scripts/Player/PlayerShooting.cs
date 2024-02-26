@@ -29,7 +29,7 @@ public class PlayerShooting : MonoBehaviour
     {
         currentWeapon = weapon;
         GameObject weaponPrefab = currentWeapon.GetWeaponPrefab();
-        Instantiate(weaponPrefab, weaponHolder);
+        Instantiate(weaponPrefab, weaponHolder.position, weaponHolder.rotation, weaponHolder);
     }
 
     private void Shoot()
@@ -46,6 +46,7 @@ public class PlayerShooting : MonoBehaviour
     public void StopFiring()
     {
         isFiring = false;
+        currentWeapon.StopFiring();
     }
 
     private void ReadFireButton(bool isFiring)

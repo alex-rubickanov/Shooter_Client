@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class BaseWeapon : MonoBehaviour
@@ -12,28 +11,40 @@ public class BaseWeapon : MonoBehaviour
     private RaycastHit hitInfo;
 
     private float timer;
-
-    private void Start()
+    private bool shotFired = false;
+    protected  void Start()
     {
         timer = weaponData.fireRate;
     }
 
-    private void Update()
+    protected void Update()
     {
         timer += Time.deltaTime;
     }
 
     public void Shoot()
     {
-        if (timer < weaponData.fireRate) return;
+        // if (!weaponData.isAutomatic)
+        // {
+        //     if (shotFired)
+        //     {
+        //         return;
+        //     }
+        //     shotFired = true;
+        // }
+        // if (timer < weaponData.fireRate) return;
         timer = 0.0f;
-        ray.origin = muzzleTransform.position;
-        ray.direction = muzzleTransform.forward;
-        Debug.DrawLine(ray.origin, muzzleTransform.forward * 30f, Color.red, 1.0f);
+        Debug.DrawLine(muzzleTransform.position, muzzleTransform.forward * 30f, Color.red, 1.0f);
+        Debug.Log($"{gameObject.name} shot");
     }
 
     public GameObject GetWeaponPrefab()
     {
         return weaponPrefab;
+    }
+
+    public void StopFiring()
+    {
+        shotFired = false;
     }
 }

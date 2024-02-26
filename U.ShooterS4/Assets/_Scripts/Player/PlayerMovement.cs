@@ -3,20 +3,43 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputReader inputReader;
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed = 5.0f;
+    [SerializeField] private float runSpeed = 8.0f;
 
-
-    private Vector3 moveDirection; 
-
+    private Vector3 moveDirection;
     private Vector2 moveInputVector;
-    private void Start()
-    {
-        inputReader.OnMoveEvent += ReadMoveInputVector;
-    }
+    private bool isRunning;
+
+    [HideInInspector] public bool canRun = true;
 
     private void Update()
     {
         HandleMove();
+    }
+
+    private void HandleMove()
+    {
+        moveDirection = new Vector3(moveInputVector.x, 0.0f, moveInputVector.y);
+        float speed = isRunning && canRun ? runSpeed : moveSpeed;
+
+        transform.position += moveDirection * speed * Time.deltaTime;
+    }
+
+    public Vector3 GetMoveDirection()
+    {
+        return moveDirection;
+    }
+
+    private void OnEnable()
+    {
+        inputReader.OnMoveEvent += ReadMoveInputVector;
+        inputReader.OnRunEvent += InputReaderOnOnRunEvent;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.OnMoveEvent -= ReadMoveInputVector;
+        inputReader.OnRunEvent -= InputReaderOnOnRunEvent;
     }
 
     private void ReadMoveInputVector(Vector2 moveInputVector)
@@ -24,14 +47,8 @@ public class PlayerMovement : MonoBehaviour
         this.moveInputVector = moveInputVector;
     }
 
-    private void HandleMove()
+    private void InputReaderOnOnRunEvent(bool isRunning)
     {
-        moveDirection = new Vector3(moveInputVector.x, 0.0f, moveInputVector.y);
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
-    }
-
-    public Vector3 GetMoveDirection()
-    {
-        return moveDirection;
+        this.isRunning = isRunning;
     }
 }

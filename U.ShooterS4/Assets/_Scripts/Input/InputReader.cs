@@ -8,7 +8,9 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     private GameInput gameInput;
     private PlayerInput playerInput;
     public event Action<Vector2> OnMoveEvent;
+    public event Action<Vector2> OnRotateEvent;
     public event Action<bool, ControlScheme> OnAimEvent;
+    public event Action<bool> OnRunEvent;
 
     private void OnEnable()
     {
@@ -38,11 +40,23 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     public void OnAim(InputAction.CallbackContext context)
     {
         bool isAiming = context.ReadValueAsButton();
-        ControlScheme controlScheme = context.control.device.name == "Mouse" ? ControlScheme.Keyboard : ControlScheme.Gamepad;
+        ControlScheme controlScheme =
+            context.control.device.name == "Mouse" ? ControlScheme.Keyboard : ControlScheme.Gamepad;
         OnAimEvent?.Invoke(isAiming, controlScheme);
     }
 
     public void OnFire(InputAction.CallbackContext context)
     {
+    }
+
+    public void OnRotate(InputAction.CallbackContext context)
+    {
+        OnRotateEvent?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        bool isRunning = context.ReadValueAsButton();
+        OnRunEvent?.Invoke(isRunning);
     }
 }

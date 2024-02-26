@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
   moveSpeed: 5
+  runSpeed: 8
+  canRun: 1
 --- !u!114 &1279376167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +186,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
+  playerCamera: {fileID: 1977774381}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1394509196
 GameObject:
   m_ObjectHideFlags: 0

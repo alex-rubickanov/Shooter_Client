@@ -11,6 +11,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     public event Action<Vector2> OnRotateEvent;
     public event Action<bool, ControlScheme> OnAimEvent;
     public event Action<bool> OnRunEvent;
+    public event Action<bool> OnFireEvent;
 
     private void OnEnable()
     {
@@ -47,6 +48,8 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
 
     public void OnFire(InputAction.CallbackContext context)
     {
+        bool isFiring = context.ReadValueAsButton();
+        OnFireEvent?.Invoke(isFiring);
     }
 
     public void OnRotate(InputAction.CallbackContext context)

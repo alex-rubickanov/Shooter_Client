@@ -17,6 +17,6 @@ MonoBehaviour:
   fireRate: 0.15
   damage: 0
   recoil: 1.13
-  isInfinity: 1
-  maxAmmo: 0
+  isInfinity: 0
+  maxAmmo: 10
   reloadTime: 2

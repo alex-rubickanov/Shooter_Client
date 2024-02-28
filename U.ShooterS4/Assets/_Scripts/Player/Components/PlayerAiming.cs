@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAiming : PlayerComponent
@@ -11,6 +12,7 @@ public class PlayerAiming : PlayerComponent
     private bool isAiming;
     private ControlScheme controlScheme;
     private Vector3 aimDirection;
+
 
     public bool IsAiming => isAiming;
     

@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BaseWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject weaponPrefab;
-    [SerializeField] private WeaponData weaponData;
+    [FormerlySerializedAs("weaponData")] [SerializeField] private WeaponConfig weaponConfig;
     [SerializeField] private Transform muzzleTransform;
 
 
@@ -14,7 +15,7 @@ public class BaseWeapon : MonoBehaviour
     private bool shotFired = false;
     protected  void Start()
     {
-        timer = weaponData.fireRate;
+        timer = weaponConfig.fireRate;
     }
 
     protected void Update()
@@ -24,18 +25,18 @@ public class BaseWeapon : MonoBehaviour
 
     public void Shoot()
     {
-        // if (!weaponData.isAutomatic)
-        // {
-        //     if (shotFired)
-        //     {
-        //         return;
-        //     }
-        //     shotFired = true;
-        // }
-        // if (timer < weaponData.fireRate) return;
+        if (!weaponConfig.isAutomatic)
+        {
+            if (shotFired)
+            {
+                return;
+            }
+            shotFired = true;
+        }
+        
+        if (timer < weaponConfig.fireRate) return;
         timer = 0.0f;
         Debug.DrawLine(muzzleTransform.position, muzzleTransform.forward * 30f, Color.red, 1.0f);
-        Debug.Log($"{gameObject.name} shot");
     }
 
     public GameObject GetWeaponPrefab()

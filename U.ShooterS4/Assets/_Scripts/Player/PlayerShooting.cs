@@ -13,7 +13,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (currentWeapon != null)
         {
-            EquipWeapon(currentWeapon);
+            //EquipWeapon(currentWeapon);
         }
     }
 

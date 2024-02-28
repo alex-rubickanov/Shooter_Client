@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Weapons/Weapon Config", fileName = "New Weapon Config")]
-public class WeaponData : ScriptableObject
+public class WeaponConfig : ScriptableObject
 {
-    public float fireRate;
     public bool isAutomatic;
+    public float fireRate;
+
 }
 

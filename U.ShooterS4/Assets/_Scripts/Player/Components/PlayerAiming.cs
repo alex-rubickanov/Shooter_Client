@@ -4,6 +4,7 @@ public class PlayerAiming : PlayerComponent
 {
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float rotateSmoothTime = 0.1f;
 
     private PlayerMovement playerMovement;
     private bool isAiming;
@@ -34,7 +35,7 @@ public class PlayerAiming : PlayerComponent
         Vector3 direction = playerMovement.GetMoveDirection();
         if (direction != Vector3.zero)
         {
-            transform.forward = direction;
+            transform.forward = Vector3.Lerp(transform.forward, direction, rotateSmoothTime);
         }
     }
 

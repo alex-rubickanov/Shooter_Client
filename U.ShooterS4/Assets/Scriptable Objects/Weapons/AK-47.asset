@@ -15,5 +15,6 @@ MonoBehaviour:
   weaponName: AK-47
   isAutomatic: 1
   fireRate: 0.15
+  isInfinity: 1
   maxClips: 0
   bulletsInClip: 10

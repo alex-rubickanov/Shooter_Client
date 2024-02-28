@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad0951f0df0a3f4eacc47e9d222bf7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 1899969182242678734, guid: 0f65d7cd773d6cc40ade82618dc621e5,
+  currentWeapon: {fileID: 4914306714184497489, guid: 4ab080c893504f94f950e8cac455bf32,
     type: 3}
   weaponHolder: {fileID: 542198367}
 --- !u!1 &1394509196

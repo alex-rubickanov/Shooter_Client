@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 
@@ -16,14 +18,10 @@ public class Weapon : MonoBehaviour
     private int maxClips;
     private int bulletsInClip;
 
-    private void Awake()
+    protected void Start()
     {
         maxClips = weaponConfig.maxClips;
         bulletsInClip = weaponConfig.bulletsInClip;
-    }
-
-    protected void Start()
-    {
         timer = weaponConfig.fireRate;
     }
 

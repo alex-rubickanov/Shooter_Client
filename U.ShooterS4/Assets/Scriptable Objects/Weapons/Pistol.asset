@@ -15,5 +15,6 @@ MonoBehaviour:
   weaponName: Pistol
   isAutomatic: 0
   fireRate: 0
+  isInfinity: 1
   maxClips: 0
   bulletsInClip: 8

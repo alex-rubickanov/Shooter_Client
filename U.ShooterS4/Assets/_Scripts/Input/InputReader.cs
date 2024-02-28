@@ -12,6 +12,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     public event Action<bool, ControlScheme> OnAimEvent;
     public event Action<bool> OnRunEvent;
     public event Action<bool> OnFireEvent;
+    public event Action OnReloadEvent;
 
     private void OnEnable()
     {
@@ -61,5 +62,10 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     {
         bool isRunning = context.ReadValueAsButton();
         OnRunEvent?.Invoke(isRunning);
+    }
+
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        OnReloadEvent?.Invoke();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerShooting : PlayerComponent
@@ -5,7 +6,9 @@ public class PlayerShooting : PlayerComponent
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Transform weaponHolder;
 
+    private bool canFire = true;
     private bool isFiring;
+    private bool isReloading;
 
     private void Start()
     {
@@ -32,7 +35,7 @@ public class PlayerShooting : PlayerComponent
 
     private void Shoot()
     {
-        if (currentWeapon == null) return;
+        if (currentWeapon == null || !canFire) return;
         currentWeapon.Shoot();
     }
 
@@ -45,6 +48,24 @@ public class PlayerShooting : PlayerComponent
     {
         isFiring = false;
         currentWeapon.StopFiring();
+    }
+    
+    private void Reload()
+    {
+        if(currentWeapon == null) return;
+        if(isReloading || currentWeapon.IsAmmoFull()) return;
+
+        StartCoroutine(Reloading());
+    }
+
+    private IEnumerator Reloading()
+    {
+        isReloading = true;
+        canFire = false;
+        yield return new WaitForSeconds(currentWeapon.ReloadTime);
+        currentWeapon.Reload();
+        canFire = true;
+        isReloading = false;
     }
 
     private void ReadFireButton(bool isFiring)
@@ -62,10 +83,12 @@ public class PlayerShooting : PlayerComponent
     private void OnEnable()
     {
         inputReader.OnFireEvent += ReadFireButton;
+        inputReader.OnReloadEvent += Reload;
     }
 
     private void OnDisable()
     {
         inputReader.OnFireEvent -= ReadFireButton;
+        inputReader.OnReloadEvent -= Reload;
     }
 }

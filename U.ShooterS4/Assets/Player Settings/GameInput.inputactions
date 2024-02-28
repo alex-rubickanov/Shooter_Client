@@ -1,5 +1,5 @@
 {
-    "name": "GameInput",
+    "name": "GameInput 1",
     "maps": [
         {
             "name": "Gameplay",
@@ -45,6 +45,15 @@
                     "name": "Run",
                     "type": "Button",
                     "id": "4fde737b-20ec-4489-96e1-6a204997cd99",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "541af2fa-1fe6-4a21-8b3f-0a1831503f09",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -192,6 +201,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c025bd73-7c17-4403-b59a-387bd6fe20c9",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64345d39-14bb-4ae0-87d4-cf45258a07ee",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

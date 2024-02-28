@@ -13,11 +13,13 @@ public class Weapon : MonoBehaviour
     private bool shotFired = false;
 
     private int maxClips;
-    private int bulletsInClip;
+    private int ammo;
+    
+    public float ReloadTime => weaponConfig.reloadTime;
 
     protected void Start()
     {
-        bulletsInClip = weaponConfig.bulletsInClip;
+        ammo = weaponConfig.maxAmmo;
         timer = weaponConfig.fireRate;
     }
 
@@ -30,7 +32,7 @@ public class Weapon : MonoBehaviour
     {
         if (!weaponConfig.isInfinity)
         {
-            if (bulletsInClip == 0) return;
+            if (ammo == 0) return;
         }
 
         if (!weaponConfig.isAutomatic)
@@ -45,7 +47,7 @@ public class Weapon : MonoBehaviour
 
         if (timer < weaponConfig.fireRate) return;
         timer = 0.0f;
-        bulletsInClip--;
+        ammo--;
         Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0, UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
         Debug.DrawRay(muzzleTransform.position, muzzleTransform.forward * 30f + recoilOffset, Color.red, 2.0f);
     }
@@ -53,5 +55,15 @@ public class Weapon : MonoBehaviour
     public void StopFiring()
     {
         shotFired = false;
+    }
+    
+    public void Reload()
+    {
+        ammo = weaponConfig.maxAmmo;
+    }
+    
+    public bool IsAmmoFull()
+    {
+        return ammo == weaponConfig.maxAmmo;
     }
 }

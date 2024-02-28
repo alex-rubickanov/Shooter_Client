@@ -12,7 +12,8 @@ public class WeaponConfig : ScriptableObject
     public float recoil;
     [Header("-----AMMO-----")]
     public bool isInfinity;
-    public int bulletsInClip;
+    public int maxAmmo;
+    public float reloadTime;
 
     private void Awake()
     {

@@ -5,7 +5,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private WeaponConfig weaponConfig;
     [SerializeField] private Transform muzzleTransform;
 
-
     private Ray ray;
     private RaycastHit hitInfo;
 

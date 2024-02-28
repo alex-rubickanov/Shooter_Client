@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -50,7 +47,7 @@ public class Weapon : MonoBehaviour
         if (timer < weaponConfig.fireRate) return;
         timer = 0.0f;
         bulletsInClip--;
-        Debug.DrawLine(muzzleTransform.position, muzzleTransform.forward * 30f, Color.red, 1.0f);
+        Debug.DrawRay(muzzleTransform.position, muzzleTransform.forward * 30f, Color.red, 2.0f);
     }
 
     public void StopFiring()

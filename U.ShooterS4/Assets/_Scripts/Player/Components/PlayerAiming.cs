@@ -70,7 +70,7 @@ public class PlayerAiming : PlayerComponent
             transform.forward = aimDirection;
         }
     }
-
+    
     private (bool success, Vector3 position) GetMousePosition()
     {
         var ray = playerCamera.ScreenPointToRay(Input.mousePosition);
@@ -78,6 +78,7 @@ public class PlayerAiming : PlayerComponent
         if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
         {
             // The Raycast hit something, return with the position.
+            
             return (success: true, position: hitInfo.point);
         }
         else

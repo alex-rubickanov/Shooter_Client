@@ -10,6 +10,8 @@ public class PlayerAiming : PlayerComponent
     private ControlScheme controlScheme;
     private Vector3 aimDirection;
 
+    public bool IsAiming => isAiming;
+    
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();

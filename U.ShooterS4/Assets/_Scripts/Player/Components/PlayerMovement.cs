@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : PlayerComponent
 {
+    [SerializeField] private float aimSpeed = 3.0f;
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float runSpeed = 8.0f;
 
@@ -19,7 +20,16 @@ public class PlayerMovement : PlayerComponent
     private void HandleMove()
     {
         moveDirection = new Vector3(moveInputVector.x, 0.0f, moveInputVector.y);
-        float speed = isRunning && canRun ? runSpeed : moveSpeed;
+        float speed;
+        
+        if (playerManager.PlayerAiming.IsAiming)
+        {
+            speed = aimSpeed;
+        }
+        else
+        {
+            speed = isRunning && canRun ? runSpeed : moveSpeed;
+        }
 
         transform.position += moveDirection * speed * Time.deltaTime;
     }

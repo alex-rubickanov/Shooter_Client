@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -10,6 +12,15 @@ public class Weapon : MonoBehaviour
 
     private float timer;
     private bool shotFired = false;
+
+    private int maxClips;
+    private int bulletsInClip;
+
+    private void Awake()
+    {
+        maxClips = weaponConfig.maxClips;
+        bulletsInClip = weaponConfig.bulletsInClip;
+    }
 
     protected void Start()
     {
@@ -23,6 +34,11 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
+        if (!weaponConfig.isInfinity)
+        {
+            if (bulletsInClip == 0) return;
+        }
+
         if (!weaponConfig.isAutomatic)
         {
             if (shotFired)
@@ -35,6 +51,7 @@ public class Weapon : MonoBehaviour
 
         if (timer < weaponConfig.fireRate) return;
         timer = 0.0f;
+        bulletsInClip--;
         Debug.DrawLine(muzzleTransform.position, muzzleTransform.forward * 30f, Color.red, 1.0f);
     }
 

@@ -36,7 +36,7 @@ public class PlayerAiming : PlayerComponent
         Vector3 direction = playerMovement.GetMoveDirection();
         if (direction != Vector3.zero)
         {
-            transform.forward = Vector3.Lerp(transform.forward, direction, rotateSmoothTime);
+            transform.forward = Vector3.Slerp(transform.forward, direction, rotateSmoothTime);
         }
     }
 

@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMovement : PlayerComponent
@@ -5,10 +6,12 @@ public class PlayerMovement : PlayerComponent
     [SerializeField] private float aimSpeed = 3.0f;
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float runSpeed = 8.0f;
+    [SerializeField] private float moveSmoothTime = 0.1f;
 
     private Vector3 moveDirection;
     private Vector2 moveInputVector;
     private bool isRunning;
+    private float currentSpeed;
 
     [HideInInspector] public bool canRun = true;
 
@@ -19,19 +22,25 @@ public class PlayerMovement : PlayerComponent
 
     private void HandleMove()
     {
+        if (moveInputVector == Vector2.zero)
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, 0, moveSmoothTime);
+            return;
+        }
+
         moveDirection = new Vector3(moveInputVector.x, 0.0f, moveInputVector.y);
-        float speed;
-        
+
         if (playerManager.PlayerAiming.IsAiming)
         {
-            speed = aimSpeed;
+            currentSpeed = Mathf.Lerp(currentSpeed, aimSpeed, moveSmoothTime);
         }
         else
         {
-            speed = isRunning && canRun ? runSpeed : moveSpeed;
+            float targetSpeed = isRunning && canRun ? runSpeed : moveSpeed;
+            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, moveSmoothTime);
         }
 
-        transform.position += moveDirection * speed * Time.deltaTime;
+        transform.position += moveDirection * currentSpeed * Time.deltaTime;
     }
 
     public Vector3 GetMoveDirection()
@@ -59,5 +68,10 @@ public class PlayerMovement : PlayerComponent
     private void InputReaderOnOnRunEvent(bool isRunning)
     {
         this.isRunning = isRunning;
+    }
+
+    public float GetCurrentSpeed()
+    {
+        return currentSpeed;
     }
 }

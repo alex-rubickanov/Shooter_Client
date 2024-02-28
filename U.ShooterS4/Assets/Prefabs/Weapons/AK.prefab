@@ -153,8 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd5f3b8f69cc2741a790bb363dbd33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 2955637579535875047}
-  weaponData: {fileID: 11400000, guid: 2a78f12747b0ad84fa08b0a6e4b51af9, type: 2}
+  weaponConfig: {fileID: 11400000, guid: 2a78f12747b0ad84fa08b0a6e4b51af9, type: 2}
   muzzleTransform: {fileID: 8566190342336013464}
 --- !u!1 &7047842716695986095
 GameObject:

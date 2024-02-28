@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
-  m_Name: Weapon Data
+  m_Name: AK-47
   m_EditorClassIdentifier: 
   isAutomatic: 1
   fireRate: 0.15

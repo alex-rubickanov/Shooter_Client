@@ -1,35 +1,33 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PlayerShooting : MonoBehaviour
+public class PlayerShooting : PlayerComponent
 {
-    [SerializeField] private InputReader inputReader;
-    [SerializeField] private BaseWeapon currentWeapon;
+    [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Transform weaponHolder;
 
     private bool isFiring;
+
     private void Start()
     {
         if (currentWeapon != null)
         {
-            //EquipWeapon(currentWeapon);
+            EquipWeapon(currentWeapon);
         }
     }
 
     private void Update()
     {
-        if(isFiring)
+        if (isFiring)
         {
             Shoot();
         }
     }
 
-    private void EquipWeapon(BaseWeapon weapon)
+    private void EquipWeapon(Weapon weapon)
     {
-        currentWeapon = weapon;
-        GameObject weaponPrefab = currentWeapon.GetWeaponPrefab();
-        Instantiate(weaponPrefab, weaponHolder.position, weaponHolder.rotation, weaponHolder);
+        Weapon clonedWeapon = Instantiate(weapon, weaponHolder.position, weaponHolder.rotation, weaponHolder);
+
+        currentWeapon = clonedWeapon;
     }
 
     private void Shoot()

@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : PlayerComponent
 {
-    [SerializeField] private InputReader inputReader;
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float runSpeed = 8.0f;
 

@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class BaseWeapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
-    [SerializeField] private GameObject weaponPrefab;
-    [FormerlySerializedAs("weaponData")] [SerializeField] private WeaponConfig weaponConfig;
+    [SerializeField] private WeaponConfig weaponConfig;
     [SerializeField] private Transform muzzleTransform;
 
 
@@ -13,7 +11,8 @@ public class BaseWeapon : MonoBehaviour
 
     private float timer;
     private bool shotFired = false;
-    protected  void Start()
+
+    protected void Start()
     {
         timer = weaponConfig.fireRate;
     }
@@ -31,17 +30,13 @@ public class BaseWeapon : MonoBehaviour
             {
                 return;
             }
+
             shotFired = true;
         }
-        
+
         if (timer < weaponConfig.fireRate) return;
         timer = 0.0f;
         Debug.DrawLine(muzzleTransform.position, muzzleTransform.forward * 30f, Color.red, 1.0f);
-    }
-
-    public GameObject GetWeaponPrefab()
-    {
-        return weaponPrefab;
     }
 
     public void StopFiring()

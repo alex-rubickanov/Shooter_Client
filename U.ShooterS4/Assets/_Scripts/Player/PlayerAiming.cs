@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class PlayerAiming : MonoBehaviour
+public class PlayerAiming : PlayerComponent
 {
-    [SerializeField] private InputReader inputReader;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask groundMask;
 

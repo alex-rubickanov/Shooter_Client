@@ -17,7 +17,6 @@ public class Weapon : MonoBehaviour
 
     protected void Start()
     {
-        maxClips = weaponConfig.maxClips;
         bulletsInClip = weaponConfig.bulletsInClip;
         timer = weaponConfig.fireRate;
     }
@@ -47,7 +46,8 @@ public class Weapon : MonoBehaviour
         if (timer < weaponConfig.fireRate) return;
         timer = 0.0f;
         bulletsInClip--;
-        Debug.DrawRay(muzzleTransform.position, muzzleTransform.forward * 30f, Color.red, 2.0f);
+        Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0, UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
+        Debug.DrawRay(muzzleTransform.position, muzzleTransform.forward * 30f + recoilOffset, Color.red, 2.0f);
     }
 
     public void StopFiring()

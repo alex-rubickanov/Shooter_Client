@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
-  m_Name: AK-47
+  m_Name: New Weapon Config
   m_EditorClassIdentifier: 
-  weaponName: AK-47
-  isAutomatic: 1
-  fireRate: 0.15
-  recoil: 1.13
-  isInfinity: 1
+  weaponName: 
+  isAutomatic: 0
+  fireRate: 0
+  recoil: 0
+  isInfinity: 0
   maxClips: 0
-  bulletsInClip: 10
+  bulletsInClip: 0

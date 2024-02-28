@@ -7,9 +7,11 @@ public class WeaponConfig : ScriptableObject
     [Space(5)]
     public bool isAutomatic;
     public float fireRate;
-    [Header("-----AMMO-----")] 
+    public float damage;
+    [Range(0.0f, 5.0f)]
+    public float recoil;
+    [Header("-----AMMO-----")]
     public bool isInfinity;
-    public int maxClips;
     public int bulletsInClip;
 
     private void Awake()
@@ -17,4 +19,3 @@ public class WeaponConfig : ScriptableObject
         weaponName = name;
     }
 }
-

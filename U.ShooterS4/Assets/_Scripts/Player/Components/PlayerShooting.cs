@@ -1,15 +1,19 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerShooting : PlayerComponent
 {
     [SerializeField] private Weapon currentWeapon;
-    [SerializeField] private Transform weaponHolder;
+    [SerializeField] private Transform rifleWeaponHolder;
+    [SerializeField] private Transform pistolWeaponHolder;
+
 
     private bool canFire = true;
     private bool isFiring;
     private bool isReloading;
-    
+
     public bool IsFiring => isFiring;
 
     private void Start()
@@ -30,13 +34,28 @@ public class PlayerShooting : PlayerComponent
 
     private void EquipWeapon(Weapon weapon)
     {
-        Weapon clonedWeapon = Instantiate(weapon, weaponHolder.position, weaponHolder.rotation, weaponHolder);
+        WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
+        Weapon clonedWeapon = null;
+        
+        switch (weaponAnimationType)
+        {
+            case WeaponAnimationType.Pistol:
+                clonedWeapon = Instantiate(weapon, pistolWeaponHolder.position, pistolWeaponHolder.rotation,
+                    pistolWeaponHolder);
+
+                break;
+            
+            case WeaponAnimationType.Rifle:
+                clonedWeapon = Instantiate(weapon, rifleWeaponHolder.position, rifleWeaponHolder.rotation,
+                    rifleWeaponHolder);
+
+                break;
+        }
+
 
         currentWeapon = clonedWeapon;
-        if(playerManager == null) Debug.Log("PlayerManager is null");
-        if(playerManager.PlayerAnimatorController == null) Debug.Log("PlayerAnimatorController is null");
-        
-        playerManager.PlayerAnimatorController.SetAnimatorController(currentWeapon.GetWeaponType());
+
+        playerManager.PlayerAnimatorController.SetAnimatorController(weaponAnimationType);
     }
 
     private void Shoot()
@@ -55,11 +74,11 @@ public class PlayerShooting : PlayerComponent
         isFiring = false;
         currentWeapon.StopFiring();
     }
-    
+
     private void Reload()
     {
-        if(currentWeapon == null) return;
-        if(isReloading || currentWeapon.IsAmmoFull()) return;
+        if (currentWeapon == null) return;
+        if (isReloading || currentWeapon.IsAmmoFull()) return;
 
         StartCoroutine(Reloading());
     }

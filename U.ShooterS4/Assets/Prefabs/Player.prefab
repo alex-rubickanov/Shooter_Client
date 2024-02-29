@@ -2024,6 +2024,12 @@ PrefabInstance:
       propertyPath: weaponHolder
       value: 
       objectReference: {fileID: 2675310201161899287}
+    - target: {fileID: 7726295637268453297, guid: e731cc89c36fa9c46a16496f1c0340fc,
+        type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 4914306714184497489, guid: 4ab080c893504f94f950e8cac455bf32,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2872232013430937929, guid: e731cc89c36fa9c46a16496f1c0340fc, type: 3}

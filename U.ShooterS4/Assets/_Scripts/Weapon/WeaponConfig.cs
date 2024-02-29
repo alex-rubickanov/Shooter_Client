@@ -17,6 +17,7 @@ public class WeaponConfig : ScriptableObject
     public float reloadTime;
     [Header("-----OTHER-----")]
     public WeaponAnimationType weaponAnimationType;
+    public TrailRenderer bulletTrace;
 
     private void Awake()
     {

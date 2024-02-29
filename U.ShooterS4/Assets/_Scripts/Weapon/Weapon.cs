@@ -50,7 +50,19 @@ public class Weapon : MonoBehaviour
         timer = 0.0f;
         ammo--;
         Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0, UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
-        Debug.DrawRay(muzzleTransform.position, muzzleTransform.forward * 30f + recoilOffset, Color.red, 2.0f);
+        
+        var traceStart = muzzleTransform.position;
+        var traceEnd = muzzleTransform.forward * 30f + recoilOffset;
+        
+        Debug.DrawRay(traceStart, traceEnd, Color.red, 2.0f);
+        
+        var tracer = Instantiate(weaponConfig.bulletTrace, traceStart, Quaternion.identity);
+        
+        Debug.Log(muzzleTransform.forward);
+        
+        tracer.AddPosition(traceEnd);
+        
+        Destroy(tracer, 3.0f);
     }
 
     public void StopFiring()

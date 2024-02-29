@@ -16,8 +16,10 @@ MonoBehaviour:
   isAutomatic: 1
   fireRate: 0.15
   damage: 0
-  recoil: 0
+  recoil: 1.1
   isInfinity: 1
   maxAmmo: 10
   reloadTime: 2
   weaponAnimationType: 1
+  bulletTrace: {fileID: 7435167190451956443, guid: edeac549e1fb07b4889e992ca6ae20c7,
+    type: 3}

@@ -9,6 +9,7 @@ public class WeaponConfig : ScriptableObject
     public bool isAutomatic;
     public float fireRate;
     public float damage;
+    public float bulletSpeed;
     [Range(0.0f, 5.0f)]
     public float recoil;
     [Header("-----AMMO-----")]
@@ -17,7 +18,7 @@ public class WeaponConfig : ScriptableObject
     public float reloadTime;
     [Header("-----OTHER-----")]
     public WeaponAnimationType weaponAnimationType;
-    public TrailRenderer bulletTrace;
+    public GameObject bulletPrefab;
 
     private void Awake()
     {

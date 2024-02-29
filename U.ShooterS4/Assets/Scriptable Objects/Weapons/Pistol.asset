@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  weaponName: Glock
+  weaponName: Pistol
   isAutomatic: 0
   fireRate: 0
   damage: 0
+  bulletSpeed: 150
   recoil: 0
   isInfinity: 1
-  maxAmmo: 0
-  reloadTime: 0
+  maxAmmo: 10
+  reloadTime: 2
   weaponAnimationType: 0
+  bulletPrefab: {fileID: 4575673535615700931, guid: 43f7098bf1d79ba4fb3905da5312f24c,
+    type: 3}

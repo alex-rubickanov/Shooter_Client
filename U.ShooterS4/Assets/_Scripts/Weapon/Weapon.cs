@@ -1,5 +1,3 @@
-using System;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -54,15 +52,11 @@ public class Weapon : MonoBehaviour
         var traceStart = muzzleTransform.position;
         var traceEnd = muzzleTransform.forward * 30f + recoilOffset;
         
-        Debug.DrawRay(traceStart, traceEnd, Color.red, 2.0f);
+        //Debug.DrawRay(traceStart, traceEnd, Color.blue, 2.0f);
         
-        var tracer = Instantiate(weaponConfig.bulletTrace, traceStart, Quaternion.identity);
-        
-        Debug.Log(muzzleTransform.forward);
-        
-        tracer.AddPosition(traceEnd);
-        
-        Destroy(tracer, 3.0f);
+        var bullet = Instantiate(weaponConfig.bulletPrefab, traceStart, Quaternion.identity); 
+        bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset, ForceMode.Impulse);
+        Destroy(bullet, 3.0f);
     }
 
     public void StopFiring()

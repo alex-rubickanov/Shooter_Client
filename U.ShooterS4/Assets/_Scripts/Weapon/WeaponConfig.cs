@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Weapons/Weapon Config", fileName = "New Weapon Config")]
@@ -14,6 +15,8 @@ public class WeaponConfig : ScriptableObject
     public bool isInfinity;
     public int maxAmmo;
     public float reloadTime;
+    [Header("-----OTHER-----")]
+    public WeaponAnimationType weaponAnimationType;
 
     private void Awake()
     {

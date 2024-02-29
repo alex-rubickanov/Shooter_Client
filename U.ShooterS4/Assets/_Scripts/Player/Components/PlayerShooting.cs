@@ -9,6 +9,8 @@ public class PlayerShooting : PlayerComponent
     private bool canFire = true;
     private bool isFiring;
     private bool isReloading;
+    
+    public bool IsFiring => isFiring;
 
     private void Start()
     {
@@ -31,6 +33,10 @@ public class PlayerShooting : PlayerComponent
         Weapon clonedWeapon = Instantiate(weapon, weaponHolder.position, weaponHolder.rotation, weaponHolder);
 
         currentWeapon = clonedWeapon;
+        if(playerManager == null) Debug.Log("PlayerManager is null");
+        if(playerManager.PlayerAnimatorController == null) Debug.Log("PlayerAnimatorController is null");
+        
+        playerManager.PlayerAnimatorController.SetAnimatorController(currentWeapon.GetWeaponType());
     }
 
     private void Shoot()

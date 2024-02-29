@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -65,5 +66,10 @@ public class Weapon : MonoBehaviour
     public bool IsAmmoFull()
     {
         return ammo == weaponConfig.maxAmmo;
+    }
+    
+    public WeaponAnimationType GetWeaponType()
+    {
+        return weaponConfig.weaponAnimationType;
     }
 }

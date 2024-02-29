@@ -676,6 +676,12 @@ Transform:
   - {fileID: 1638608699}
   m_Father: {fileID: 575110562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &778434130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7685358913887496844, guid: 3870e106c32112f448156ed6ef33b6e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4283930345141457349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &862384984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1470,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4283930345141457349}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1652519727
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778434130}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &1652519728
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778434130}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 116
+  m_CollisionDetection: 1
 --- !u!1 &1665633424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2577,7 +2633,15 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 61869232}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7685358913887496844, guid: 3870e106c32112f448156ed6ef33b6e7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1652519728}
+    - targetCorrespondingSourceObject: {fileID: 7685358913887496844, guid: 3870e106c32112f448156ed6ef33b6e7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1652519727}
   m_SourcePrefab: {fileID: 100100000, guid: 3870e106c32112f448156ed6ef33b6e7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

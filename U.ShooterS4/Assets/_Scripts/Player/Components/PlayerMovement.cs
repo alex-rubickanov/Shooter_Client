@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMovement : PlayerComponent
@@ -8,39 +7,59 @@ public class PlayerMovement : PlayerComponent
     [SerializeField] private float runSpeed = 8.0f;
     [SerializeField] private float moveSmoothTime = 0.1f;
 
+    private Rigidbody rb;
     private Vector3 moveDirection;
     private Vector2 moveInputVector;
     private bool isRunning;
     private float currentSpeed;
+    private Vector3 movementVelocity;
+    private Vector3 moveDampVelocity;
 
     [HideInInspector] public bool canRun = true;
+    public float MaxSpeed => runSpeed;
 
-    private void Update()
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
     {
         HandleMove();
     }
 
     private void HandleMove()
     {
-        if (moveInputVector == Vector2.zero)
-        {
-            currentSpeed = Mathf.Lerp(currentSpeed, 0, moveSmoothTime);
-            return;
-        }
+        moveDirection = new Vector3(moveInputVector.x, 0, moveInputVector.y);
 
-        moveDirection = new Vector3(moveInputVector.x, 0.0f, moveInputVector.y);
+        float targetSpeed;
 
         if (playerManager.PlayerAiming.IsAiming)
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, aimSpeed, moveSmoothTime);
+            targetSpeed = aimSpeed;
+        }
+        else if (canRun && isRunning)
+        {
+            targetSpeed = runSpeed;
         }
         else
         {
-            float targetSpeed = isRunning && canRun ? runSpeed : moveSpeed;
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, moveSmoothTime);
+            targetSpeed = moveSpeed;
         }
 
-        transform.position += moveDirection * currentSpeed * Time.deltaTime;
+        movementVelocity = Vector3.SmoothDamp(
+            movementVelocity,
+            moveDirection * targetSpeed,
+            ref moveDampVelocity,
+            moveSmoothTime
+        );
+
+        rb.velocity = new Vector3(movementVelocity.x, 0.0f, movementVelocity.z);
+    }
+
+    public Vector3 GetMovementVelocity()
+    {
+        return movementVelocity;
     }
 
     public Vector3 GetMoveDirection()

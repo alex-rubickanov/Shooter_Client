@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 11432aed334dcd444adede55b7400c85
+guid: 408b4cfc5dc248142ac1906b679612e1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rifle Aiming Idle
+      name: Strafe Right
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 93
+      lastFrame: 43
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -51,7 +51,7 @@ ModelImporter:
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -586,7 +586,7 @@ ModelImporter:
     - name: Elbow_L
       parentName: Shoulder_L
       position: {x: -0.33947402, y: -0.0014490709, z: -0.0014362641}
-      rotation: {x: 0.00056471414, y: 0.0017343012, z: -0.028794622, w: 0.9995838}
+      rotation: {x: 0.0005647142, y: 0.0017343012, z: -0.028794626, w: 0.9995838}
       scale: {x: 1, y: 0.9999996, z: 0.9999996}
     - name: Hand_L
       parentName: Elbow_L
@@ -621,7 +621,7 @@ ModelImporter:
     - name: IndexFinger_02
       parentName: IndexFinger_01
       position: {x: -0.040936317, y: -2.842171e-16, z: 7.105427e-17}
-      rotation: {x: -0.0011587895, y: -0.0041988553, z: 0.03842872, w: 0.99925184}
+      rotation: {x: -0.0011587894, y: -0.0041988553, z: 0.038428716, w: 0.99925184}
       scale: {x: 0.9999991, y: 1.0000008, z: 1.0000001}
     - name: IndexFinger_03
       parentName: IndexFinger_02

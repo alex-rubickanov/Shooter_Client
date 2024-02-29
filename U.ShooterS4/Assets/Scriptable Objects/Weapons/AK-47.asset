@@ -21,5 +21,5 @@ MonoBehaviour:
   maxAmmo: 10
   reloadTime: 2
   weaponAnimationType: 1
-  bulletTrace: {fileID: 7435167190451956443, guid: edeac549e1fb07b4889e992ca6ae20c7,
+  bulletTrace: {fileID: 4669728388871658873, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
     type: 3}

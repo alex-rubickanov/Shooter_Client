@@ -33,6 +33,7 @@ Transform:
   - {fileID: 58218732931008817}
   - {fileID: 6911438958457799169}
   - {fileID: 2675310201161899287}
+  - {fileID: 4386457104063021362}
   m_Father: {fileID: 2885120778428925811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &684753041785719654
@@ -1574,7 +1575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2675310201161899287}
   m_Layer: 0
-  m_Name: WEAPON HOLDER
+  m_Name: RIFLE WEAPON HOLDER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1686,6 +1687,37 @@ Transform:
   - {fileID: 4279214934146349159}
   m_Father: {fileID: 3363856321502641389}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8273468386262894244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4386457104063021362}
+  m_Layer: 0
+  m_Name: PISTOL WEAPON HOLDER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4386457104063021362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8273468386262894244}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.46785194, y: 0.3469114, z: -0.50900614, w: 0.6337822}
+  m_LocalPosition: {x: 0.084, y: 0.046, z: -0.013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3149036901354736442}
+  m_LocalEulerAnglesHint: {x: -13.879, y: 70.658, z: -87.399}
 --- !u!1 &8322277693166012962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,8 +2060,18 @@ PrefabInstance:
         type: 3}
       propertyPath: currentWeapon
       value: 
-      objectReference: {fileID: 4914306714184497489, guid: 4ab080c893504f94f950e8cac455bf32,
+      objectReference: {fileID: 1899969182242678734, guid: 0f65d7cd773d6cc40ade82618dc621e5,
         type: 3}
+    - target: {fileID: 7726295637268453297, guid: e731cc89c36fa9c46a16496f1c0340fc,
+        type: 3}
+      propertyPath: rifleWeaponHolder
+      value: 
+      objectReference: {fileID: 2675310201161899287}
+    - target: {fileID: 7726295637268453297, guid: e731cc89c36fa9c46a16496f1c0340fc,
+        type: 3}
+      propertyPath: pistolWeaponHolder
+      value: 
+      objectReference: {fileID: 4386457104063021362}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2872232013430937929, guid: e731cc89c36fa9c46a16496f1c0340fc, type: 3}

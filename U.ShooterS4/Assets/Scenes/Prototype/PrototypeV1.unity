@@ -123,43 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &259920788
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 259920789}
-  m_Layer: 0
-  m_Name: PISTOL WEAPON HOLDER
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &259920789
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 259920788}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.46785194, y: 0.3469114, z: -0.50900614, w: 0.6337822}
-  m_LocalPosition: {x: 0.084, y: 0.046, z: -0.013}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1483462909}
-  m_LocalEulerAnglesHint: {x: -13.879, y: 70.658, z: -87.399}
---- !u!4 &1483462909 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3149036901354736442, guid: 3870e106c32112f448156ed6ef33b6e7,
-    type: 3}
-  m_PrefabInstance: {fileID: 4283930345141457349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1535021828
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,12 +241,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!4 &1542145623 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2675310201161899287, guid: 3870e106c32112f448156ed6ef33b6e7,
-    type: 3}
-  m_PrefabInstance: {fileID: 4283930345141457349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1735201530
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,79 +620,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1001 &2918564377455440004
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3368091290729477708, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_Name
-      value: BulletTracer
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 80.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -15.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7927632
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.60952973
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -75.111
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835942734973813931, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4669728388871658873, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf,
-        type: 3}
-      propertyPath: m_Time
-      value: 0.01
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d2d3c5508b2f16a4c83fc53fe7e55dbf, type: 3}
 --- !u!1001 &4283930345141457349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -799,27 +683,6 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1977774381}
-    - target: {fileID: 6403587627135749960, guid: 3870e106c32112f448156ed6ef33b6e7,
-        type: 3}
-      propertyPath: currentWeapon
-      value: 
-      objectReference: {fileID: 1899969182242678734, guid: 0f65d7cd773d6cc40ade82618dc621e5,
-        type: 3}
-    - target: {fileID: 6403587627135749960, guid: 3870e106c32112f448156ed6ef33b6e7,
-        type: 3}
-      propertyPath: rifleWeaponHolder
-      value: 
-      objectReference: {fileID: 1542145623}
-    - target: {fileID: 6403587627135749960, guid: 3870e106c32112f448156ed6ef33b6e7,
-        type: 3}
-      propertyPath: pistolWeaponHolder
-      value: 
-      objectReference: {fileID: 259920789}
-    - target: {fileID: 8022940702703257081, guid: 3870e106c32112f448156ed6ef33b6e7,
-        type: 3}
-      propertyPath: m_Name
-      value: RIFLE WEAPON HOLDER
-      objectReference: {fileID: 0}
     - target: {fileID: 8168620649955584883, guid: 3870e106c32112f448156ed6ef33b6e7,
         type: 3}
       propertyPath: m_Name
@@ -827,11 +690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3149036901354736442, guid: 3870e106c32112f448156ed6ef33b6e7,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 259920789}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3870e106c32112f448156ed6ef33b6e7, type: 3}
 --- !u!1660057539 &9223372036854775807
@@ -843,4 +702,3 @@ SceneRoots:
   - {fileID: 1535021830}
   - {fileID: 1735201534}
   - {fileID: 4283930345141457349}
-  - {fileID: 2918564377455440004}

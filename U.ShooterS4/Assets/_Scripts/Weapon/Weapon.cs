@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private WeaponConfig weaponConfig;
-    [SerializeField] private Transform muzzleTransform;
+    [SerializeField] protected WeaponConfig weaponConfig;
+    [SerializeField] protected Transform muzzleTransform;
 
-    private Ray ray;
-    private RaycastHit hitInfo;
+    protected Ray ray;
+    protected RaycastHit hitInfo;
 
-    private float timer;
-    private bool shotFired = false;
+    protected float timer;
+    protected bool shotFired = false;
 
-    private int maxClips;
-    private int ammo;
+    protected int maxClips;
+    protected int ammo;
     
     public float ReloadTime => weaponConfig.reloadTime;
 
@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
         timer += Time.deltaTime;
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (!weaponConfig.isInfinity)
         {
@@ -45,6 +45,12 @@ public class Weapon : MonoBehaviour
         }
 
         if (timer < weaponConfig.fireRate) return;
+        
+        FireBullet();
+    }
+
+    protected void FireBullet()
+    {
         timer = 0.0f;
         ammo--;
         Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0, UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));

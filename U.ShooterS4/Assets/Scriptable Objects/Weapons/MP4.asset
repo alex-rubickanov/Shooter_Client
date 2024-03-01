@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
-  m_Name: Pistol
+  m_Name: MP4
   m_EditorClassIdentifier: 
-  weaponName: Pistol
-  isAutomatic: 0
-  fireRate: 0
+  weaponName: MP4
+  isAutomatic: 1
+  fireRate: 0.1
   damage: 0
   bulletSpeed: 150
-  recoil: 0
-  isInfinity: 1
-  maxAmmo: 10
-  reloadTime: 2
-  weaponAnimationType: 0
+  recoil: 1.5
   bulletPrefab: {fileID: 4575673535615700931, guid: 13364550847c7c544bd30c74ae6f2134,
     type: 3}
+  isInfinity: 0
+  maxAmmo: 30
+  reloadTime: 2
+  weaponAnimationType: 0
+  muzzleFlash: {fileID: 19885060, guid: 3fb0400d5ff240640a07a613c8ef6f94, type: 3}

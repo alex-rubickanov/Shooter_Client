@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
+  m_Name: AWP
+  m_EditorClassIdentifier: 
+  weaponName: AWP
+  isAutomatic: 0
+  fireRate: 0
+  damage: 0
+  bulletSpeed: 200
+  recoil: 0
+  bulletPrefab: {fileID: 4575673535615700931, guid: c04c1d46944ad3843b7dcc60b9817c00,
+    type: 3}
+  isInfinity: 0
+  maxAmmo: 5
+  reloadTime: 2
+  weaponAnimationType: 1
+  muzzleFlash: {fileID: 19885060, guid: 5711d6af592048d44afba49903197b42, type: 3}

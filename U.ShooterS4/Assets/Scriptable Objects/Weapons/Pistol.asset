@@ -22,5 +22,5 @@ MonoBehaviour:
   maxAmmo: 10
   reloadTime: 2
   weaponAnimationType: 0
-  bulletPrefab: {fileID: 4575673535615700931, guid: 43f7098bf1d79ba4fb3905da5312f24c,
+  bulletPrefab: {fileID: 4575673535615700931, guid: 13364550847c7c544bd30c74ae6f2134,
     type: 3}

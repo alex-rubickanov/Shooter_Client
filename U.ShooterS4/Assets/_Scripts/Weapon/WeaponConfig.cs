@@ -10,16 +10,16 @@ public class WeaponConfig : ScriptableObject
     public float fireRate;
     public float damage;
     public float bulletSpeed;
-    [Range(0.0f, 5.0f)]
     public float recoil;
     [Header("-----AMMO-----")]
+    public GameObject bulletPrefab;
     public bool isInfinity;
     public int maxAmmo;
     public float reloadTime;
-    [Header("-----OTHER-----")]
+    [Header("-----VFX AND SFX-----")]
     public WeaponAnimationType weaponAnimationType;
-    public GameObject bulletPrefab;
-
+    public ParticleSystem muzzleFlash;
+    
     private void Awake()
     {
         weaponName = name;

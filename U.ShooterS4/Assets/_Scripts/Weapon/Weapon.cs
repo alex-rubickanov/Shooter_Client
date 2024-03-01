@@ -56,7 +56,11 @@ public class Weapon : MonoBehaviour
         
         var bullet = Instantiate(weaponConfig.bulletPrefab, traceStart, Quaternion.identity); 
         bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset, ForceMode.Impulse);
-        Destroy(bullet, 3.0f);
+        
+        var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
+        
+        Destroy(muzzleFlash.gameObject, 3.0f);
+        Destroy(bullet.gameObject, 3.0f);
     }
 
     public void StopFiring()

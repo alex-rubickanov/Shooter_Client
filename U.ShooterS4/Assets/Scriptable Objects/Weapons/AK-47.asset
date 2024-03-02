@@ -24,4 +24,5 @@ MonoBehaviour:
   maxAmmo: 10
   reloadTime: 2
   weaponAnimationType: 1
-  muzzleFlash: {fileID: 19885060, guid: 2574ca206a571a342a7fab69fdfb87aa, type: 3}
+  muzzleFlash: {fileID: 198405310834809902, guid: ab32929843ea40d48ae16ecaa85f794a,
+    type: 3}

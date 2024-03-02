@@ -65,7 +65,7 @@ public class Weapon : MonoBehaviour
         
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
         
-        Destroy(muzzleFlash.gameObject, 3.0f);
+        Destroy(muzzleFlash.gameObject, 2.0f);
         Destroy(bullet.gameObject, 3.0f);
     }
 

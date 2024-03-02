@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : PlayerComponent
+public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
+    [SerializeField] private PlayerAiming playerAiming;
+    
     [SerializeField] private float aimSpeed = 3.0f;
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float runSpeed = 8.0f;
@@ -43,7 +46,7 @@ public class PlayerMovement : PlayerComponent
 
         float targetSpeed;
 
-        if (playerManager.PlayerAiming.IsAiming)
+        if (playerAiming.IsAiming)
         {
             targetSpeed = aimSpeed;
         }

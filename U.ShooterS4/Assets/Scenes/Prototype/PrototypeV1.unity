@@ -148,6 +148,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1359640216993544110, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
         type: 3}
+      propertyPath: inputReader
+      value: 
+      objectReference: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e,
+        type: 2}
+    - target: {fileID: 1359640216993544110, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
       propertyPath: dashAudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 8e7c6792b9f3626439fc589389bb33a1, type: 3}
@@ -162,6 +168,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPawn
       objectReference: {fileID: 0}
+    - target: {fileID: 3597585435975272471, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042811978271263849, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: inputReader
+      value: 
+      objectReference: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e,
+        type: 2}
     - target: {fileID: 4042811978271263849, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
         type: 3}
       propertyPath: playerCamera
@@ -217,6 +234,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8358370106551713221, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: reload1
+      value: 
+      objectReference: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
+    - target: {fileID: 8358370106551713221, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: reload2
+      value: 
+      objectReference: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
+    - target: {fileID: 8358370106551713221, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: reload3
+      value: 
+      objectReference: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
     - target: {fileID: 8358370106551713221, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
         type: 3}
       propertyPath: currentWeapon
@@ -352,6 +384,12 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1588329282 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3597585435975272471, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 367680256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1735201530
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
+  playerPawn: {fileID: 1588329282}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

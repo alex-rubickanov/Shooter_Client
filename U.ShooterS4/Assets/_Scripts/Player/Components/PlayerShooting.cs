@@ -2,14 +2,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class PlayerShooting : PlayerComponent
+public class PlayerShooting : MonoBehaviour
 {
+    [SerializeField] private PlayerAnimatorController playerAnimatorController;
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
     
     [SerializeField] private AudioManagerChannel audioManagerChannel;
 
+    [SerializeField] public AudioClip reload1;
+    [SerializeField] public AudioClip reload2;
+    [SerializeField] public AudioClip reload3;
 
     private bool canFire = true;
     private bool isFiring;
@@ -56,7 +61,7 @@ public class PlayerShooting : PlayerComponent
 
         currentWeapon = clonedWeapon;
 
-        playerManager.PlayerAnimatorController.SetAnimatorController(weaponAnimationType);
+        playerAnimatorController.SetAnimatorController(weaponAnimationType);
     }
 
     private void Shoot()
@@ -86,7 +91,7 @@ public class PlayerShooting : PlayerComponent
         if (currentWeapon == null) return;
         if (isReloading || currentWeapon.IsAmmoFull()) return;
         
-        playerManager.PlayerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
+        playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
         
         StartCoroutine(Reloading());
     }
@@ -117,11 +122,34 @@ public class PlayerShooting : PlayerComponent
     {
         inputReader.OnFireEvent += ReadFireButton;
         inputReader.OnReloadEvent += Reload;
+        
+        playerAnimatorController.OnReload1 += PlayReload1Sound;
+        playerAnimatorController.OnReload2 += PlayReload2Sound;
+        playerAnimatorController.OnReload3 += PlayReload3Sound;
+    }
+
+    private void PlayReload1Sound()
+    {
+        audioManagerChannel.RaiseEvent(reload1, currentWeapon.transform.position);
+    }
+    
+    private void PlayReload2Sound()
+    {
+        audioManagerChannel.RaiseEvent(reload2, currentWeapon.transform.position);
+    }
+    
+    private void PlayReload3Sound()
+    {
+        audioManagerChannel.RaiseEvent(reload3, currentWeapon.transform.position);
     }
 
     private void OnDisable()
     {
         inputReader.OnFireEvent -= ReadFireButton;
         inputReader.OnReloadEvent -= Reload;
+        
+        playerAnimatorController.OnReload1 -= PlayReload1Sound;
+        playerAnimatorController.OnReload2 -= PlayReload2Sound;
+        playerAnimatorController.OnReload3 -= PlayReload3Sound;
     }
 }

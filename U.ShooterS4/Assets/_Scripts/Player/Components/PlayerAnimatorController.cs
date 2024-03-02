@@ -1,7 +1,12 @@
 using UnityEngine;
+using System;
 
-public class PlayerAnimatorController : PlayerComponent
+public class PlayerAnimatorController : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerAiming playerAiming;
+    [SerializeField] private PlayerShooting playerShooting;
+    
     private Animator animator;
     private static readonly int VelocityMagnitude = Animator.StringToHash("VelocityMagnitude");
     private static readonly int IsAiming = Animator.StringToHash("IsAiming");
@@ -14,15 +19,18 @@ public class PlayerAnimatorController : PlayerComponent
     private static readonly int Reload = Animator.StringToHash("Reload");
     private static readonly int ReloadTimeMultiplayer = Animator.StringToHash("ReloadTimeMultiplayer");
 
-    protected override void Awake()
+    public event Action OnReload1;
+    public event Action OnReload2;
+    public event Action OnReload3;
+
+    protected void Awake()
     {
-        base.Awake();
         animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        movementVelocity = playerManager.PlayerMovement.GetMovementVelocity();
+        movementVelocity = playerMovement.GetMovementVelocity();
 
         SimpleMoveAnimating();
         AimAnimating();
@@ -31,14 +39,14 @@ public class PlayerAnimatorController : PlayerComponent
 
     private void SimpleMoveAnimating()
     {
-        float maxSpeed = playerManager.PlayerMovement.MaxSpeed;
+        float maxSpeed = playerMovement.MaxSpeed;
         animator.SetFloat(VelocityMagnitude, movementVelocity.magnitude / maxSpeed);
     }
 
     private void AimAnimating()
     {
-        bool isAiming = playerManager.PlayerAiming.IsAiming;
-        bool isFiring = playerManager.PlayerShooting.IsFiring;
+        bool isAiming = playerAiming.IsAiming;
+        bool isFiring = playerShooting.IsFiring;
         animator.SetBool(IsAiming, isAiming);
         animator.SetBool(IsFiring, isFiring);
     }
@@ -53,11 +61,10 @@ public class PlayerAnimatorController : PlayerComponent
 
     public void PlayReloadAnimation(float duration)
     {
-        if(duration == 0) return;
+        if (duration == 0) return;
         animator.SetLayerWeight(1, 100);
         animator.SetFloat(ReloadTimeMultiplayer, 3 / duration);
         animator.SetTrigger(Reload);
-        
     }
 
     public void SetAnimatorController(WeaponAnimationType weaponAnimationType)
@@ -76,5 +83,20 @@ public class PlayerAnimatorController : PlayerComponent
     public void OnReloadAnimationEnd()
     {
         animator.SetLayerWeight(1, 0);
+    }
+
+    public void Reload1()
+    {
+        OnReload1?.Invoke();
+    }
+
+    public void Reload2()
+    {
+        OnReload2?.Invoke();
+    }
+
+    public void Reload3()
+    {
+        OnReload3?.Invoke();
     }
 }

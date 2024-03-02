@@ -829,6 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ec541a3f9b3ea459248c8c362fb4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAiming: {fileID: 4042811978271263849}
   aimSpeed: 3
   moveSpeed: 5
   runSpeed: 8
@@ -836,8 +837,9 @@ MonoBehaviour:
   dashForce: 10
   dashTime: 2
   dashReload: 0
-  audioManagerChannel: {fileID: 0}
-  dashAudioClip: {fileID: 0}
+  audioManagerChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
+    type: 2}
+  dashAudioClip: {fileID: 8300000, guid: 8e7c6792b9f3626439fc589389bb33a1, type: 3}
   canRun: 1
 --- !u!114 &4042811978271263849
 MonoBehaviour:
@@ -869,12 +871,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad0951f0df0a3f4eacc47e9d222bf7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnimatorController: {fileID: 4475600887473676696}
+  inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
   currentWeapon: {fileID: 1899969182242678734, guid: d666041d6f306d740b08f47209fe0295,
     type: 3}
   rifleWeaponHolder: {fileID: 3525998601829363254}
   pistolWeaponHolder: {fileID: 6068498785165366864}
   audioManagerChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
     type: 2}
+  reload1: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
+  reload2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
+  reload3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
 --- !u!54 &2420669899916954861
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2114,6 +2121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e0e8a16f62a024f9141f43dc1e7e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 1359640216993544110}
+  playerAiming: {fileID: 4042811978271263849}
+  playerShooting: {fileID: 8358370106551713221}
 --- !u!1 &8714775885045534409
 GameObject:
   m_ObjectHideFlags: 0

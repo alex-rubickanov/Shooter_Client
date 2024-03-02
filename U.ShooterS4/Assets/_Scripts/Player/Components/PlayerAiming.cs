@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
 
-public class PlayerAiming : PlayerComponent
+public class PlayerAiming : MonoBehaviour
 {
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float rotateSmoothTime = 0.1f;

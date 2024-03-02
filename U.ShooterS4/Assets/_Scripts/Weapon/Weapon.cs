@@ -29,28 +29,36 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (!weaponConfig.isInfinity)
-        {
-            if (ammo == 0) return;
-        }
+        if (!CanFire()) return;
 
+        FireBullet();
+    }
+
+    protected bool CanFire()
+    {
+        if (ammo <= 0 && !weaponConfig.isInfinity)
+        {
+            return false;
+        }
+        
         if (!weaponConfig.isAutomatic)
         {
             if (shotFired)
             {
-                return;
+                return false;
             }
 
             shotFired = true;
         }
 
-        if (timer < weaponConfig.fireRate) return;
-        
-        FireBullet();
+        if (timer < weaponConfig.fireRate) return false;
+        return true;
     }
 
     protected void FireBullet()
     {
+        
+        
         timer = 0.0f;
         ammo--;
         Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0, UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
@@ -64,6 +72,10 @@ public class Weapon : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset, ForceMode.Impulse);
         
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
+        
+        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.gunShotSound, muzzleTransform.position);
+        
+        if(ammo == 0) weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
         
         Destroy(muzzleFlash.gameObject, 2.0f);
         Destroy(bullet.gameObject, 3.0f);
@@ -84,8 +96,28 @@ public class Weapon : MonoBehaviour
         return ammo == weaponConfig.maxAmmo;
     }
     
+    public int GetAmmo()
+    {
+        return ammo;
+    }
+    
     public WeaponAnimationType GetWeaponType()
     {
         return weaponConfig.weaponAnimationType;
+    }
+
+    public WeaponConfig GetWeaponConfig()
+    {
+        return weaponConfig;
+    }
+
+    public Transform GetMuzzleTransform()
+    {
+        return muzzleTransform;
+    }
+
+    public AudioClip GetEmptyClipSound()
+    {
+        return weaponConfig.emptyClipSound;
     }
 }

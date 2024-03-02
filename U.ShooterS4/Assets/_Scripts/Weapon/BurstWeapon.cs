@@ -6,25 +6,10 @@ public class BurstWeapon : Weapon
 {
     [SerializeField] private int bulletsInBurst;
     [SerializeField] private float timeBetweenBullet;
+
     public override void Shoot()
     {
-        
-        if (!weaponConfig.isInfinity)
-        {
-            if (ammo == 0) return;
-        }
-
-        if (!weaponConfig.isAutomatic)
-        {
-            if (shotFired)
-            {
-                return;
-            }
-
-            shotFired = true;
-        }
-
-        if (timer < weaponConfig.fireRate) return;
+        if (!CanFire()) return;
         
         StartCoroutine(FireBurst());
     }

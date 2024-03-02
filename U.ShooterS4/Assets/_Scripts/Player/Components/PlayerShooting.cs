@@ -1,13 +1,14 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.TextCore.Text;
 
 public class PlayerShooting : PlayerComponent
 {
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
+    
+    [SerializeField] private AudioManagerChannel audioManagerChannel;
 
 
     private bool canFire = true;
@@ -61,6 +62,11 @@ public class PlayerShooting : PlayerComponent
     private void Shoot()
     {
         if (currentWeapon == null || !canFire) return;
+        if (currentWeapon.GetAmmo() == 0)
+        {
+            audioManagerChannel.RaiseEvent(currentWeapon.GetEmptyClipSound(), transform.position);
+            isFiring = false;
+        }
         currentWeapon.Shoot();
     }
 

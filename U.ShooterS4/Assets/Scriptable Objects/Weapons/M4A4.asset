@@ -20,9 +20,12 @@ MonoBehaviour:
   recoil: 4
   bulletPrefab: {fileID: 4575673535615700931, guid: 43f7098bf1d79ba4fb3905da5312f24c,
     type: 3}
-  isInfinity: 1
-  maxAmmo: 30
+  isInfinity: 0
+  maxAmmo: 9
   reloadTime: 2
   weaponAnimationType: 1
   muzzleFlash: {fileID: 198405310834809902, guid: ab32929843ea40d48ae16ecaa85f794a,
     type: 3}
+  gunShotSound: {fileID: 8300000, guid: 7ea6993b242cecf4e8cf5c158ac3e92c, type: 3}
+  emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
+  sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}

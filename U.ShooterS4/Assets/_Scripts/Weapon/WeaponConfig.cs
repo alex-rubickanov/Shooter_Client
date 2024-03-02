@@ -19,6 +19,10 @@ public class WeaponConfig : ScriptableObject
     [Header("-----VFX AND SFX-----")]
     public WeaponAnimationType weaponAnimationType;
     public ParticleSystem muzzleFlash;
+    public AudioClip gunShotSound;
+    public AudioClip emptyClipSound;
+    [Header("-----OTHER-----")]
+    public AudioManagerChannel sfxChannel;
     
     private void Awake()
     {

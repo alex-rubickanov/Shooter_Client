@@ -85,7 +85,9 @@ public class PlayerShooting : PlayerComponent
     {
         if (currentWeapon == null) return;
         if (isReloading || currentWeapon.IsAmmoFull()) return;
-
+        
+        playerManager.PlayerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
+        
         StartCoroutine(Reloading());
     }
 

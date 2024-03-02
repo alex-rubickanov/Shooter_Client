@@ -11,6 +11,8 @@ public class PlayerAnimatorController : PlayerComponent
     private static readonly int VelocityY = Animator.StringToHash("VelocityY");
     private static readonly int IsPistol = Animator.StringToHash("IsPistol");
     private static readonly int IsFiring = Animator.StringToHash("IsFiring");
+    private static readonly int Reload = Animator.StringToHash("Reload");
+    private static readonly int ReloadTimeMultiplayer = Animator.StringToHash("ReloadTimeMultiplayer");
 
     protected override void Awake()
     {
@@ -21,7 +23,7 @@ public class PlayerAnimatorController : PlayerComponent
     private void Update()
     {
         movementVelocity = playerManager.PlayerMovement.GetMovementVelocity();
-        
+
         SimpleMoveAnimating();
         AimAnimating();
         AimMoveAnimating();
@@ -32,7 +34,7 @@ public class PlayerAnimatorController : PlayerComponent
         float maxSpeed = playerManager.PlayerMovement.MaxSpeed;
         animator.SetFloat(VelocityMagnitude, movementVelocity.magnitude / maxSpeed);
     }
-    
+
     private void AimAnimating()
     {
         bool isAiming = playerManager.PlayerAiming.IsAiming;
@@ -44,9 +46,18 @@ public class PlayerAnimatorController : PlayerComponent
     private void AimMoveAnimating()
     {
         movementVelocity = transform.InverseTransformDirection(movementVelocity);
-        
+
         animator.SetFloat(VelocityX, movementVelocity.x);
         animator.SetFloat(VelocityY, movementVelocity.z);
+    }
+
+    public void PlayReloadAnimation(float duration)
+    {
+        if(duration == 0) return;
+        animator.SetLayerWeight(1, 100);
+        animator.SetFloat(ReloadTimeMultiplayer, 3 / duration);
+        animator.SetTrigger(Reload);
+        
     }
 
     public void SetAnimatorController(WeaponAnimationType weaponAnimationType)
@@ -60,5 +71,10 @@ public class PlayerAnimatorController : PlayerComponent
                 animator.SetBool(IsPistol, false);
                 break;
         }
+    }
+
+    public void OnReloadAnimationEnd()
+    {
+        animator.SetLayerWeight(1, 0);
     }
 }

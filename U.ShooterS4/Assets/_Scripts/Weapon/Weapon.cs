@@ -120,4 +120,9 @@ public class Weapon : MonoBehaviour
     {
         return weaponConfig.emptyClipSound;
     }
+    
+    public float GetReloadTime()
+    {
+        return weaponConfig.reloadTime;
+    }
 }

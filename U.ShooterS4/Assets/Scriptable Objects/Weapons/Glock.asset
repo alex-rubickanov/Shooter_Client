@@ -20,8 +20,8 @@ MonoBehaviour:
   recoil: 0
   bulletPrefab: {fileID: 4575673535615700931, guid: 13364550847c7c544bd30c74ae6f2134,
     type: 3}
-  isInfinity: 1
-  maxAmmo: 10
+  isInfinity: 0
+  maxAmmo: 12
   reloadTime: 2
   weaponAnimationType: 0
   muzzleFlash: {fileID: 198533653044838976, guid: b46264f9e12caed4cb53e7c2ad64aa54,

@@ -20,7 +20,7 @@ MonoBehaviour:
   recoil: 3
   bulletPrefab: {fileID: 4575673535615700931, guid: 43f7098bf1d79ba4fb3905da5312f24c,
     type: 3}
-  isInfinity: 1
+  isInfinity: 0
   maxAmmo: 10
   reloadTime: 2
   weaponAnimationType: 1

@@ -864,10 +864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad0951f0df0a3f4eacc47e9d222bf7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 1899969182242678734, guid: 0f65d7cd773d6cc40ade82618dc621e5,
+  currentWeapon: {fileID: 1899969182242678734, guid: d666041d6f306d740b08f47209fe0295,
     type: 3}
   rifleWeaponHolder: {fileID: 3525998601829363254}
   pistolWeaponHolder: {fileID: 6068498785165366864}
+  audioManagerChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
+    type: 2}
 --- !u!54 &2420669899916954861
 Rigidbody:
   m_ObjectHideFlags: 0

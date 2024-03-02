@@ -13,6 +13,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     public event Action<bool> OnRunEvent;
     public event Action<bool> OnFireEvent;
     public event Action OnReloadEvent;
+    public event Action OnDashEvent;
 
     private void OnEnable()
     {
@@ -67,5 +68,13 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     public void OnReload(InputAction.CallbackContext context)
     {
         OnReloadEvent?.Invoke();
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            OnDashEvent?.Invoke();
+        }
     }
 }

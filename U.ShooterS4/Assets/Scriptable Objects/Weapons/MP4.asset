@@ -26,6 +26,6 @@ MonoBehaviour:
   weaponAnimationType: 0
   muzzleFlash: {fileID: 198533653044838976, guid: b46264f9e12caed4cb53e7c2ad64aa54,
     type: 3}
-  gunShotSound: {fileID: 0}
+  gunShotSound: {fileID: 8300000, guid: 2b954377f5b06ca4fa9b773d79d044c6, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}

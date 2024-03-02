@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : PlayerComponent
@@ -6,7 +8,11 @@ public class PlayerMovement : PlayerComponent
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float runSpeed = 8.0f;
     [SerializeField] private float moveSmoothTime = 0.1f;
-
+    [SerializeField] private float dashForce = 10.0f;
+    [SerializeField] private float dashTime = 2.0f;
+    [SerializeField] private float dashReload;
+    [SerializeField] private AudioManagerChannel audioManagerChannel;
+    [SerializeField] private AudioClip dashAudioClip;
     private Rigidbody rb;
     private Vector3 moveDirection;
     private Vector2 moveInputVector;
@@ -14,6 +20,8 @@ public class PlayerMovement : PlayerComponent
     private float currentSpeed;
     private Vector3 movementVelocity;
     private Vector3 moveDampVelocity;
+    private bool canDash = true;
+    private bool isDashing;
 
     [HideInInspector] public bool canRun = true;
     public float MaxSpeed => runSpeed;
@@ -30,6 +38,7 @@ public class PlayerMovement : PlayerComponent
 
     private void HandleMove()
     {
+        if(isDashing) return;
         moveDirection = new Vector3(moveInputVector.x, 0, moveInputVector.y);
 
         float targetSpeed;
@@ -71,12 +80,33 @@ public class PlayerMovement : PlayerComponent
     {
         inputReader.OnMoveEvent += ReadMoveInputVector;
         inputReader.OnRunEvent += InputReaderOnOnRunEvent;
+        inputReader.OnDashEvent += Dash;
+    }
+
+    private void Dash()
+    {
+        if(!canDash) return;
+        StartCoroutine(DashCoroutine());
+    }
+    
+    private IEnumerator DashCoroutine()
+    {
+        audioManagerChannel.RaiseEvent(dashAudioClip, transform.position + new Vector3(0, 10, 0));
+        canDash = false;
+        isDashing = true;
+        rb.velocity = moveDirection * dashForce;
+        yield return new WaitForSeconds(dashTime);
+        rb.velocity = Vector3.zero;
+        isDashing = false;
+        yield return new WaitForSeconds(dashReload);
+        canDash = true;
     }
 
     private void OnDisable()
     {
         inputReader.OnMoveEvent -= ReadMoveInputVector;
         inputReader.OnRunEvent -= InputReaderOnOnRunEvent;
+        inputReader.OnDashEvent += Dash;
     }
 
     private void ReadMoveInputVector(Vector2 moveInputVector)

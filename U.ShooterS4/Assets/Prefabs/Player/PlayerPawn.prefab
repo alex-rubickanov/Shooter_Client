@@ -833,6 +833,11 @@ MonoBehaviour:
   moveSpeed: 5
   runSpeed: 8
   moveSmoothTime: 0.1
+  dashForce: 10
+  dashTime: 2
+  dashReload: 0
+  audioManagerChannel: {fileID: 0}
+  dashAudioClip: {fileID: 0}
   canRun: 1
 --- !u!114 &4042811978271263849
 MonoBehaviour:

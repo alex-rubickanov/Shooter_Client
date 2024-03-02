@@ -131,6 +131,32 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3259912651710530059}
     m_Modifications:
+    - target: {fileID: 1359640216993544110, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: dashTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359640216993544110, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: dashForce
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359640216993544110, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: dashReload
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359640216993544110, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: dashAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e7c6792b9f3626439fc589389bb33a1, type: 3}
+    - target: {fileID: 1359640216993544110, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: audioManagerChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
+        type: 2}
     - target: {fileID: 3597585435975272471, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
         type: 3}
       propertyPath: m_Name
@@ -195,7 +221,7 @@ PrefabInstance:
         type: 3}
       propertyPath: currentWeapon
       value: 
-      objectReference: {fileID: 7801875149583146479, guid: 226e04838608e8a4d9eb21c5b6da795b,
+      objectReference: {fileID: 4914306714184497489, guid: 40d8403c20d24b844b704920b3d68306,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

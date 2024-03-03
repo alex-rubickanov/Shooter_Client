@@ -163,6 +163,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
         type: 2}
+    - target: {fileID: 2420669899916954861, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420669899916954861, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
     - target: {fileID: 3597585435975272471, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
         type: 3}
       propertyPath: m_Name
@@ -253,7 +263,7 @@ PrefabInstance:
         type: 3}
       propertyPath: currentWeapon
       value: 
-      objectReference: {fileID: 4914306714184497489, guid: 40d8403c20d24b844b704920b3d68306,
+      objectReference: {fileID: 338975399392313748, guid: 544de309e3a61b840b74ec0611005acf,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

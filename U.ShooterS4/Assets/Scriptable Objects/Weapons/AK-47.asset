@@ -15,14 +15,14 @@ MonoBehaviour:
   weaponName: AK-47
   isAutomatic: 1
   fireRate: 0.15
-  damage: 0
-  bulletSpeed: 100
+  damage: 35
+  bulletSpeed: 120
   recoil: 3
   bulletPrefab: {fileID: 3186222026697088616, guid: 43f7098bf1d79ba4fb3905da5312f24c,
     type: 3}
   isInfinity: 0
-  maxAmmo: 10
-  reloadTime: 2
+  maxAmmo: 30
+  reloadTime: 3
   weaponAnimationType: 1
   muzzleFlash: {fileID: 198405310834809902, guid: ab32929843ea40d48ae16ecaa85f794a,
     type: 3}

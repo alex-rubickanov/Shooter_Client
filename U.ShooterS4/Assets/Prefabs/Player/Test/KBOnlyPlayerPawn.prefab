@@ -889,7 +889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimatorController: {fileID: 4475600887473676696}
   inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
-  currentWeapon: {fileID: 4914306714184497489, guid: 40d8403c20d24b844b704920b3d68306,
+  currentWeapon: {fileID: 1899969182242678734, guid: 0f65d7cd773d6cc40ade82618dc621e5,
     type: 3}
   rifleWeaponHolder: {fileID: 3525998601829363254}
   pistolWeaponHolder: {fileID: 6068498785165366864}

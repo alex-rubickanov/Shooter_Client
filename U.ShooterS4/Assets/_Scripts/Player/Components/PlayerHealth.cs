@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        var particle = Instantiate(hitParticle, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+        var particle = Instantiate(hitParticle, transform.position + new Vector3(0, 0.5f, 0) + GetRandomYVector(), transform.rotation * GetRandomYQuaternion());
         Destroy(particle, 3f);
 
         sfxAudioChannel.RaiseEvent(GetRandomHitClip(), transform.position + new Vector3(0, 5, 0));
@@ -49,5 +49,15 @@ public class PlayerHealth : MonoBehaviour
     {
         int randomIndex = UnityEngine.Random.Range(0, hitClips.Length);
         return hitClips[randomIndex];
+    }
+    
+    private Quaternion GetRandomYQuaternion()
+    {
+        return Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
+    }
+    
+    private Vector3 GetRandomYVector()
+    {
+        return new Vector3(0, UnityEngine.Random.Range(0.0f, 1.0f), 0);
     }
 }

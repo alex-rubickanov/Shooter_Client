@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: MP4
   isAutomatic: 1
   fireRate: 0.1
-  damage: 0
+  damage: 20
   bulletSpeed: 150
   recoil: 1.5
   bulletPrefab: {fileID: 8951384074760642023, guid: 13364550847c7c544bd30c74ae6f2134,

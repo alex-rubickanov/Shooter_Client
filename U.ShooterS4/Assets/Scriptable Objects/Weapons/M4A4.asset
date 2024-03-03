@@ -21,7 +21,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3186222026697088616, guid: 43f7098bf1d79ba4fb3905da5312f24c,
     type: 3}
   isInfinity: 0
-  maxAmmo: 9
+  maxAmmo: 30
   reloadTime: 3
   weaponAnimationType: 1
   muzzleFlash: {fileID: 198405310834809902, guid: ab32929843ea40d48ae16ecaa85f794a,

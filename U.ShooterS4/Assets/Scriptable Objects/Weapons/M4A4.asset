@@ -22,7 +22,7 @@ MonoBehaviour:
     type: 3}
   isInfinity: 0
   maxAmmo: 9
-  reloadTime: 6
+  reloadTime: 3
   weaponAnimationType: 1
   muzzleFlash: {fileID: 198405310834809902, guid: ab32929843ea40d48ae16ecaa85f794a,
     type: 3}

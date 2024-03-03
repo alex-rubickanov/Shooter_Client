@@ -48,6 +48,7 @@ MonoBehaviour:
   inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
   playerPawnPrefab: {fileID: -1822039808475212139, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
     type: 3}
+  respawnTime: 2
 --- !u!114 &9177974075579634519
 MonoBehaviour:
   m_ObjectHideFlags: 0

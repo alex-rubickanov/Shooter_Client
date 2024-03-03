@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class InputReader : ScriptableObject, GameInput.IGameplayActions
 {
     private GameInput gameInput;
-    private PlayerInput playerInput;
     public event Action<Vector2> OnMoveEvent;
     public event Action<Vector2> OnRotateEvent;
     public event Action<bool, ControlScheme> OnAimEvent;
@@ -76,5 +75,9 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
         {
             OnDashEvent?.Invoke();
         }
+    }
+
+    public void OnJoin(InputAction.CallbackContext context)
+    {
     }
 }

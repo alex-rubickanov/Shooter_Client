@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
     [SerializeField] private PlayerPawn playerPawnPrefab;
     [SerializeField] private float respawnTime;
     
@@ -14,13 +13,11 @@ public class PlayerManager : MonoBehaviour
     private PlayerAnimatorController playerAnimatorController;
     private PlayerPawn currentPlayerPawn;
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentPlayerPawn == null)
-        {
-            SpawnPlayerPawn();
-        }
+        SpawnPlayerPawn();
     }
+
     
     public void RespawnPlayerPawn()
     {

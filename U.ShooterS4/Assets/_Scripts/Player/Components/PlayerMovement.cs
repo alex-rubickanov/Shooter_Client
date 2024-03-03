@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
+    [FormerlySerializedAs("separateInputReader")] [SerializeField] private InputReader inputReader;
     [SerializeField] private PlayerAiming playerAiming;
 
     [SerializeField] private float aimSpeed = 3.0f;

@@ -18,7 +18,7 @@ MonoBehaviour:
   damage: 0
   bulletSpeed: 100
   recoil: 0
-  bulletPrefab: {fileID: 4575673535615700931, guid: 13364550847c7c544bd30c74ae6f2134,
+  bulletPrefab: {fileID: 8951384074760642023, guid: 13364550847c7c544bd30c74ae6f2134,
     type: 3}
   isInfinity: 0
   maxAmmo: 8

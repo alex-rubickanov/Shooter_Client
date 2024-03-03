@@ -20,6 +20,7 @@ public class PlayerAiming : MonoBehaviour
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerCamera = Camera.main;
     }
 
     private void Update()

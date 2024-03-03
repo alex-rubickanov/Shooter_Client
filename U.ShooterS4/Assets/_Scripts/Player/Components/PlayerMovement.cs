@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private PlayerAiming playerAiming;
-    
+
     [SerializeField] private float aimSpeed = 3.0f;
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float runSpeed = 8.0f;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDampVelocity;
     private bool canDash = true;
     private bool isDashing;
+    private Coroutine dashCoroutine;
 
     [HideInInspector] public bool canRun = true;
     public float MaxSpeed => runSpeed;
@@ -41,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMove()
     {
-        if(isDashing) return;
+        if (isDashing) return;
         moveDirection = new Vector3(moveInputVector.x, 0, moveInputVector.y);
 
         float targetSpeed;
@@ -88,10 +90,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        if(!canDash) return;
-        StartCoroutine(DashCoroutine());
+        if (!canDash) return;
+        dashCoroutine = StartCoroutine(DashCoroutine());
     }
-    
+
     private IEnumerator DashCoroutine()
     {
         audioManagerChannel.RaiseEvent(dashAudioClip, transform.position + new Vector3(0, 10, 0));
@@ -109,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inputReader.OnMoveEvent -= ReadMoveInputVector;
         inputReader.OnRunEvent -= InputReaderOnOnRunEvent;
-        inputReader.OnDashEvent += Dash;
+        inputReader.OnDashEvent -= Dash;
     }
 
     private void ReadMoveInputVector(Vector2 moveInputVector)
@@ -125,5 +127,13 @@ public class PlayerMovement : MonoBehaviour
     public float GetCurrentSpeed()
     {
         return currentSpeed;
+    }
+
+    private void OnDestroy()
+    {
+        if (dashCoroutine != null)
+        {
+            StopCoroutine(dashCoroutine);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -9,7 +10,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
-    
+
     [SerializeField] private AudioManagerChannel audioManagerChannel;
 
     [SerializeField] public AudioClip reload1;
@@ -19,15 +20,13 @@ public class PlayerShooting : MonoBehaviour
     private bool canFire = true;
     private bool isFiring;
     private bool isReloading;
+    private Coroutine reloadCoroutine;
 
     public bool IsFiring => isFiring;
 
     private void Start()
     {
-        if (currentWeapon != null)
-        {
-            EquipWeapon(currentWeapon);
-        }
+        EquipWeapon(currentWeapon);
     }
 
     private void Update()
@@ -42,7 +41,7 @@ public class PlayerShooting : MonoBehaviour
     {
         WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
         Weapon clonedWeapon = null;
-        
+
         switch (weaponAnimationType)
         {
             case WeaponAnimationType.Pistol:
@@ -50,7 +49,7 @@ public class PlayerShooting : MonoBehaviour
                     pistolWeaponHolder);
 
                 break;
-            
+
             case WeaponAnimationType.Rifle:
                 clonedWeapon = Instantiate(weapon, rifleWeaponHolder.position, rifleWeaponHolder.rotation,
                     rifleWeaponHolder);
@@ -72,6 +71,7 @@ public class PlayerShooting : MonoBehaviour
             audioManagerChannel.RaiseEvent(currentWeapon.GetEmptyClipSound(), transform.position);
             isFiring = false;
         }
+
         currentWeapon.Shoot();
     }
 
@@ -90,10 +90,10 @@ public class PlayerShooting : MonoBehaviour
     {
         if (currentWeapon == null) return;
         if (isReloading || currentWeapon.IsAmmoFull()) return;
-        
+
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
-        
-        StartCoroutine(Reloading());
+
+        reloadCoroutine = StartCoroutine(Reloading());
     }
 
     private IEnumerator Reloading()
@@ -122,7 +122,7 @@ public class PlayerShooting : MonoBehaviour
     {
         inputReader.OnFireEvent += ReadFireButton;
         inputReader.OnReloadEvent += Reload;
-        
+
         playerAnimatorController.OnReload1 += PlayReload1Sound;
         playerAnimatorController.OnReload2 += PlayReload2Sound;
         playerAnimatorController.OnReload3 += PlayReload3Sound;
@@ -132,12 +132,12 @@ public class PlayerShooting : MonoBehaviour
     {
         audioManagerChannel.RaiseEvent(reload1, currentWeapon.transform.position);
     }
-    
+
     private void PlayReload2Sound()
     {
         audioManagerChannel.RaiseEvent(reload2, currentWeapon.transform.position);
     }
-    
+
     private void PlayReload3Sound()
     {
         audioManagerChannel.RaiseEvent(reload3, currentWeapon.transform.position);
@@ -147,9 +147,17 @@ public class PlayerShooting : MonoBehaviour
     {
         inputReader.OnFireEvent -= ReadFireButton;
         inputReader.OnReloadEvent -= Reload;
-        
+
         playerAnimatorController.OnReload1 -= PlayReload1Sound;
         playerAnimatorController.OnReload2 -= PlayReload2Sound;
         playerAnimatorController.OnReload3 -= PlayReload3Sound;
+    }
+
+    private void OnDestroy()
+    {
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+        }
     }
 }

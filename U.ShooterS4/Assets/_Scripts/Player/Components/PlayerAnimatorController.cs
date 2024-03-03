@@ -1,8 +1,12 @@
 using UnityEngine;
 using System;
+using UnityEditor.Animations;
 
 public class PlayerAnimatorController : MonoBehaviour
 {
+    [SerializeField] private AnimatorController pistolAnimatorController;
+    [SerializeField] private AnimatorController rifleAnimatorController;
+    
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAiming playerAiming;
     [SerializeField] private PlayerShooting playerShooting;
@@ -17,7 +21,7 @@ public class PlayerAnimatorController : MonoBehaviour
     private static readonly int IsPistol = Animator.StringToHash("IsPistol");
     private static readonly int IsFiring = Animator.StringToHash("IsFiring");
     private static readonly int Reload = Animator.StringToHash("Reload");
-    private static readonly int ReloadTimeMultiplayer = Animator.StringToHash("ReloadTimeMultiplayer");
+    private static readonly int ReloadTimeMultiplayer = Animator.StringToHash("ReloadTimeMultiplier");
 
     public event Action OnReload1;
     public event Action OnReload2;
@@ -72,10 +76,10 @@ public class PlayerAnimatorController : MonoBehaviour
         switch (weaponAnimationType)
         {
             case WeaponAnimationType.Pistol:
-                animator.SetBool(IsPistol, true);
+                animator.runtimeAnimatorController = pistolAnimatorController;
                 break;
             case WeaponAnimationType.Rifle:
-                animator.SetBool(IsPistol, false);
+                animator.runtimeAnimatorController = rifleAnimatorController;
                 break;
         }
     }

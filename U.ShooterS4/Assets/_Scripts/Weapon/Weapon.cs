@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    private PlayerPawn owner;
+    
     [SerializeField] protected WeaponConfig weaponConfig;
     [SerializeField] protected Transform muzzleTransform;
 
@@ -20,6 +22,8 @@ public class Weapon : MonoBehaviour
     {
         ammo = weaponConfig.maxAmmo;
         timer = weaponConfig.fireRate;
+        
+        owner = GetComponentInParent<PlayerPawn>(); 
     }
 
     protected void Update()
@@ -69,6 +73,8 @@ public class Weapon : MonoBehaviour
         //Debug.DrawRay(traceStart, traceEnd, Color.blue, 2.0f);
         
         var bullet = Instantiate(weaponConfig.bulletPrefab, traceStart, Quaternion.identity); 
+        bullet.Initialize(owner, weaponConfig.damage);
+        
         bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset, ForceMode.Impulse);
         
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);

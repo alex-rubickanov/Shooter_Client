@@ -12,7 +12,7 @@ public class WeaponConfig : ScriptableObject
     public float bulletSpeed;
     public float recoil;
     [Header("-----AMMO-----")]
-    public GameObject bulletPrefab;
+    public Bullet bulletPrefab;
     public bool isInfinity;
     public int maxAmmo;
     public float reloadTime;

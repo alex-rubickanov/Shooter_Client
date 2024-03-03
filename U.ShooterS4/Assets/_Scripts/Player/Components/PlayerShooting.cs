@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
 
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private PlayerAnimatorController playerAnimatorController;
-    [SerializeField] private InputReader inputReader;
+    [FormerlySerializedAs("separateInputReader")] [SerializeField] private InputReader inputReader;
     [SerializeField] private Weapon currentWeapon;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;

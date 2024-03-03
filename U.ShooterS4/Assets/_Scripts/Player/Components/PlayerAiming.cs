@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerAiming : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
+    [FormerlySerializedAs("separateInputReader")] [SerializeField] private InputReader inputReader;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float rotateSmoothTime = 0.1f;

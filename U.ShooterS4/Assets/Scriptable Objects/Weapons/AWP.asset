@@ -16,7 +16,7 @@ MonoBehaviour:
   isAutomatic: 0
   fireRate: 1
   damage: 200
-  bulletSpeed: 200
+  bulletSpeed: 130
   recoil: 0
   bulletPrefab: {fileID: 2717752531167666684, guid: c04c1d46944ad3843b7dcc60b9817c00,
     type: 3}

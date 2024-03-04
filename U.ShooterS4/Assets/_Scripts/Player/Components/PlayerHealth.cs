@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private ParticleSystem hitParticle;
     [SerializeField] private AudioClip[] hitClips;
+    [SerializeField] private AudioClip[] deathClips;
     [SerializeField] private AudioManagerChannel sfxAudioChannel;
 
     private float currentHealth;
@@ -47,6 +48,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        sfxAudioChannel.RaiseEvent(deathClips[UnityEngine.Random.Range(0, deathClips.Length)], transform.position);
+        
         ragdollController.EnableRagdoll();
         playerPawn.GetInputReader().DisableInput();
         

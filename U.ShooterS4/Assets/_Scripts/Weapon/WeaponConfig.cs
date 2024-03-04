@@ -9,7 +9,7 @@ public class WeaponConfig : ScriptableObject
     public bool isAutomatic;
     public float fireRate;
     public float damage;
-    public float bulletSpeed;
+    [Range(50, 130)] public float bulletSpeed;
     public float recoil;
     [Header("-----AMMO-----")]
     public Bullet bulletPrefab;

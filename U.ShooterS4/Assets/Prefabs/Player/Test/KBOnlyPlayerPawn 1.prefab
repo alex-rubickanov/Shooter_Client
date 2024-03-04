@@ -1287,10 +1287,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimatorController: {fileID: 4475600887473676696}
   inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
-  currentWeapon: {fileID: 4914306714184497489, guid: 40d8403c20d24b844b704920b3d68306,
-    type: 3}
   rifleWeaponHolder: {fileID: 3525998601829363254}
   pistolWeaponHolder: {fileID: 6068498785165366864}
+  weapons:
+  - {fileID: 1899969182242678734, guid: 0f65d7cd773d6cc40ade82618dc621e5, type: 3}
+  - {fileID: 1899969182242678734, guid: d666041d6f306d740b08f47209fe0295, type: 3}
+  - {fileID: 338975399392313748, guid: 544de309e3a61b840b74ec0611005acf, type: 3}
+  - {fileID: -5706029836000401518, guid: 4ab080c893504f94f950e8cac455bf32, type: 3}
+  - {fileID: 7801875149583146479, guid: 226e04838608e8a4d9eb21c5b6da795b, type: 3}
+  - {fileID: 4914306714184497489, guid: 40d8403c20d24b844b704920b3d68306, type: 3}
   audioManagerChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
     type: 2}
   reload1: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
@@ -1326,6 +1331,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 291bca9b842ab6a469fcde72c9b9129c, type: 3}
   - {fileID: 8300000, guid: ca0181fe53725944eb4ad9e06408a27c, type: 3}
   - {fileID: 8300000, guid: 0de87e632404a174bb1b6e03244d0f00, type: 3}
+  - {fileID: 8300000, guid: 7b16c20c6abb05a4dbe8ea04fdbf6020, type: 3}
+  deathClips:
+  - {fileID: 8300000, guid: ddc7b6b6e73078547904b6a12890ce81, type: 3}
+  - {fileID: 8300000, guid: bb705adfb1816f2448f2789f62c271ac, type: 3}
+  - {fileID: 8300000, guid: f675c376eb1303f40acab802899e97c7, type: 3}
+  - {fileID: 8300000, guid: f78023e6b8c1a744b9bb5410cb2d8839, type: 3}
   sfxAudioChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
 --- !u!54 &2420669899916954861
 Rigidbody:
@@ -1351,9 +1362,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 2
   m_Constraints: 116
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!136 &6617896866311101577
 CapsuleCollider:
   m_ObjectHideFlags: 0

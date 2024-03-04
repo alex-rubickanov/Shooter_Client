@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
@@ -7,17 +8,18 @@ using UnityEngine.TextCore.Text;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private PlayerAnimatorController playerAnimatorController;
-    [FormerlySerializedAs("separateInputReader")] [SerializeField] private InputReader inputReader;
-    [SerializeField] private Weapon currentWeapon;
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
-
+    [SerializeField] private List<Weapon> weapons;
     [SerializeField] private AudioManagerChannel audioManagerChannel;
 
     [SerializeField] public AudioClip reload1;
     [SerializeField] public AudioClip reload2;
     [SerializeField] public AudioClip reload3;
 
+    private Weapon currentWeapon;
+    private int currentWeaponIndex;
     private bool canFire = true;
     private bool isFiring;
     private bool isReloading;
@@ -27,7 +29,8 @@ public class PlayerShooting : MonoBehaviour
 
     private void Start()
     {
-        EquipWeapon(currentWeapon);
+        EquipWeapon(weapons[0]);
+        currentWeaponIndex = 0;
     }
 
     private void Update()
@@ -37,6 +40,7 @@ public class PlayerShooting : MonoBehaviour
             Shoot();
         }
     }
+
 
     private void EquipWeapon(Weapon weapon)
     {
@@ -119,15 +123,7 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        inputReader.OnFireEvent += ReadFireButton;
-        inputReader.OnReloadEvent += Reload;
-
-        playerAnimatorController.OnReload1 += PlayReload1Sound;
-        playerAnimatorController.OnReload2 += PlayReload2Sound;
-        playerAnimatorController.OnReload3 += PlayReload3Sound;
-    }
+    
 
     private void PlayReload1Sound()
     {
@@ -143,6 +139,51 @@ public class PlayerShooting : MonoBehaviour
     {
         audioManagerChannel.RaiseEvent(reload3, currentWeapon.transform.position);
     }
+    
+    private void NextWeapon()
+    {
+        Destroy(currentWeapon.gameObject);
+        
+        if (currentWeaponIndex == weapons.Count - 1)
+        {
+            currentWeaponIndex = 0;
+        }
+        else
+        {
+            currentWeaponIndex++;
+        }
+
+        EquipWeapon(weapons[currentWeaponIndex]);
+    }
+    
+    private void PreviousWeapon()
+    {
+        Destroy(currentWeapon.gameObject);
+        
+        if (currentWeaponIndex == 0)
+        {
+            currentWeaponIndex = weapons.Count - 1;
+        }
+        else
+        {
+            currentWeaponIndex--;
+        }
+
+        EquipWeapon(weapons[currentWeaponIndex]);
+    }
+
+    private void OnEnable()
+    {
+        inputReader.OnFireEvent += ReadFireButton;
+        inputReader.OnReloadEvent += Reload;
+
+        playerAnimatorController.OnReload1 += PlayReload1Sound;
+        playerAnimatorController.OnReload2 += PlayReload2Sound;
+        playerAnimatorController.OnReload3 += PlayReload3Sound;
+        
+        inputReader.OnNextWeaponEvent += NextWeapon;
+        inputReader.OnPreviousWeaponEvent += PreviousWeapon;
+    }
 
     private void OnDisable()
     {
@@ -152,6 +193,9 @@ public class PlayerShooting : MonoBehaviour
         playerAnimatorController.OnReload1 -= PlayReload1Sound;
         playerAnimatorController.OnReload2 -= PlayReload2Sound;
         playerAnimatorController.OnReload3 -= PlayReload3Sound;
+        
+        inputReader.OnNextWeaponEvent -= NextWeapon;
+        inputReader.OnPreviousWeaponEvent -= PreviousWeapon;
     }
 
     private void OnDestroy()

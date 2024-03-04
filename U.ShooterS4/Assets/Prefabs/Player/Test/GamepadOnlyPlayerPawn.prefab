@@ -1249,7 +1249,7 @@ MonoBehaviour:
   moveSmoothTime: 0.1
   dashForce: 40
   dashTime: 0.05
-  dashReload: 0
+  dashReload: 3
   audioManagerChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
     type: 2}
   dashAudioClip: {fileID: 8300000, guid: 8e7c6792b9f3626439fc589389bb33a1, type: 3}
@@ -1364,7 +1364,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!136 &6617896866311101577
 CapsuleCollider:
   m_ObjectHideFlags: 0

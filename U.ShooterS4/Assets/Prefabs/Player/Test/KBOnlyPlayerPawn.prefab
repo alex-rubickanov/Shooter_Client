@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 2420669899916954861}
   - component: {fileID: 6617896866311101577}
   m_Layer: 7
-  m_Name: KBOnlyPlayerPawn 1
+  m_Name: KBOnlyPlayerPawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   moveSmoothTime: 0.1
   dashForce: 40
   dashTime: 0.05
-  dashReload: 0
+  dashReload: 3
   audioManagerChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
     type: 2}
   dashAudioClip: {fileID: 8300000, guid: 8e7c6792b9f3626439fc589389bb33a1, type: 3}
@@ -1362,7 +1362,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 2
 --- !u!136 &6617896866311101577

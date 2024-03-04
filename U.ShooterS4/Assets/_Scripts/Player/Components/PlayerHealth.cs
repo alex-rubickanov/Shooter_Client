@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         var particle = Instantiate(hitParticle, transform.position + new Vector3(0, 0.5f, 0) + GetRandomYVector(), transform.rotation * GetRandomYQuaternion());
-        Destroy(particle, 3f);
+        Destroy(particle.gameObject, 1.5f);
 
         sfxAudioChannel.RaiseEvent(GetRandomHitClip(), transform.position + new Vector3(0, 5, 0));
 

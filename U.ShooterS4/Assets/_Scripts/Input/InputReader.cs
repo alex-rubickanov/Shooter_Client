@@ -123,7 +123,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
         
         if (context.phase == InputActionPhase.Performed)
         {
-            OnNextWeaponEvent?.Invoke();
+            OnPreviousWeaponEvent?.Invoke();
         }
     }
 

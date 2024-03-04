@@ -1,13 +1,27 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerPawn : MonoBehaviour
 {
-    [SerializeField] private GameInput.IGameplayActions inputReader;
     private PlayerManager playerManager;
+    [SerializeField]private InputReader inputReader;
+    [SerializeField] private float timeBeforeDestroy = 3.0f;
+    
     
     public void SetPlayerManager(PlayerManager playerManager)
     {
         this.playerManager = playerManager;
+    }
+
+    public void Respawn()
+    {
+        StartCoroutine(RespawnCoroutine());
+    }
+
+    private IEnumerator RespawnCoroutine()
+    {
+        yield return new WaitForSeconds(timeBeforeDestroy);
+        DestroyPawn();
     }
 
     public void DestroyPawn()
@@ -15,7 +29,7 @@ public class PlayerPawn : MonoBehaviour
         playerManager.RespawnPlayerPawn();
     }
     
-    public GameInput.IGameplayActions GetInputReader()
+    public InputReader GetInputReader()
     {
         return inputReader;
     }

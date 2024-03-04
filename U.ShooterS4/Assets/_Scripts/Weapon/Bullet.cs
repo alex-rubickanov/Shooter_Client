@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
         if (other.TryGetComponent(out hittedPawn))
         {
             if (hittedPawn != owner)
@@ -20,12 +19,12 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                Debug.Log("You can't shoot yourself!");
+                //Debug.Log("You can't shoot yourself!");
             }
         }
         else
         {
-            Debug.Log("No player pawn found!");
+            //Debug.Log("No player pawn found!");
         }
     }
 

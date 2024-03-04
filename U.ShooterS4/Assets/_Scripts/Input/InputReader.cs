@@ -131,8 +131,18 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
         return availableDevices.Contains(context.control.device);
     }
 
+    public void DisableInput()
+    {
+        gameInput.Disable();
+    }
+    public void EnableInput()
+    {
+        gameInput.Enable();
+    }
+
     private void OnValidate()
     {
         CheckAvailableDevices();
     }
+
 }

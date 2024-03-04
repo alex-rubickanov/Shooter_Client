@@ -10,6 +10,12 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private AudioManagerChannel sfxAudioChannel;
 
     private float currentHealth;
+    private RagdollController ragdollController;
+
+    private void Awake()
+    {
+        ragdollController = GetComponentInChildren<RagdollController>();
+    }
 
     private void Start()
     {
@@ -41,8 +47,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        //Ragdoll 
-        playerPawn.DestroyPawn();
+        ragdollController.EnableRagdoll();
+        playerPawn.GetInputReader().DisableInput();
+        
+        playerPawn.Respawn();
     }
 
     private AudioClip GetRandomHitClip()

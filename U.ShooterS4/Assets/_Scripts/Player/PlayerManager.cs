@@ -36,5 +36,6 @@ public class PlayerManager : MonoBehaviour
     {
         currentPlayerPawn = Instantiate(playerPawnPrefab, transform.position, Quaternion.identity, transform);
         currentPlayerPawn.SetPlayerManager(this);
+        currentPlayerPawn.GetInputReader().EnableInput();
     }
 }

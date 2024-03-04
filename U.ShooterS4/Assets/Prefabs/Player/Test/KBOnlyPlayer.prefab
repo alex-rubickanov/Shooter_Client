@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7db6629887e4c8419f102c6749567ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPawnPrefab: {fileID: -1822039808475212139, guid: 40851730d16641342b5af21a9730e75d,
+  playerPawnPrefab: {fileID: -1822039808475212139, guid: f4e945317122a9e47bb77056a0fea069,
     type: 3}
   respawnTime: 2
 --- !u!114 &9177974075579634519

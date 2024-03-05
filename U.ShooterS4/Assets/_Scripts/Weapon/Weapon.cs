@@ -61,8 +61,6 @@ public class Weapon : MonoBehaviour
 
     protected void FireBullet()
     {
-        
-        
         timer = 0.0f;
         ammo--;
         Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0, UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
@@ -84,7 +82,7 @@ public class Weapon : MonoBehaviour
         if(ammo == 0) weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
         
         Destroy(muzzleFlash.gameObject, 2.0f);
-        Destroy(bullet.gameObject, 3.0f);
+        Destroy(bullet.gameObject, 1.5f);
     }
 
     public void StopFiring()

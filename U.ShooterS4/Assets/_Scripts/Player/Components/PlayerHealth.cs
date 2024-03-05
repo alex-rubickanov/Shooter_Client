@@ -23,15 +23,6 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    private void Update()
-    {
-        // TEST
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            TakeDamage(40);
-        }
-    }
-
     public void TakeDamage(float damage)
     {
         var particle = Instantiate(hitParticle, transform.position + new Vector3(0, 0.5f, 0) + GetRandomYVector(), transform.rotation * GetRandomYQuaternion());

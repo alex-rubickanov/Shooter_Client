@@ -51,6 +51,7 @@ public class BasePacket
     public BasePacket Deserialize(byte[] buffer)
     {
         BeginDeserialize(buffer);
+        EndDeserialize();
         return this;
     }
 
@@ -64,7 +65,7 @@ public class BasePacket
     }
 
 
-    protected void EndDeserialize(ref byte[] buffer)
+    protected void EndDeserialize()
     {
         packetSize = dbr.ReadInt32();
         currentBufferPosition += packetSize;

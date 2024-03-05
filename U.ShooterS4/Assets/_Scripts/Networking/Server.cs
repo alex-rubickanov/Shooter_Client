@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using UnityEngine;
+using UnityEngine.XR;
+
+public class Server : MonoBehaviour
+{
+    private Socket serverSocket;
+    private List<Socket> clientsSockets = new List<Socket>();
+
+    private bool isServerStarted = false;
+    private bool canAccept = true;
+
+    private void Start()
+    {
+        InitializeServer();
+    }
+
+    private void Update()
+    {
+        if (!isServerStarted) return;
+
+        if (canAccept)
+        {
+            AcceptClients();
+        }
+
+        if (clientsSockets.Count != 0)
+        {
+            TransferData();
+        }
+    }
+
+
+    private void InitializeServer()
+    {
+        try
+        {
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            serverSocket.Blocking = false;
+            serverSocket.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, 3000));
+            serverSocket.Listen(10);
+            isServerStarted = true;
+            Console.WriteLine("Server started!");
+            Console.WriteLine("Waiting for client to connect...");
+        }
+        catch (SocketException ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+        }
+    }
+
+    private void AcceptClients()
+    {
+        try
+        {
+            Socket clientSocket = serverSocket.Accept();
+            clientsSockets.Add(clientSocket);
+            Console.WriteLine($"Client connected: {clientSocket.LocalEndPoint}");
+        }
+        catch (SocketException ex)
+        {
+            if (ex.SocketErrorCode != SocketError.WouldBlock)
+            {
+                Console.Error.WriteLine("Exception while accepting clients.");
+                Console.WriteLine(ex);
+            }
+        }
+    }
+
+    private void TransferData()
+    {
+        for (int i = 0; i < clientsSockets.Count; i++)
+        {
+            if (clientsSockets[i].Available <= 0) continue;
+
+            try
+            {
+                byte[] buffer = new byte[clientsSockets[i].Available];
+                clientsSockets[i].Receive(buffer);
+
+                for (int j = 0; j < clientsSockets.Count; j++)
+                {
+                    if (i == j) continue;
+                    clientsSockets[j].Send(buffer);
+                }
+            }
+            catch (SocketException ex)
+            {
+                if (ex.SocketErrorCode != SocketError.WouldBlock)
+                {
+                    if (ex.SocketErrorCode == SocketError.ConnectionAborted || // BUG: Server can't handle disconnection
+                        ex.SocketErrorCode == SocketError.ConnectionReset) // TODO: Implement heartbeat
+                    {
+                        Debug.LogError("Client disconnected!");
+                        clientsSockets.RemoveAt(i);
+                    }
+                    else
+                    {
+                        Debug.LogError(ex.Message);
+                    }
+                }
+            }
+        }
+    }
+}

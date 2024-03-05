@@ -1,11 +1,10 @@
 using UnityEngine;
 using System;
-using UnityEditor.Animations;
 
 public class PlayerAnimatorController : MonoBehaviour
 {
-    [SerializeField] private AnimatorController pistolAnimatorController;
-    [SerializeField] private AnimatorController rifleAnimatorController;
+    [SerializeField] private RuntimeAnimatorController pistolAnimatorController;
+    [SerializeField] private RuntimeAnimatorController rifleAnimatorController;
     
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAiming playerAiming;

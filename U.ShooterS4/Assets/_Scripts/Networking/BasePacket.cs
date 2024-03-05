@@ -26,7 +26,7 @@ public class BasePacket
         Type = type;
     }
 
-    protected byte[] Serialize()
+    public byte[] Serialize()
     {
         BeginSerialize();
 

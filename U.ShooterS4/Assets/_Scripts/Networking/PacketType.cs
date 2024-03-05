@@ -1,6 +1,7 @@
 public enum PacketType
 {
     None = 0,
-    MessagePacket = 1,
-    InstantiatePacket = 2
+    HeartBeatPacket = 1,
+    PlayerConnectPacket =2,
+    SpawnPacket = 3
 }

@@ -26,14 +26,6 @@ public class BasePacket
         Type = type;
     }
 
-    public byte[] Serialize()
-    {
-        BeginSerialize();
-
-        sbw.Write((int)Type);
-
-        return EndSerialize();
-    }
 
     protected void BeginSerialize()
     {
@@ -78,10 +70,5 @@ public class BasePacket
 
         currentBufferPosition = 0;
         return false;
-    }
-
-    public void Reset()
-    {
-        currentBufferPosition = 0;
     }
 }

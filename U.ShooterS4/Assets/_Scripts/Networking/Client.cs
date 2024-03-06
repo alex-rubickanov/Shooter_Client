@@ -1,13 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 
 public class Client : MonoBehaviour
 {
+    [SerializeField] private PlayerClone clonePrefab;
+    
     public static Client Instance;
 
     private Socket clientSocket;
+    private List<PlayerClone> playerClones = new List<PlayerClone>();
 
     // Callbacks
     private AsyncCallback connectServerCallback;
@@ -32,13 +36,13 @@ public class Client : MonoBehaviour
         ConnectToServer();
     }
 
-    public void ConnectToServer()
+    public void ConnectToServer(string ip = "127.00.01")
     {
         try
         {
             Debug.Log("Connecting to server...");
             clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            clientSocket.Connect(new IPEndPoint(IPAddress.Loopback, 3000));
+            clientSocket.Connect(new IPEndPoint(IPAddress.Parse(ip), 3000));
             clientSocket.Blocking = false;
         }
         catch (SocketException ex)
@@ -57,6 +61,7 @@ public class Client : MonoBehaviour
         }
 
         Debug.Log($"Connected to server!  {clientSocket.LocalEndPoint.ToString()}");
+        SendConnectionPacket();
     }
 
     private void Update()
@@ -92,6 +97,12 @@ public class Client : MonoBehaviour
                         DebugLogPacket dlp = new DebugLogPacket().Deserialize(buffer);
                         OnDebugLogPacketReceived?.Invoke(dlp);
                         break;
+                    case PacketType.ConnectionPacket:
+                        Debug.LogWarning($"{gameObject.name}" + " received a ConnectionPacket packet");
+                        ConnectionPacket cp = new ConnectionPacket().Deserialize(buffer);
+                        PlayerClone clone = Instantiate(clonePrefab);
+                        playerClones.Add(clone);
+                        break;
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;
@@ -120,6 +131,11 @@ public class Client : MonoBehaviour
     private void Test(DebugLogPacket obj)
     {
         Debug.Log($"Message received: {obj.Message}");
+    }
+    
+    public void SendConnectionPacket()
+    {
+        clientSocket.Send(new ConnectionPacket(clientSocket).Serialize());
     }
     
     public void SendPacket(BasePacket packet)

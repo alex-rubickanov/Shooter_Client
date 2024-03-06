@@ -18,7 +18,7 @@ namespace ShooterServer
         {
             this.port = port;
         }
-        
+
         public void Start()
         {
             InitializeServer();
@@ -61,6 +61,7 @@ namespace ShooterServer
                 Socket clientSocket = serverSocket.Accept();
                 clientsSockets.Add(clientSocket);
                 Console.WriteLine($"Client connected!");
+
                 if (clientsSockets.Count == MAX_PLAYERS)
                 {
                     canAccept = false;

@@ -2,7 +2,8 @@
     "name": "RaveHunters",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:116086aa8480c284299675bb098dc4a7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerHealth : NetworkBehaviour
@@ -21,11 +20,6 @@ public class PlayerHealth : NetworkBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-    }
-
-    private void Update()
-    {
-        SendDebugLogPacket("Hi!");
     }
 
     public void TakeDamage(float damage)

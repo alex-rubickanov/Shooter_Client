@@ -8,10 +8,10 @@ public class BasePacket
     protected MemoryStream dms; // Deserialize Memory Stream 
     protected BinaryReader dbr; // Deserialize Binary Writer
 
-    protected int packetSize;
 
     public PacketType Type { get; private set; }
     public int PacketSize => packetSize;
+    protected int packetSize;
 
     private static int currentBufferPosition;
 
@@ -26,11 +26,18 @@ public class BasePacket
         Type = type;
     }
 
+    public virtual byte[] Serialize()
+    {
+        BeginSerialize();
+        return EndSerialize();
+    }
 
     protected void BeginSerialize()
     {
         sms = new MemoryStream();
         sbw = new BinaryWriter(sms);
+        
+        sbw.Write((int)Type);
     }
 
     protected byte[] EndSerialize()
@@ -50,12 +57,11 @@ public class BasePacket
     protected void BeginDeserialize(byte[] buffer)
     {
         dms = new MemoryStream(buffer);
-        dms.Seek(currentBufferPosition, SeekOrigin.Begin);
+        //dms.Seek(currentBufferPosition, SeekOrigin.Begin);
         dbr = new BinaryReader(dms);
 
         Type = (PacketType)dbr.ReadInt32();
     }
-
 
     protected void EndDeserialize()
     {

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Client : MonoBehaviour
 {
+    public static Client Instance;
+
     private Socket clientSocket;
 
     // Callbacks
@@ -12,6 +14,18 @@ public class Client : MonoBehaviour
 
     // Packets Events
     public Action<DebugLogPacket> OnDebugLogPacketReceived;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {
@@ -50,7 +64,7 @@ public class Client : MonoBehaviour
         if (!clientSocket.Connected)
             return;
 
-        clientSocket.Send(new DebugLogPacket("Hello from client!").Serialize());
+        //clientSocket.Send(new DebugLogPacket("Hello from client!").Serialize());
 
         ReceiveData();
     }
@@ -65,20 +79,23 @@ public class Client : MonoBehaviour
             byte[] buffer = new byte[clientSocket.Available];
             clientSocket.Receive(buffer);
 
-
-            BasePacket bp = new BasePacket().Deserialize(buffer);
-            Debug.Log(bp.Type);
-            switch (bp.Type)
+            while (BasePacket.DataRemainingInBuffer(buffer.Length))
             {
-                case PacketType.None:
-                    Debug.LogWarning($"{gameObject.name}" + " received a None packet");
-                    break;
-                case PacketType.DebugLog:
-                    DebugLogPacket dlp = new DebugLogPacket().Deserialize(buffer);
-                    OnDebugLogPacketReceived?.Invoke(dlp);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                BasePacket bp = new BasePacket().Deserialize(buffer);
+
+                switch (bp.Type)
+                {
+                    case PacketType.None:
+                        Debug.LogWarning($"{gameObject.name}" + " received a None packet");
+                        break;
+                    case PacketType.DebugLog:
+                        DebugLogPacket dlp = new DebugLogPacket().Deserialize(buffer);
+                        OnDebugLogPacketReceived?.Invoke(dlp);
+                        break;
+                    default:
+                        Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
+                        break;
+                }
             }
         }
         catch (SocketException ex)
@@ -102,6 +119,11 @@ public class Client : MonoBehaviour
 
     private void Test(DebugLogPacket obj)
     {
-        Debug.Log(obj.Message);
+        Debug.Log($"Message received: {obj.Message}");
+    }
+    
+    public void SendPacket(BasePacket packet)
+    {
+        clientSocket.Send(packet.Serialize());
     }
 }

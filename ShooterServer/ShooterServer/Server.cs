@@ -10,24 +10,21 @@ namespace ShooterServer
         private List<Socket> clientsSockets = new List<Socket>();
         private int port;
 
-        private bool isServerStarted = false;
         private bool canAccept = true;
 
-        private const int MAX_PLAYERS = 4; 
+        private const int MAX_PLAYERS = 4;
 
         public Server(int port)
         {
             this.port = port;
         }
-
+        
         public void Start()
         {
             InitializeServer();
 
             while (true)
             {
-                if (!isServerStarted) return;
-
                 if (canAccept)
                 {
                     AcceptClients();
@@ -48,7 +45,6 @@ namespace ShooterServer
                 serverSocket.Blocking = false;
                 serverSocket.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, port));
                 serverSocket.Listen(10);
-                isServerStarted = true;
                 Console.WriteLine("Server started!");
                 Console.WriteLine("Waiting for client to connect...");
             }
@@ -65,7 +61,7 @@ namespace ShooterServer
                 Socket clientSocket = serverSocket.Accept();
                 clientsSockets.Add(clientSocket);
                 Console.WriteLine($"Client connected!");
-                if(clientsSockets.Count == MAX_PLAYERS)
+                if (clientsSockets.Count == MAX_PLAYERS)
                 {
                     canAccept = false;
                     Console.WriteLine("Attempt to connect more than 4 players. Server is full!");
@@ -102,8 +98,10 @@ namespace ShooterServer
                     if (ex.SocketErrorCode != SocketError.WouldBlock)
                     {
                         if (ex.SocketErrorCode ==
-                            SocketError.ConnectionAborted ||  // BUG: If clientSocket.Available = 0 => disconnections are not detected
-                            ex.SocketErrorCode == SocketError.ConnectionReset) // TODO: Heartbeat to check if client is still connected
+                            SocketError
+                                .ConnectionAborted || // BUG: If clientSocket.Available = 0 => disconnections are not detected
+                            ex.SocketErrorCode ==
+                            SocketError.ConnectionReset) // TODO: Heartbeat to check if client is still connected
                         {
                             Console.WriteLine("Client disconnected!");
                             clientsSockets.RemoveAt(i);

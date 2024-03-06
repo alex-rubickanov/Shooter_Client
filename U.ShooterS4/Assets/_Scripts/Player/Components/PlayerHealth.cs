@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField] private PlayerPawn playerPawn;
     [SerializeField] private float maxHealth = 100f;
@@ -21,6 +21,11 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+    }
+
+    private void Update()
+    {
+        SendDebugLogPacket("Hi!");
     }
 
     public void TakeDamage(float damage)

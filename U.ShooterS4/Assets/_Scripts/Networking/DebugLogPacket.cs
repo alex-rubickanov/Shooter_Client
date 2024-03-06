@@ -12,7 +12,7 @@ public class DebugLogPacket : BasePacket
         Message = message;
     }
 
-    public byte[] Serialize()
+    public override byte[] Serialize()
     {
         BeginSerialize();
         sbw.Write(Message);

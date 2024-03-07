@@ -16,7 +16,9 @@ namespace ShooterServer
 
         private readonly ServerData ServerData = new ServerData("Server", "0");
         private const int MAX_PLAYERS = 4;
-        
+
+        private List<PlayerData> playersData = new List<PlayerData>();
+
         public Server(int port)
         {
             this.port = port;
@@ -33,10 +35,8 @@ namespace ShooterServer
                     AcceptClients();
                 }
 
-                if (clientsSockets.Count != 0)
-                {
-                    TransferData();
-                }
+                TransferData();
+                ReceiveData();
             }
         }
 
@@ -47,7 +47,7 @@ namespace ShooterServer
                 serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 serverSocket.Blocking = false;
                 serverSocket.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, port));
-                serverSocket.Listen(10);
+                serverSocket.Listen(4);
                 Console.WriteLine("Server started!");
                 Console.WriteLine("Waiting for client to connect...");
             }
@@ -65,8 +65,8 @@ namespace ShooterServer
                 clientSocket.Blocking = false;
                 clientsSockets.Add(clientSocket);
                 Console.WriteLine($"Client connected!");
-                
-                //SendWelcomePacket(clientSocket);
+
+                AssignClientID(clientSocket, clientsSockets.Count);
 
                 if (clientsSockets.Count == MAX_PLAYERS)
                 {
@@ -81,19 +81,14 @@ namespace ShooterServer
                     Console.Error.WriteLine("Exception while accepting client.");
                     Console.WriteLine(ex);
                 }
-
-                return;
             }
-            SendConnectionPacket();
         }
 
-        private void OnPlayerConnected()
-        {
-            SendConnectionPacket();
-        }
 
         private void TransferData()
         {
+            if (clientsSockets.Count == 0) return;
+
             for (int i = 0; i < clientsSockets.Count; i++)
             {
                 if (clientsSockets[i].Available <= 0) continue;
@@ -130,41 +125,55 @@ namespace ShooterServer
             }
         }
 
-        public void SendWelcomePacket(Socket clientSocket)
+        public void ReceiveData()
         {
-            if (clientSocket == null) return;
-            DebugLogPacket dp = new DebugLogPacket("Hi from server, dawg!", ServerData);
-            clientSocket.Send(dp.Serialize());
-        }
+            if(clientsSockets.Count == 0) return;
+            if (serverSocket.Available < 0) return;
 
-        public void SendDebugLogPacket(Socket clientSocket, string message)
-        {
-            if (clientSocket == null) return;
-            DebugLogPacket dp = new DebugLogPacket(message, ServerData);
-            clientSocket.Send(dp.Serialize());
-        }
-
-        public void SendConnectionPacket()
-        {
-            for (int i = 0; i < clientsSockets.Count; i++)
-            {
-                ConnectionPacket cp = new ConnectionPacket(clientsSockets.Count - 1, ServerData);
-                clientsSockets[i].Send(cp.Serialize());
-            }
-        }
-
-        public void SendDebugLogPacket(string message)
-        {
             try
             {
-                for (int i = 0; i < clientsSockets.Count; i++)
-                    SendDebugLogPacket(clientsSockets[i], message);
+                byte[] buffer = new byte[serverSocket.Available];
+                serverSocket.Receive(buffer);
+
+                while (BasePacket.DataRemainingInBuffer(buffer.Length))
+                {
+                    BasePacket bp = new BasePacket().Deserialize(buffer);
+
+                    switch (bp.Type)
+                    {
+                        case PacketType.None:
+                            break;
+                        case PacketType.DebugLog:
+                            break;
+                        case PacketType.PlayerData:
+                            Console.WriteLine("Got player data!");
+                            PlayerDataPacket pdp = new PlayerDataPacket().Deserialize(buffer);
+                            playersData.Add((PlayerData)pdp.DataHolder);
+                            break;
+                        case PacketType.AssignID:
+                            break;
+                        case PacketType.PlayerPawnSpawn:
+                            break;
+                        case PacketType.Move:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
             }
             catch (SocketException ex)
             {
-                if (ex.SocketErrorCode != SocketError.WouldBlock)
+                if (ex.SocketErrorCode != SocketError.WouldBlock || ex.SocketErrorCode != SocketError.NotConnected)
+                {
                     Console.Error.WriteLine(ex.Message);
+                }
             }
+        }
+
+        public void AssignClientID(Socket clientSocket, int id)
+        {
+            AssignIDPacket assignIDPacket = new AssignIDPacket(id.ToString(), ServerData);
+            clientSocket.Send(assignIDPacket.Serialize());
         }
     }
 }

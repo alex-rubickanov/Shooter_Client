@@ -5,7 +5,6 @@ namespace ShooterNetwork
         private Vector2 position;
         public Vector2 Position => position;
 
-
         public MovePacket()
         {
         }

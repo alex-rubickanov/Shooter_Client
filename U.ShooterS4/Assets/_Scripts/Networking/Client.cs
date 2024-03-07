@@ -15,12 +15,13 @@ public class Client : MonoBehaviour
     public PlayerData PlayerData => playerData;
 
     private Socket clientSocket;
-    private List<PlayerClone> playerClones = new List<PlayerClone>();
+    private Dictionary<string, PlayerClone> playerClones = new Dictionary<string, PlayerClone>();
 
     // Callbacks
     private AsyncCallback connectServerCallback;
     // Packets Events
-    public Action<DebugLogPacket> OnDebugLogPacketReceived;
+    public event Action<DebugLogPacket> OnDebugLogPacketReceived;
+    public event Action OnIDAssigned;
 
     [SerializeField] private PlayerClone clonePrefab;
 
@@ -42,7 +43,6 @@ public class Client : MonoBehaviour
 
     private void Start()
     {
-        playerData = new PlayerData(desiredName);
         ConnectToServer();
     }
 
@@ -78,8 +78,6 @@ public class Client : MonoBehaviour
         if (!clientSocket.Connected)
             return;
 
-        //clientSocket.Send(new DebugLogPacket("Hello from client!").Serialize());
-
         ReceiveData();
     }
 
@@ -102,23 +100,32 @@ public class Client : MonoBehaviour
                     case PacketType.None:
                         Debug.LogWarning($"{gameObject.name}" + " received a None packet");
                         break;
+
                     case PacketType.DebugLog:
                         DebugLogPacket dlp = new DebugLogPacket().Deserialize(buffer);
                         OnDebugLogPacketReceived?.Invoke(dlp);
                         break;
-                    case PacketType.Connection:
-                        ReadConnectionPacket(buffer);
+
+                    case PacketType.AssignID:
+                        AssignIDFromPacket(buffer);
                         break;
-                    case PacketType.Move:
-                        MovePacket mp = new MovePacket().Deserialize(buffer);
-                        int id = int.Parse(mp.DataHolder.ID);
-                        Debug.Log(id + "moves!");
-                        if (playerClones.Count > id)
+
+                    case PacketType.PlayerPawnSpawn:
+                        PawnSpawnPacket psp = new PawnSpawnPacket().Deserialize(buffer);
+                        PlayerClone pc = Instantiate(clonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        if (psp.DataHolder.ID == playerData.ID || playerClones.ContainsKey(psp.DataHolder.ID))
                         {
-                            playerClones[id].transform.position = new Vector3(mp.Position.x, 0, mp.Position.y);
+                            Debug.LogError("SASHA TI CLOWN");
+                            break;
                         }
 
+                        pc.gameObject.name = psp.DataHolder.Name;
+                        playerClones.Add(psp.DataHolder.ID, pc);
                         break;
+
+                    case PacketType.Move:
+                        break;
+
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;
@@ -134,23 +141,25 @@ public class Client : MonoBehaviour
         }
     }
 
-    public void SendPacket(BasePacket packet)
+    private void AssignIDFromPacket(byte[] buffer)
     {
-        clientSocket.Send(packet.Serialize());
+        AssignIDPacket aidp = new AssignIDPacket().Deserialize(buffer);
+        playerData = new PlayerData(desiredName, aidp.ID);
+        OnIDAssigned?.Invoke();
+        
+        SendPlayerDataPacket();
     }
 
-    public void ReadConnectionPacket(byte[] buffer)
-    {
-        ConnectionPacket cp = new ConnectionPacket().Deserialize(buffer);
-        Debug.Log("Player connected! ID: " + cp.PlayersAmount);
 
-        string name = playerData.Name;
-        playerData = new PlayerData(name, (cp.PlayersAmount).ToString());
-        int clonesToSpawn = cp.PlayersAmount - playerClones.Count;
-        for (int i = 0; i < clonesToSpawn; i++)
-        {
-            PlayerClone clone = Instantiate(clonePrefab);
-            playerClones.Add(clone);
-        }
+    private void SendPlayerDataPacket()
+    {
+        PlayerDataPacket pdp = new PlayerDataPacket(playerData);
+        SendPacket(pdp);
+    }
+
+    public void SendPacket(BasePacket packet)
+    {
+        Debug.Log("Sending packet to server! " + packet.Type);
+        clientSocket.Send(packet.Serialize());
     }
 }

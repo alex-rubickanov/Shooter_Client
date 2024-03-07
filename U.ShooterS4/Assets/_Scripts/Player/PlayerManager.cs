@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
+using ShooterNetwork;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : NetworkBehaviour
 {
     [SerializeField] private PlayerPawn playerPawnPrefab;
     [SerializeField] private float respawnTime;
@@ -15,10 +15,15 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        Client.Instance.OnIDAssigned += OnIDAssigned;
+    }
+
+    private void OnIDAssigned()
+    {
         SpawnPlayerPawn();
     }
 
-    
+
     public void RespawnPlayerPawn()
     {
         StartCoroutine(RespawnWithDelay());
@@ -37,5 +42,8 @@ public class PlayerManager : MonoBehaviour
         currentPlayerPawn = Instantiate(playerPawnPrefab, transform.position, Quaternion.identity, transform);
         currentPlayerPawn.SetPlayerManager(this);
         currentPlayerPawn.GetInputReader().EnableInput();
+
+        PawnSpawnPacket psp = new PawnSpawnPacket(Client.Instance.PlayerData);
+        Client.Instance.SendPacket(psp);
     }
 }

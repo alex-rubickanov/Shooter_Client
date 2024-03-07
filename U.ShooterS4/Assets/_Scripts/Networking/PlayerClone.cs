@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerClone : MonoBehaviour
 {
-    private string socketString;
-    public string SocketString => socketString;
-    public void SetSocketString(string socketString)
+    [SerializeField] private float moveSmoothTime = 0.1f;
+    
+    public void Move(float x, float y)
     {
-        this.socketString = socketString;
+        transform.position = new Vector3(x, 0, y);
     }
 }

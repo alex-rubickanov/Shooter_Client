@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
+using ShooterNetwork;
+using UnityEngine.Serialization;
 
 public class Client : MonoBehaviour
 {
-    [SerializeField] private PlayerClone clonePrefab;
-    
     public static Client Instance;
+    [SerializeField] private string desiredName; // TEST
+
+    private PlayerData playerData;
+    public PlayerData PlayerData => playerData;
 
     private Socket clientSocket;
     private List<PlayerClone> playerClones = new List<PlayerClone>();
 
     // Callbacks
     private AsyncCallback connectServerCallback;
-
     // Packets Events
     public Action<DebugLogPacket> OnDebugLogPacketReceived;
+
+    [SerializeField] private PlayerClone clonePrefab;
+
+    [Header("-----TIMINGS-----")]
+    [SerializeField] private float moveSendRate = 0.1f;
+    public float MOVE_SEND_RATE => moveSendRate;
 
     private void Awake()
     {
@@ -33,6 +42,7 @@ public class Client : MonoBehaviour
 
     private void Start()
     {
+        playerData = new PlayerData(desiredName);
         ConnectToServer();
     }
 
@@ -61,7 +71,6 @@ public class Client : MonoBehaviour
         }
 
         Debug.Log($"Connected to server!  {clientSocket.LocalEndPoint.ToString()}");
-        SendConnectionPacket();
     }
 
     private void Update()
@@ -97,11 +106,18 @@ public class Client : MonoBehaviour
                         DebugLogPacket dlp = new DebugLogPacket().Deserialize(buffer);
                         OnDebugLogPacketReceived?.Invoke(dlp);
                         break;
-                    case PacketType.ConnectionPacket:
-                        Debug.LogWarning($"{gameObject.name}" + " received a ConnectionPacket packet");
-                        ConnectionPacket cp = new ConnectionPacket().Deserialize(buffer);
-                        PlayerClone clone = Instantiate(clonePrefab);
-                        playerClones.Add(clone);
+                    case PacketType.Connection:
+                        ReadConnectionPacket(buffer);
+                        break;
+                    case PacketType.Move:
+                        MovePacket mp = new MovePacket().Deserialize(buffer);
+                        int id = int.Parse(mp.DataHolder.ID);
+                        Debug.Log(id + "moves!");
+                        if (playerClones.Count > id)
+                        {
+                            playerClones[id].transform.position = new Vector3(mp.Position.x, 0, mp.Position.y);
+                        }
+
                         break;
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
@@ -113,33 +129,28 @@ public class Client : MonoBehaviour
         {
             if (ex.SocketErrorCode != SocketError.WouldBlock)
             {
-                print(ex.Message);
+                Debug.Log(ex.Message);
             }
         }
     }
 
-    private void OnEnable()
-    {
-        OnDebugLogPacketReceived += Test;
-    }
-
-    private void OnDisable()
-    {
-        OnDebugLogPacketReceived -= Test;
-    }
-
-    private void Test(DebugLogPacket obj)
-    {
-        Debug.Log($"Message received: {obj.Message}");
-    }
-    
-    public void SendConnectionPacket()
-    {
-        clientSocket.Send(new ConnectionPacket(clientSocket).Serialize());
-    }
-    
     public void SendPacket(BasePacket packet)
     {
         clientSocket.Send(packet.Serialize());
+    }
+
+    public void ReadConnectionPacket(byte[] buffer)
+    {
+        ConnectionPacket cp = new ConnectionPacket().Deserialize(buffer);
+        Debug.Log("Player connected! ID: " + cp.PlayersAmount);
+
+        string name = playerData.Name;
+        playerData = new PlayerData(name, (cp.PlayersAmount).ToString());
+        int clonesToSpawn = cp.PlayersAmount - playerClones.Count;
+        for (int i = 0; i < clonesToSpawn; i++)
+        {
+            PlayerClone clone = Instantiate(clonePrefab);
+            playerClones.Add(clone);
+        }
     }
 }

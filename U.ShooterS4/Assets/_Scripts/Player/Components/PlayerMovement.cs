@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
-    [FormerlySerializedAs("separateInputReader")] [SerializeField] private InputReader inputReader;
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private PlayerAiming playerAiming;
 
     [SerializeField] private float aimSpeed = 3.0f;
@@ -30,9 +31,22 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool canRun = true;
     public float MaxSpeed => runSpeed;
 
+    private float timer;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if(rb.velocity.magnitude <= 1.0f) return;
+        timer += Time.deltaTime;
+        if (timer >= Client.Instance.MOVE_SEND_RATE)
+        {
+            timer = 0;
+            SendMovePacket(transform.position);
+        }
     }
 
     private void FixedUpdate()

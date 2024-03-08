@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 using ShooterNetwork;
-using UnityEngine.Serialization;
 
 public class Client : MonoBehaviour
 {
@@ -17,17 +16,14 @@ public class Client : MonoBehaviour
     private Socket clientSocket;
     private Dictionary<string, PlayerClone> playerClones = new Dictionary<string, PlayerClone>();
 
-    // Callbacks
-    private AsyncCallback connectServerCallback;
     // Packets Events
     public event Action<DebugLogPacket> OnDebugLogPacketReceived;
-    public event Action OnIDAssigned;
+    public event Action<MovePacket> OnMovePacketReceived;
+
 
     [SerializeField] private PlayerClone clonePrefab;
 
-    [Header("-----TIMINGS-----")]
-    [SerializeField] private float moveSendRate = 0.1f;
-    public float MOVE_SEND_RATE => moveSendRate;
+    public event Action OnIDAssigned;
 
     private void Awake()
     {
@@ -111,21 +107,16 @@ public class Client : MonoBehaviour
                         break;
 
                     case PacketType.PlayerPawnSpawn:
-                        PawnSpawnPacket psp = new PawnSpawnPacket().Deserialize(buffer);
-                        PlayerClone pc = Instantiate(clonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                        if (psp.DataHolder.ID == playerData.ID || playerClones.ContainsKey(psp.DataHolder.ID))
-                        {
-                            Debug.LogError("SASHA TI CLOWN");
-                            break;
-                        }
-
-                        pc.gameObject.name = psp.DataHolder.Name;
-                        playerClones.Add(psp.DataHolder.ID, pc);
+                        SpawnPlayerClone(buffer);
                         break;
 
                     case PacketType.Move:
+                        MovePacket mp = new MovePacket().Deserialize(buffer);
+                        OnMovePacketReceived?.Invoke(mp);
                         break;
 
+                    case PacketType.PlayerData:
+                        break;
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;
@@ -141,20 +132,27 @@ public class Client : MonoBehaviour
         }
     }
 
+    private void SpawnPlayerClone(byte[] buffer)
+    {
+        PawnSpawnPacket psp = new PawnSpawnPacket().Deserialize(buffer);
+        PlayerClone pc = Instantiate(clonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        PlayerData cloneData = new PlayerData(psp.DataHolder.Name, psp.DataHolder.ID);
+        pc.SetCloneData(cloneData);
+        pc.gameObject.name = psp.DataHolder.Name + " " + psp.DataHolder.ID;
+        playerClones.Add(psp.DataHolder.ID, pc);
+    }
+
+
     private void AssignIDFromPacket(byte[] buffer)
     {
         AssignIDPacket aidp = new AssignIDPacket().Deserialize(buffer);
         playerData = new PlayerData(desiredName, aidp.ID);
+        if (playerData.ID == "0")
+        {
+            Debug.LogError("Player ID is 0. Possible IDs are 1-4.");
+        }
+
         OnIDAssigned?.Invoke();
-        
-        SendPlayerDataPacket();
-    }
-
-
-    private void SendPlayerDataPacket()
-    {
-        PlayerDataPacket pdp = new PlayerDataPacket(playerData);
-        SendPacket(pdp);
     }
 
     public void SendPacket(BasePacket packet)

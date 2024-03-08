@@ -1,11 +1,36 @@
+using System;
+using ShooterNetwork;
 using UnityEngine;
 
 public class PlayerClone : MonoBehaviour
 {
-    [SerializeField] private float moveSmoothTime = 0.1f;
-    
-    public void Move(float x, float y)
+    private PlayerData cloneData;
+    private CloneMovement cloneMovement;
+
+    private void Awake()
     {
-        transform.position = new Vector3(x, 0, y);
+        cloneMovement = GetComponent<CloneMovement>();
+    }
+
+    private void OnEnable()
+    {
+        Client.Instance.OnMovePacketReceived += MoveClone;
+    }
+
+    private void OnDisable()
+    {
+        Client.Instance.OnMovePacketReceived -= MoveClone;
+    }
+
+    private void MoveClone(MovePacket packet)
+    {
+        if (packet.DataHolder.ID != cloneData.ID) return;
+        cloneMovement.Move(new UnityEngine.Vector2(packet.Position.X, packet.Position.Y));
+        cloneMovement.Rotate(packet.RotationY);
+    }
+
+    public void SetCloneData(PlayerData data)
+    {
+        cloneData = data;
     }
 }

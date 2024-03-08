@@ -31,8 +31,6 @@ public class PlayerMovement : NetworkBehaviour
     [HideInInspector] public bool canRun = true;
     public float MaxSpeed => runSpeed;
 
-    private float timer;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,13 +38,8 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        if(rb.velocity.magnitude <= 1.0f) return;
-        timer += Time.deltaTime;
-        if (timer >= Client.Instance.MOVE_SEND_RATE)
-        {
-            timer = 0;
-            SendMovePacket(transform.position);
-        }
+        if (rb.velocity.magnitude <= 1.0f && !playerAiming.IsAiming) return;
+        SendMovePacket(transform.position.x, transform.position.z, transform.eulerAngles.y);
     }
 
     private void FixedUpdate()
@@ -94,12 +87,6 @@ public class PlayerMovement : NetworkBehaviour
         return moveDirection;
     }
 
-    private void OnEnable()
-    {
-        inputReader.OnMoveEvent += ReadMoveInputVector;
-        inputReader.OnRunEvent += InputReaderOnOnRunEvent;
-        inputReader.OnDashEvent += Dash;
-    }
 
     private void Dash()
     {
@@ -118,6 +105,13 @@ public class PlayerMovement : NetworkBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashReload);
         canDash = true;
+    }
+
+    private void OnEnable()
+    {
+        inputReader.OnMoveEvent += ReadMoveInputVector;
+        inputReader.OnRunEvent += InputReaderOnOnRunEvent;
+        inputReader.OnDashEvent += Dash;
     }
 
     private void OnDisable()

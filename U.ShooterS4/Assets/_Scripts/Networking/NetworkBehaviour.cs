@@ -10,10 +10,10 @@ public class NetworkBehaviour : MonoBehaviour
         Client.Instance.SendPacket(debugLogPacket);
     }
 
-    public void SendMovePacket(UnityEngine.Vector3 position)
+    public void SendMovePacket(float positionX, float positionY, float rotationY)
     {
-        Vector2 vec = new Vector2(position.x, position.z);
-        MovePacket movePacket = new MovePacket(vec, Client.Instance.PlayerData);
+        Vector2 pos = new Vector2(positionX, positionY);
+        MovePacket movePacket = new MovePacket(new Vector2(positionX, positionY), rotationY, Client.Instance.PlayerData);
         Client.Instance.SendPacket(movePacket);
     }
 }

@@ -21,6 +21,7 @@ public class PlayerClone : MonoBehaviour
         Client.Instance.OnAimPacketReceived += AimClone;
         Client.Instance.OnEquipWeaponPacketReceived += EquipWeapon;
         Client.Instance.OnFireBulletPacketReceived += FireBullet;
+        Client.Instance.OnReloadPacketReceived += Reload;
     }
 
     private void OnDisable()
@@ -29,6 +30,13 @@ public class PlayerClone : MonoBehaviour
         Client.Instance.OnAimPacketReceived -= AimClone;
         Client.Instance.OnEquipWeaponPacketReceived -= EquipWeapon;
         Client.Instance.OnFireBulletPacketReceived -= FireBullet;
+        Client.Instance.OnReloadPacketReceived -= Reload;
+    }
+    
+    private void Reload(ReloadPacket packet)
+    {
+        if(packet.DataHolder.ID != cloneData.ID) return;
+        cloneShooting.Reload();
     }
 
     private void FireBullet(FireBulletPacket packet)

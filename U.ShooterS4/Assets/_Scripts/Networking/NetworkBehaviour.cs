@@ -33,4 +33,10 @@ public class NetworkBehaviour : MonoBehaviour
         FireBulletPacket fireBulletPacket = new FireBulletPacket(recoilOffset, Client.Instance.PlayerData);
         Client.Instance.SendPacket(fireBulletPacket);
     }
+    
+    public void SendReloadPacket()
+    {
+        ReloadPacket reloadPacket = new ReloadPacket(Client.Instance.PlayerData);
+        Client.Instance.SendPacket(reloadPacket);
+    }
 }

@@ -54,6 +54,7 @@ public class PlayerManager : NetworkBehaviour
 
         ShooterNetwork.Vector2 pos = new ShooterNetwork.Vector2(currentPlayerPawn.transform.position.x,
             currentPlayerPawn.transform.position.z);
+        
         PawnSpawnPacket psp = new PawnSpawnPacket(pos, Client.Instance.PlayerData);
         Client.Instance.SendPacket(psp);
     }

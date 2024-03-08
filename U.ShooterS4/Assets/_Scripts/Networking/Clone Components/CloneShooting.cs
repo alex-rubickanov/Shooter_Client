@@ -56,11 +56,8 @@ public class CloneShooting : MonoBehaviour
         currentWeapon.FireBulletClone(rec);
     }
 
-    private void Reload()
+    public void Reload()
     {
-        //if (currentWeapon == null) return;
-        //if (isReloading || currentWeapon.IsAmmoFull()) return;
-
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
 
         reloadCoroutine = StartCoroutine(Reloading());

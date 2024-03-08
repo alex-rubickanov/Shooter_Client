@@ -121,6 +121,8 @@ public class PlayerShooting : NetworkBehaviour
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
 
         reloadCoroutine = StartCoroutine(Reloading());
+        
+        SendReloadPacket();
     }
 
     private IEnumerator Reloading()

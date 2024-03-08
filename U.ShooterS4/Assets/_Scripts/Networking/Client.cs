@@ -22,6 +22,7 @@ public class Client : MonoBehaviour
     public event Action<AimPacket> OnAimPacketReceived;
     public event Action<EquipWeaponPacket> OnEquipWeaponPacketReceived;
     public event Action<FireBulletPacket> OnFireBulletPacketReceived;
+    public event Action<ReloadPacket> OnReloadPacketReceived;
 
 
     [SerializeField] private PlayerClone clonePrefab;
@@ -82,13 +83,14 @@ public class Client : MonoBehaviour
 
     private void ReceiveData()
     {
-        if (!clientSocket.Connected ||clientSocket.Available < 0)
+        if (!clientSocket.Connected ||clientSocket.Available <= 0)
             return;
 
         try
         {
             byte[] buffer = new byte[clientSocket.Available];
             clientSocket.Receive(buffer);
+            BasePacket.Reset();
 
             while (BasePacket.DataRemainingInBuffer(buffer.Length))
             {
@@ -136,6 +138,12 @@ public class Client : MonoBehaviour
                         FireBulletPacket fbp = new FireBulletPacket().Deserialize(buffer);
                         OnFireBulletPacketReceived?.Invoke(fbp);
                         break;
+                    
+                    case PacketType.Reload:
+                        ReloadPacket rp = new ReloadPacket().Deserialize(buffer);
+                        OnReloadPacketReceived?.Invoke(rp);
+                        break;
+                    
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;

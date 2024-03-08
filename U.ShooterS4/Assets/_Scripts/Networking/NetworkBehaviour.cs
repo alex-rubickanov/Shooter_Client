@@ -21,4 +21,10 @@ public class NetworkBehaviour : MonoBehaviour
         AimPacket aimPacket = new AimPacket(isAiming, Client.Instance.PlayerData);
         Client.Instance.SendPacket(aimPacket);
     }
+    
+    public void SendEquipWeaponPacket(int weaponID)
+    {
+        EquipWeaponPacket equipWeaponPacket = new EquipWeaponPacket(weaponID, Client.Instance.PlayerData);
+        Client.Instance.SendPacket(equipWeaponPacket);
+    }
 }

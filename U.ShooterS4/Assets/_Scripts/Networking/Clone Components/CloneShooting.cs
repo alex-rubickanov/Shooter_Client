@@ -1,14 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.TextCore.Text;
 
-public class PlayerShooting : NetworkBehaviour
+public class CloneShooting : MonoBehaviour
 {
-    [SerializeField] private PlayerAnimatorController playerAnimatorController;
-    [SerializeField] private InputReader inputReader;
+    [SerializeField] private CloneAnimatorController playerAnimatorController;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
     [SerializeField] private List<Weapon> weapons;
@@ -27,23 +23,9 @@ public class PlayerShooting : NetworkBehaviour
 
     public bool IsFiring => isFiring;
 
-    private void Start()
+    public void EquipWeapon(int weaponID)
     {
-        EquipWeapon(weapons[0]);
-        currentWeaponIndex = 0;
-    }
-
-    private void Update()
-    {
-        if (isFiring)
-        {
-            Shoot();
-        }
-    }
-
-
-    private void EquipWeapon(Weapon weapon)
-    {
+        Weapon weapon = weapons[weaponID];
         WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
         Weapon clonedWeapon = null;
 
@@ -62,12 +44,9 @@ public class PlayerShooting : NetworkBehaviour
                 break;
         }
 
-
         currentWeapon = clonedWeapon;
 
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
-        
-        SendEquipWeaponPacket(currentWeaponIndex);
     }
 
     private void Shoot()
@@ -80,17 +59,6 @@ public class PlayerShooting : NetworkBehaviour
         }
 
         currentWeapon.Shoot();
-    }
-
-    public void StartFiring()
-    {
-        isFiring = true;
-    }
-
-    public void StopFiring()
-    {
-        isFiring = false;
-        currentWeapon.StopFiring();
     }
 
     private void Reload()
@@ -113,20 +81,6 @@ public class PlayerShooting : NetworkBehaviour
         isReloading = false;
     }
 
-    private void ReadFireButton(bool isFiring)
-    {
-        if (isFiring)
-        {
-            StartFiring();
-        }
-        else
-        {
-            StopFiring();
-        }
-    }
-
-    
-
     private void PlayReload1Sound()
     {
         audioManagerChannel.RaiseEvent(reload1, currentWeapon.transform.position);
@@ -141,63 +95,20 @@ public class PlayerShooting : NetworkBehaviour
     {
         audioManagerChannel.RaiseEvent(reload3, currentWeapon.transform.position);
     }
-    
-    private void NextWeapon()
-    {
-        Destroy(currentWeapon.gameObject);
-        
-        if (currentWeaponIndex == weapons.Count - 1)
-        {
-            currentWeaponIndex = 0;
-        }
-        else
-        {
-            currentWeaponIndex++;
-        }
 
-        EquipWeapon(weapons[currentWeaponIndex]);
-    }
-    
-    private void PreviousWeapon()
-    {
-        Destroy(currentWeapon.gameObject);
-        
-        if (currentWeaponIndex == 0)
-        {
-            currentWeaponIndex = weapons.Count - 1;
-        }
-        else
-        {
-            currentWeaponIndex--;
-        }
-
-        EquipWeapon(weapons[currentWeaponIndex]);
-    }
 
     private void OnEnable()
     {
-        inputReader.OnFireEvent += ReadFireButton;
-        inputReader.OnReloadEvent += Reload;
-
         playerAnimatorController.OnReload1 += PlayReload1Sound;
         playerAnimatorController.OnReload2 += PlayReload2Sound;
         playerAnimatorController.OnReload3 += PlayReload3Sound;
-        
-        inputReader.OnNextWeaponEvent += NextWeapon;
-        inputReader.OnPreviousWeaponEvent += PreviousWeapon;
     }
 
     private void OnDisable()
     {
-        inputReader.OnFireEvent -= ReadFireButton;
-        inputReader.OnReloadEvent -= Reload;
-
         playerAnimatorController.OnReload1 -= PlayReload1Sound;
         playerAnimatorController.OnReload2 -= PlayReload2Sound;
         playerAnimatorController.OnReload3 -= PlayReload3Sound;
-        
-        inputReader.OnNextWeaponEvent -= NextWeapon;
-        inputReader.OnPreviousWeaponEvent -= PreviousWeapon;
     }
 
     private void OnDestroy()

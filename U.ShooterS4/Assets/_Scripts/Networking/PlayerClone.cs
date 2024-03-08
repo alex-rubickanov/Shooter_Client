@@ -1,4 +1,3 @@
-using System;
 using ShooterNetwork;
 using UnityEngine;
 
@@ -7,24 +6,33 @@ public class PlayerClone : MonoBehaviour
     private PlayerData cloneData;
     private CloneMovement cloneMovement;
     private CloneAiming cloneAiming;
+    private CloneShooting cloneShooting;
 
     private void Awake()
     {
         cloneMovement = GetComponent<CloneMovement>();
         cloneAiming = GetComponent<CloneAiming>();
+        cloneShooting = GetComponent<CloneShooting>();
     }
 
     private void OnEnable()
     {
         Client.Instance.OnMovePacketReceived += MoveClone;
         Client.Instance.OnAimPacketReceived += AimClone;
+        Client.Instance.OnEquipWeaponPacketReceived += EquipWeapon;
     }
-
 
     private void OnDisable()
     {
         Client.Instance.OnMovePacketReceived -= MoveClone;
         Client.Instance.OnAimPacketReceived -= AimClone;
+        Client.Instance.OnEquipWeaponPacketReceived -= EquipWeapon;
+    }
+
+    private void EquipWeapon(EquipWeaponPacket packet)
+    {
+        if(packet.DataHolder.ID != cloneData.ID) return;
+        cloneShooting.EquipWeapon(packet.WeaponID);
     }
 
     private void AimClone(AimPacket packet)

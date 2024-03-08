@@ -19,7 +19,8 @@ public class Client : MonoBehaviour
     // Packets Events
     public event Action<DebugLogPacket> OnDebugLogPacketReceived;
     public event Action<MovePacket> OnMovePacketReceived;
-    public event Action<AimPacket> OnAimPacketReceived; 
+    public event Action<AimPacket> OnAimPacketReceived;
+    public event Action<EquipWeaponPacket> OnEquipWeaponPacketReceived;
 
 
     [SerializeField] private PlayerClone clonePrefab;
@@ -118,10 +119,17 @@ public class Client : MonoBehaviour
 
                     case PacketType.PlayerData:
                         break;
+
                     case PacketType.Aim:
                         AimPacket ap = new AimPacket().Deserialize(buffer);
                         OnAimPacketReceived?.Invoke(ap);
                         break;
+
+                    case PacketType.EquipWeapon:
+                        EquipWeaponPacket ewp = new EquipWeaponPacket().Deserialize(buffer);
+                        OnEquipWeaponPacketReceived?.Invoke(ewp);
+                        break;
+
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;
@@ -140,11 +148,14 @@ public class Client : MonoBehaviour
     private void SpawnPlayerClone(byte[] buffer)
     {
         PawnSpawnPacket psp = new PawnSpawnPacket().Deserialize(buffer);
-        PlayerClone pc = Instantiate(clonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        PlayerData cloneData = new PlayerData(psp.DataHolder.Name, psp.DataHolder.ID);
-        pc.SetCloneData(cloneData);
-        pc.gameObject.name = psp.DataHolder.Name + " ID:" + psp.DataHolder.ID;
-        playerClones.Add(psp.DataHolder.ID, pc);
+        if (!playerClones.ContainsKey(psp.DataHolder.ID))
+        {
+            PlayerClone pc = Instantiate(clonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            PlayerData cloneData = new PlayerData(psp.DataHolder.Name, psp.DataHolder.ID);
+            pc.SetCloneData(cloneData);
+            pc.gameObject.name = psp.DataHolder.Name + " ID:" + psp.DataHolder.ID;
+            playerClones.Add(psp.DataHolder.ID, pc);
+        }
     }
 
 

@@ -11,7 +11,8 @@ namespace ShooterNetwork
         PlayerPawnSpawn = 4,
         Move = 5,
         Aim = 6,
-        EquipWeapon = 7
+        EquipWeapon = 7,
+        FireBullet = 8
     }
 
     public class BasePacket
@@ -24,11 +25,11 @@ namespace ShooterNetwork
 
         public IDataHolder DataHolder { get; private set; }
         public PacketType Type { get; private set; }
-        public int PacketSize => packetSize;
-        protected int packetSize;
+        public int PacketSize { get; private set; }
 
-        private static int currentBufferPosition;
-
+        private static int currentBufferPosition = 0;
+        
+        private const int TYPE_SIZE = 4;
 
         public BasePacket()
         {
@@ -59,8 +60,8 @@ namespace ShooterNetwork
 
         protected byte[] EndSerialize()
         {
-            packetSize = (int)sms.Length + 4;
-            sbw.Write(packetSize);
+            PacketSize = (int)sms.Length + TYPE_SIZE;
+            sbw.Write(PacketSize);
             return sms.ToArray();
         }
 
@@ -83,8 +84,8 @@ namespace ShooterNetwork
 
         protected void EndDeserialize()
         {
-            packetSize = dbr.ReadInt32();
-            currentBufferPosition += packetSize;
+            PacketSize = dbr.ReadInt32();
+            currentBufferPosition += PacketSize;
         }
 
         public static bool DataRemainingInBuffer(int bufferSize)

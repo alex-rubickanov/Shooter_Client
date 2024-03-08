@@ -10,7 +10,8 @@ namespace ShooterNetwork
         AssignID = 3,
         PlayerPawnSpawn = 4,
         Move = 5,
-        Aim = 6
+        Aim = 6,
+        EquipWeapon = 7
     }
 
     public class BasePacket

@@ -2021,6 +2021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4281926343744700311}
   - component: {fileID: 937625580432697404}
+  - component: {fileID: 842519041955668494}
   m_Layer: 0
   m_Name: Player Visual
   m_TagString: Untagged
@@ -2066,6 +2067,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &842519041955668494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536926586985719469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee17e6b80a4a49e4fbdff2ac13a91471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pistolAnimatorController: {fileID: 9100000, guid: 14bb9ff447c82ea4eaa7bf51adcc21c8,
+    type: 2}
+  rifleAnimatorController: {fileID: 9100000, guid: 6e6c3d0d7069482478834a3b642ea6c8,
+    type: 2}
+  playerMovement: {fileID: 0}
+  playerAiming: {fileID: 0}
+  playerShooting: {fileID: 0}
+  cloneMovement: {fileID: 1946461591121639408}
 --- !u!1 &8714775885045534409
 GameObject:
   m_ObjectHideFlags: 0

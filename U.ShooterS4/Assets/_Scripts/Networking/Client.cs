@@ -138,7 +138,7 @@ public class Client : MonoBehaviour
         PlayerClone pc = Instantiate(clonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         PlayerData cloneData = new PlayerData(psp.DataHolder.Name, psp.DataHolder.ID);
         pc.SetCloneData(cloneData);
-        pc.gameObject.name = psp.DataHolder.Name + " " + psp.DataHolder.ID;
+        pc.gameObject.name = psp.DataHolder.Name + " ID:" + psp.DataHolder.ID;
         playerClones.Add(psp.DataHolder.ID, pc);
     }
 

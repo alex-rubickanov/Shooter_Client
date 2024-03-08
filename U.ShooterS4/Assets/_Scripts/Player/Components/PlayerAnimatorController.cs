@@ -42,7 +42,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     protected void SimpleMoveAnimating()
     {
-        float maxSpeed = playerMovement.MaxSpeed;
+        float maxSpeed = PlayerConstants.MAX_SPEED;
         animator.SetFloat(VelocityMagnitude, movementVelocity.magnitude / maxSpeed);
     }
 

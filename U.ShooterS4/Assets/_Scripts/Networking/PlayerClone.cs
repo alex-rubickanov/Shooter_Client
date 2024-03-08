@@ -25,7 +25,8 @@ public class PlayerClone : MonoBehaviour
     private void MoveClone(MovePacket packet)
     {
         if (packet.DataHolder.ID != cloneData.ID) return;
-        cloneMovement.Move(new UnityEngine.Vector2(packet.Position.X, packet.Position.Y));
+        cloneMovement.Move(new UnityEngine.Vector2(packet.Position.X, packet.Position.Y),
+            new UnityEngine.Vector2(packet.Velocity.X, packet.Velocity.Y));
         cloneMovement.Rotate(packet.RotationY);
     }
 

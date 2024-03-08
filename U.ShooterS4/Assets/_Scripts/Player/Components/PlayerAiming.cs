@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PlayerAiming : MonoBehaviour
+public class PlayerAiming : NetworkBehaviour
 {
-    [FormerlySerializedAs("separateInputReader")] [SerializeField] private InputReader inputReader;
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float rotateSmoothTime = 0.1f;
@@ -114,6 +112,8 @@ public class PlayerAiming : MonoBehaviour
         this.isAiming = isAiming;
         playerMovement.canRun = !isAiming;
         this.controlScheme = controlScheme;
+        
+        SendAimPacket(isAiming);
     }
 
     private void ReadRotateInputVector(Vector2 direction)

@@ -15,4 +15,10 @@ public class NetworkBehaviour : MonoBehaviour
         MovePacket movePacket = new MovePacket(position, velocity, rotationY, Client.Instance.PlayerData);
         Client.Instance.SendPacket(movePacket);
     }
+    
+    public void SendAimPacket(bool isAiming)
+    {
+        AimPacket aimPacket = new AimPacket(isAiming, Client.Instance.PlayerData);
+        Client.Instance.SendPacket(aimPacket);
+    }
 }

@@ -19,6 +19,7 @@ public class Client : MonoBehaviour
     // Packets Events
     public event Action<DebugLogPacket> OnDebugLogPacketReceived;
     public event Action<MovePacket> OnMovePacketReceived;
+    public event Action<AimPacket> OnAimPacketReceived; 
 
 
     [SerializeField] private PlayerClone clonePrefab;
@@ -116,6 +117,10 @@ public class Client : MonoBehaviour
                         break;
 
                     case PacketType.PlayerData:
+                        break;
+                    case PacketType.Aim:
+                        AimPacket ap = new AimPacket().Deserialize(buffer);
+                        OnAimPacketReceived?.Invoke(ap);
                         break;
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");

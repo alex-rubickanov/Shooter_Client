@@ -10,7 +10,7 @@ public class PlayerAnimatorController : MonoBehaviour
     [SerializeField] private PlayerAiming playerAiming;
     [SerializeField] private PlayerShooting playerShooting;
     
-    private Animator animator;
+    protected Animator animator;
     protected static readonly int VelocityMagnitude = Animator.StringToHash("VelocityMagnitude");
     protected static readonly int IsAiming = Animator.StringToHash("IsAiming");
 
@@ -46,7 +46,7 @@ public class PlayerAnimatorController : MonoBehaviour
         animator.SetFloat(VelocityMagnitude, movementVelocity.magnitude / maxSpeed);
     }
 
-    protected void AimAnimating()
+    protected virtual void AimAnimating()
     {
         bool isAiming = playerAiming.IsAiming;
         bool isFiring = playerShooting.IsFiring;

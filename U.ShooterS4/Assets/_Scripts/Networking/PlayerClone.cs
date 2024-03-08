@@ -6,20 +6,31 @@ public class PlayerClone : MonoBehaviour
 {
     private PlayerData cloneData;
     private CloneMovement cloneMovement;
+    private CloneAiming cloneAiming;
 
     private void Awake()
     {
         cloneMovement = GetComponent<CloneMovement>();
+        cloneAiming = GetComponent<CloneAiming>();
     }
 
     private void OnEnable()
     {
         Client.Instance.OnMovePacketReceived += MoveClone;
+        Client.Instance.OnAimPacketReceived += AimClone;
     }
+
 
     private void OnDisable()
     {
         Client.Instance.OnMovePacketReceived -= MoveClone;
+        Client.Instance.OnAimPacketReceived -= AimClone;
+    }
+
+    private void AimClone(AimPacket packet)
+    {
+        if(packet.DataHolder.ID != cloneData.ID) return;
+        cloneAiming.IsAiming = packet.IsAiming;
     }
 
     private void MoveClone(MovePacket packet)

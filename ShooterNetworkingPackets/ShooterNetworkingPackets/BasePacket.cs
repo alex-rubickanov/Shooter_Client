@@ -12,7 +12,8 @@ namespace ShooterNetwork
         Move = 5,
         Aim = 6,
         EquipWeapon = 7,
-        FireBullet = 8
+        FireBullet = 8,
+        Reload = 9
     }
 
     public class BasePacket
@@ -68,14 +69,14 @@ namespace ShooterNetwork
         public BasePacket Deserialize(byte[] buffer)
         {
             BeginDeserialize(buffer);
-            EndDeserialize();
+            //EndDeserialize();
             return this;
         }
 
         protected void BeginDeserialize(byte[] buffer)
         {
             dms = new MemoryStream(buffer);
-            //dms.Seek(currentBufferPosition, SeekOrigin.Begin);
+            dms.Seek(currentBufferPosition, SeekOrigin.Begin);
             dbr = new BinaryReader(dms);
 
             Type = (PacketType)dbr.ReadInt32();
@@ -95,6 +96,11 @@ namespace ShooterNetwork
 
             currentBufferPosition = 0;
             return false;
+        }
+
+        public static void Reset()
+        {
+            currentBufferPosition = 0;
         }
     }
 }

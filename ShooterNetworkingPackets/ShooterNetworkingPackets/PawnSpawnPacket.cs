@@ -27,7 +27,7 @@ namespace ShooterNetwork
             position.X = dbr.ReadSingle();
             position.Y = dbr.ReadSingle();
             EndDeserialize();
-            return (PawnSpawnPacket) base.Deserialize(buffer);
+            return this;
         }
     }
 }

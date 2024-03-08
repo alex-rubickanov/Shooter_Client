@@ -11,6 +11,7 @@ public class CloneAnimatorController : PlayerAnimatorController
 
         SimpleMoveAnimating();
         AimAnimating();
+        AimMoveAnimating();
     }
 
     protected override void AimAnimating()

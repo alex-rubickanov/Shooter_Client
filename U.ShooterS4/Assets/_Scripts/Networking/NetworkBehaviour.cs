@@ -27,4 +27,10 @@ public class NetworkBehaviour : MonoBehaviour
         EquipWeaponPacket equipWeaponPacket = new EquipWeaponPacket(weaponID, Client.Instance.PlayerData);
         Client.Instance.SendPacket(equipWeaponPacket);
     }
+    
+    public void SendFireBulletPacket(Vector2 recoilOffset)
+    {
+        FireBulletPacket fireBulletPacket = new FireBulletPacket(recoilOffset, Client.Instance.PlayerData);
+        Client.Instance.SendPacket(fireBulletPacket);
+    }
 }

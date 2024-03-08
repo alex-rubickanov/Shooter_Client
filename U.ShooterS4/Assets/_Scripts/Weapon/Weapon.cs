@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
+using Vector2 = ShooterNetwork.Vector2;
 
 public class Weapon : MonoBehaviour
 {
     private PlayerPawn owner;
-    
+
     [SerializeField] protected WeaponConfig weaponConfig;
     [SerializeField] protected Transform muzzleTransform;
 
@@ -15,15 +17,17 @@ public class Weapon : MonoBehaviour
 
     protected int maxClips;
     protected int ammo;
-    
+
     public float ReloadTime => weaponConfig.reloadTime;
+
+    public event Action<Vector3> OnFireBullet;
 
     protected void Start()
     {
         ammo = weaponConfig.maxAmmo;
         timer = weaponConfig.fireRate;
-        
-        owner = GetComponentInParent<PlayerPawn>(); 
+
+        owner = GetComponentInParent<PlayerPawn>();
     }
 
     protected void Update()
@@ -34,7 +38,6 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         if (!CanFire()) return;
-
         FireBullet();
     }
 
@@ -44,7 +47,7 @@ public class Weapon : MonoBehaviour
         {
             return false;
         }
-        
+
         if (!weaponConfig.isAutomatic)
         {
             if (shotFired)
@@ -63,24 +66,41 @@ public class Weapon : MonoBehaviour
     {
         timer = 0.0f;
         ammo--;
-        Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0, UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
-        
-        var traceStart = muzzleTransform.position;
-        var traceEnd = muzzleTransform.forward * 30f + recoilOffset;
-        
-        //Debug.DrawRay(traceStart, traceEnd, Color.blue, 2.0f);
-        
-        var bullet = Instantiate(weaponConfig.bulletPrefab, traceStart, Quaternion.identity); 
+        Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0,
+            UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
+
+
+        var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
         bullet.Initialize(owner, weaponConfig.damage);
-        
-        bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset, ForceMode.Impulse);
-        
+
+        bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset,
+            ForceMode.Impulse);
+
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
-        
+
         weaponConfig.sfxChannel.RaiseEvent(weaponConfig.gunShotSound, muzzleTransform.position);
+
+        if (ammo == 0) weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
+
+        OnFireBullet?.Invoke(recoilOffset);
         
-        if(ammo == 0) weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
-        
+        Destroy(muzzleFlash.gameObject, 2.0f);
+        Destroy(bullet.gameObject, 1.5f);
+    }
+
+    public void FireBulletClone(Vector3 recoilOffset)
+    {
+        var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
+        bullet.Initialize(owner, weaponConfig.damage);
+
+        bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset,
+            ForceMode.Impulse);
+
+        var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
+
+        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.gunShotSound, muzzleTransform.position);
+
+
         Destroy(muzzleFlash.gameObject, 2.0f);
         Destroy(bullet.gameObject, 1.5f);
     }
@@ -89,22 +109,22 @@ public class Weapon : MonoBehaviour
     {
         shotFired = false;
     }
-    
+
     public void Reload()
     {
         ammo = weaponConfig.maxAmmo;
     }
-    
+
     public bool IsAmmoFull()
     {
         return ammo == weaponConfig.maxAmmo;
     }
-    
+
     public int GetAmmo()
     {
         return ammo;
     }
-    
+
     public WeaponAnimationType GetWeaponType()
     {
         return weaponConfig.weaponAnimationType;
@@ -124,7 +144,7 @@ public class Weapon : MonoBehaviour
     {
         return weaponConfig.emptyClipSound;
     }
-    
+
     public float GetReloadTime()
     {
         return weaponConfig.reloadTime;

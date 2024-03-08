@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vector2 = ShooterNetwork.Vector2;
 
 public class CloneShooting : MonoBehaviour
 {
@@ -16,15 +17,15 @@ public class CloneShooting : MonoBehaviour
 
     private Weapon currentWeapon;
     private int currentWeaponIndex;
-    private bool canFire = true;
-    private bool isFiring;
-    private bool isReloading;
     private Coroutine reloadCoroutine;
-
-    public bool IsFiring => isFiring;
 
     public void EquipWeapon(int weaponID)
     {
+        if(currentWeapon != null)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+        
         Weapon weapon = weapons[weaponID];
         WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
         Weapon clonedWeapon = null;
@@ -49,22 +50,16 @@ public class CloneShooting : MonoBehaviour
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
     }
 
-    private void Shoot()
+    public void FireBullet(Vector2 recoilOffset)
     {
-        if (currentWeapon == null || !canFire) return;
-        if (currentWeapon.GetAmmo() == 0)
-        {
-            audioManagerChannel.RaiseEvent(currentWeapon.GetEmptyClipSound(), transform.position);
-            isFiring = false;
-        }
-
-        currentWeapon.Shoot();
+        Vector3 rec = new Vector3(recoilOffset.X, 0, recoilOffset.Y);
+        currentWeapon.FireBulletClone(rec);
     }
 
     private void Reload()
     {
-        if (currentWeapon == null) return;
-        if (isReloading || currentWeapon.IsAmmoFull()) return;
+        //if (currentWeapon == null) return;
+        //if (isReloading || currentWeapon.IsAmmoFull()) return;
 
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
 
@@ -73,12 +68,8 @@ public class CloneShooting : MonoBehaviour
 
     private IEnumerator Reloading()
     {
-        isReloading = true;
-        canFire = false;
         yield return new WaitForSeconds(currentWeapon.ReloadTime);
         currentWeapon.Reload();
-        canFire = true;
-        isReloading = false;
     }
 
     private void PlayReload1Sound()

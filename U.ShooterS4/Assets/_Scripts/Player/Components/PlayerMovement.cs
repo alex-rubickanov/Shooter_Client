@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
-    [FormerlySerializedAs("separateInputReader")] [SerializeField] private InputReader inputReader;
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private PlayerAiming playerAiming;
 
     [SerializeField] private float aimSpeed = 3.0f;
     [SerializeField] private float moveSpeed = 5.0f;
-    [SerializeField] private float runSpeed = 8.0f;
+    private readonly float runSpeed = 8.0f; // If change this value -> Change max value in player constants!
     [SerializeField] private float moveSmoothTime = 0.1f;
     [SerializeField] private float dashForce = 10.0f;
     [SerializeField] private float dashTime = 2.0f;
@@ -30,9 +31,19 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool canRun = true;
     public float MaxSpeed => runSpeed;
 
+    private bool isStanding;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if (rb.velocity.magnitude <= 0.1f && !playerAiming.IsAiming) return;
+        ShooterNetwork.Vector2 pos = new ShooterNetwork.Vector2(transform.position.x, transform.position.z);
+        ShooterNetwork.Vector2 vel = new ShooterNetwork.Vector2(movementVelocity.x, movementVelocity.z);
+        SendMovePacket(pos, vel, transform.eulerAngles.y);
     }
 
     private void FixedUpdate()
@@ -80,12 +91,6 @@ public class PlayerMovement : MonoBehaviour
         return moveDirection;
     }
 
-    private void OnEnable()
-    {
-        inputReader.OnMoveEvent += ReadMoveInputVector;
-        inputReader.OnRunEvent += InputReaderOnOnRunEvent;
-        inputReader.OnDashEvent += Dash;
-    }
 
     private void Dash()
     {
@@ -104,6 +109,13 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashReload);
         canDash = true;
+    }
+
+    private void OnEnable()
+    {
+        inputReader.OnMoveEvent += ReadMoveInputVector;
+        inputReader.OnRunEvent += InputReaderOnOnRunEvent;
+        inputReader.OnDashEvent += Dash;
     }
 
     private void OnDisable()

@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7db6629887e4c8419f102c6749567ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
   playerPawnPrefab: {fileID: -1822039808475212139, guid: e65dbfda86b3f0f4a88cb6f6e073ca0b,
     type: 3}
   respawnTime: 2
@@ -61,3 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716a2421bea9f574f8700cde3dcb82f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredName: Alex
+  clonePrefab: {fileID: 6052188132681216564, guid: 6a6695dc703b54742a3f729531b726ce,
+    type: 3}
+  moveSendRate: 0.1

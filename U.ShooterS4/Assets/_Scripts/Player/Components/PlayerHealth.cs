@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
     [SerializeField] private PlayerPawn playerPawn;
     [SerializeField] private float maxHealth = 100f;

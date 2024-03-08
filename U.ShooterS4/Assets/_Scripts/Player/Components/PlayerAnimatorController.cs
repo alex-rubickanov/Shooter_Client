@@ -1,27 +1,26 @@
 using UnityEngine;
 using System;
-using UnityEditor.Animations;
 
 public class PlayerAnimatorController : MonoBehaviour
 {
-    [SerializeField] private AnimatorController pistolAnimatorController;
-    [SerializeField] private AnimatorController rifleAnimatorController;
+    [SerializeField] protected RuntimeAnimatorController pistolAnimatorController;
+    [SerializeField] protected RuntimeAnimatorController rifleAnimatorController;
     
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAiming playerAiming;
     [SerializeField] private PlayerShooting playerShooting;
     
-    private Animator animator;
-    private static readonly int VelocityMagnitude = Animator.StringToHash("VelocityMagnitude");
-    private static readonly int IsAiming = Animator.StringToHash("IsAiming");
+    protected Animator animator;
+    protected static readonly int VelocityMagnitude = Animator.StringToHash("VelocityMagnitude");
+    protected static readonly int IsAiming = Animator.StringToHash("IsAiming");
 
-    private Vector3 movementVelocity;
-    private static readonly int VelocityX = Animator.StringToHash("VelocityX");
-    private static readonly int VelocityY = Animator.StringToHash("VelocityY");
-    private static readonly int IsPistol = Animator.StringToHash("IsPistol");
-    private static readonly int IsFiring = Animator.StringToHash("IsFiring");
-    private static readonly int Reload = Animator.StringToHash("Reload");
-    private static readonly int ReloadTimeMultiplayer = Animator.StringToHash("ReloadTimeMultiplier");
+    protected Vector3 movementVelocity;
+    protected static readonly int VelocityX = Animator.StringToHash("VelocityX");
+    protected static readonly int VelocityY = Animator.StringToHash("VelocityY");
+    protected static readonly int IsPistol = Animator.StringToHash("IsPistol");
+    protected static readonly int IsFiring = Animator.StringToHash("IsFiring");
+    protected static readonly int Reload = Animator.StringToHash("Reload");
+    protected static readonly int ReloadTimeMultiplayer = Animator.StringToHash("ReloadTimeMultiplier");
 
     public event Action OnReload1;
     public event Action OnReload2;
@@ -32,7 +31,7 @@ public class PlayerAnimatorController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public virtual void Update()
     {
         movementVelocity = playerMovement.GetMovementVelocity();
 
@@ -41,13 +40,13 @@ public class PlayerAnimatorController : MonoBehaviour
         AimMoveAnimating();
     }
 
-    private void SimpleMoveAnimating()
+    protected void SimpleMoveAnimating()
     {
-        float maxSpeed = playerMovement.MaxSpeed;
+        float maxSpeed = PlayerConstants.MAX_SPEED;
         animator.SetFloat(VelocityMagnitude, movementVelocity.magnitude / maxSpeed);
     }
 
-    private void AimAnimating()
+    protected virtual void AimAnimating()
     {
         bool isAiming = playerAiming.IsAiming;
         bool isFiring = playerShooting.IsFiring;
@@ -55,7 +54,7 @@ public class PlayerAnimatorController : MonoBehaviour
         animator.SetBool(IsFiring, isFiring);
     }
 
-    private void AimMoveAnimating()
+    protected void AimMoveAnimating()
     {
         movementVelocity = transform.InverseTransformDirection(movementVelocity);
 

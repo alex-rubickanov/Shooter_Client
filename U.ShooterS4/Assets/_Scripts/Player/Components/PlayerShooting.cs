@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
+using Vector2 = ShooterNetwork.Vector2;
 
-public class PlayerShooting : MonoBehaviour
+public class PlayerShooting : NetworkBehaviour
 {
     [SerializeField] private PlayerAnimatorController playerAnimatorController;
     [SerializeField] private InputReader inputReader;
@@ -44,6 +45,11 @@ public class PlayerShooting : MonoBehaviour
 
     private void EquipWeapon(Weapon weapon)
     {
+        if(currentWeapon != null)
+        {
+            UnEquipWeapon();
+        }
+        
         WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
         Weapon clonedWeapon = null;
 
@@ -65,7 +71,23 @@ public class PlayerShooting : MonoBehaviour
 
         currentWeapon = clonedWeapon;
 
+        currentWeapon.OnFireBullet += SendFireBulletPacket;
+
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
+        
+        SendEquipWeaponPacket(currentWeaponIndex);
+    }
+    
+    private void UnEquipWeapon()
+    {
+        currentWeapon.OnFireBullet -= SendFireBulletPacket;
+        Destroy(currentWeapon.gameObject);
+    }
+
+    private void SendFireBulletPacket(Vector3 recoilOffset)
+    {
+        Vector2 rec = new Vector2(recoilOffset.x, recoilOffset.z);
+        SendFireBulletPacket(rec);
     }
 
     private void Shoot()
@@ -99,6 +121,8 @@ public class PlayerShooting : MonoBehaviour
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
 
         reloadCoroutine = StartCoroutine(Reloading());
+        
+        SendReloadPacket();
     }
 
     private IEnumerator Reloading()
@@ -142,8 +166,6 @@ public class PlayerShooting : MonoBehaviour
     
     private void NextWeapon()
     {
-        Destroy(currentWeapon.gameObject);
-        
         if (currentWeaponIndex == weapons.Count - 1)
         {
             currentWeaponIndex = 0;
@@ -158,8 +180,6 @@ public class PlayerShooting : MonoBehaviour
     
     private void PreviousWeapon()
     {
-        Destroy(currentWeapon.gameObject);
-        
         if (currentWeaponIndex == 0)
         {
             currentWeaponIndex = weapons.Count - 1;

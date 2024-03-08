@@ -36,7 +36,6 @@ namespace ShooterServer
                 }
 
                 TransferData();
-                ReceiveData();
             }
         }
 
@@ -125,50 +124,6 @@ namespace ShooterServer
             }
         }
 
-        public void ReceiveData()
-        {
-            if(clientsSockets.Count == 0) return;
-            if (serverSocket.Available < 0) return;
-
-            try
-            {
-                byte[] buffer = new byte[serverSocket.Available];
-                serverSocket.Receive(buffer);
-
-                while (BasePacket.DataRemainingInBuffer(buffer.Length))
-                {
-                    BasePacket bp = new BasePacket().Deserialize(buffer);
-
-                    switch (bp.Type)
-                    {
-                        case PacketType.None:
-                            break;
-                        case PacketType.DebugLog:
-                            break;
-                        case PacketType.PlayerData:
-                            Console.WriteLine("Got player data!");
-                            PlayerDataPacket pdp = new PlayerDataPacket().Deserialize(buffer);
-                            playersData.Add((PlayerData)pdp.DataHolder);
-                            break;
-                        case PacketType.AssignID:
-                            break;
-                        case PacketType.PlayerPawnSpawn:
-                            break;
-                        case PacketType.Move:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
-            }
-            catch (SocketException ex)
-            {
-                if (ex.SocketErrorCode != SocketError.WouldBlock || ex.SocketErrorCode != SocketError.NotConnected)
-                {
-                    Console.Error.WriteLine(ex.Message);
-                }
-            }
-        }
 
         public void AssignClientID(Socket clientSocket, int id)
         {

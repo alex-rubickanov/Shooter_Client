@@ -1,6 +1,6 @@
 using System;
+using ShooterNetwork;
 using UnityEngine;
-using Vector2 = ShooterNetwork.Vector2;
 
 public class Weapon : MonoBehaviour
 {
@@ -71,7 +71,7 @@ public class Weapon : MonoBehaviour
 
 
         var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
-        bullet.Initialize(owner, weaponConfig.damage);
+        bullet.Initialize(owner, Client.Instance.PlayerData, weaponConfig.damage);
 
         bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset,
             ForceMode.Impulse);
@@ -88,10 +88,10 @@ public class Weapon : MonoBehaviour
         Destroy(bullet.gameObject, 1.5f);
     }
 
-    public void FireBulletClone(Vector3 recoilOffset)
+    public void FireBulletClone(Vector3 recoilOffset, PlayerData cloneData)
     {
         var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
-        bullet.Initialize(owner, weaponConfig.damage);
+        bullet.Initialize(owner, cloneData, weaponConfig.damage);
 
         bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset,
             ForceMode.Impulse);

@@ -119,6 +119,7 @@ public class Client : MonoBehaviour
 
                     case PacketType.DebugLog:
                         DebugLogPacket dlp = new DebugLogPacket().Deserialize(buffer);
+                        Debug.Log(dlp.Message);
                         OnDebugLogPacketReceived?.Invoke(dlp);
                         break;
 
@@ -217,7 +218,22 @@ public class Client : MonoBehaviour
 
     public void SendPacket(BasePacket packet)
     {
-        Debug.Log(gameObject.name + "Sending packet to server! " + packet.Type);
+        //Debug.Log(gameObject.name + "Sending packet to server! " + packet.Type);
         clientSocket.Send(packet.Serialize());
+    }
+
+    public string GetPlayerNameByID(string id)
+    {
+        if(id == playerData.ID)
+        {
+            return playerData.Name;
+        }
+        
+        if (playerClones.TryGetValue(id, out PlayerClone clone))
+        {
+            return clone.cloneData.Name;
+        }
+
+        return "id " + id;
     }
 }

@@ -1,3 +1,4 @@
+using ShooterNetwork;
 using UnityEngine;
 
 public class PlayerHealth : NetworkBehaviour
@@ -22,7 +23,7 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, PlayerData hitFrom)
     {
         var particle = Instantiate(hitParticle, transform.position + new Vector3(0, 0.5f, 0) + GetRandomYVector(), transform.rotation * GetRandomYQuaternion());
         Destroy(particle.gameObject, 1.5f);
@@ -34,14 +35,21 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damage;
         
         SendHitPacket(randomHitSoundIndex);
+        string message = $"{hitFrom.Name} ID:{hitFrom.ID} hit {Client.Instance.PlayerData.Name} ID:{Client.Instance.PlayerData.ID} for {damage} damage. {Client.Instance.PlayerData.Name} has {currentHealth} health left. \n";
+        Debug.Log(message);
+        SendDebugLogPacket(message);
         
         if (currentHealth <= 0)
         {
-            Die();
+            string message2 = $"{Client.Instance.PlayerData.Name} ID:{Client.Instance.PlayerData.ID} has died. Killer - {hitFrom.Name} ID:{hitFrom.ID} \n";
+            Debug.Log(message2);
+            SendDebugLogPacket(message2);
+            
+            Die(hitFrom);
         }
     }
 
-    private void Die()
+    private void Die(PlayerData killerData)
     {
         int randomDeathSoundIndex = GetRandomDeathClipIndex();
         sfxAudioChannel.RaiseEvent(deathClips[randomDeathSoundIndex], transform.position);
@@ -49,7 +57,8 @@ public class PlayerHealth : NetworkBehaviour
         ragdollController.EnableRagdoll();
         playerPawn.GetInputReader().DisableInput();
         
-        SendDeathPacket(randomDeathSoundIndex);
+        SendDeathPacket(int.Parse(killerData.ID), randomDeathSoundIndex);
+        KillFeedManager.Instance.AddKill(killerData.Name, Client.Instance.PlayerData.Name);
         
         playerPawn.Respawn();
     }

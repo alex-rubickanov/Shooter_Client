@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ShooterNetwork;
 using UnityEngine;
 using Vector2 = ShooterNetwork.Vector2;
 
@@ -50,10 +51,10 @@ public class CloneShooting : MonoBehaviour
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
     }
 
-    public void FireBullet(Vector2 recoilOffset)
+    public void FireBullet(Vector2 recoilOffset, PlayerData cloneData)
     {
         Vector3 rec = new Vector3(recoilOffset.X, 0, recoilOffset.Y);
-        currentWeapon.FireBulletClone(rec);
+        currentWeapon.FireBulletClone(rec, cloneData);
     }
 
     public void Reload()

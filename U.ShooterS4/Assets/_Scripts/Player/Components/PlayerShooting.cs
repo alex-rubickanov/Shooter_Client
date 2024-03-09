@@ -9,6 +9,7 @@ using Vector2 = ShooterNetwork.Vector2;
 public class PlayerShooting : NetworkBehaviour
 {
     [SerializeField] private PlayerAnimatorController playerAnimatorController;
+    [SerializeField] private PlayerAiming playerAiming;
     [SerializeField] private InputReader inputReader;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
@@ -105,12 +106,20 @@ public class PlayerShooting : NetworkBehaviour
     public void StartFiring()
     {
         isFiring = true;
+        if (!playerAiming.IsAiming)
+        {
+            SendAimPacket(true);
+        }
     }
 
     public void StopFiring()
     {
         isFiring = false;
         currentWeapon.StopFiring();
+        if (!playerAiming.IsAiming)
+        {
+            SendAimPacket(false);
+        }
     }
 
     private void Reload()

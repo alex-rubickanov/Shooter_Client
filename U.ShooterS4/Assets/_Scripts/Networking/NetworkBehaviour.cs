@@ -46,9 +46,9 @@ public class NetworkBehaviour : MonoBehaviour
         Client.Instance.SendPacket(hitPacket);
     }
     
-    public void SendDeathPacket(int deathSoundID)
+    public void SendDeathPacket(int killerID, int deathSoundID)
     {
-        DeathPacket deathPacket = new DeathPacket(deathSoundID, Client.Instance.PlayerData);
+        DeathPacket deathPacket = new DeathPacket(killerID, deathSoundID, Client.Instance.PlayerData);
         Client.Instance.SendPacket(deathPacket);
     }
 }

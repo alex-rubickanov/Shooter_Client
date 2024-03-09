@@ -1,8 +1,10 @@
+using ShooterNetwork;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     private PlayerPawn owner;
+    private PlayerData ownerData;
     private float damage;
 
     private PlayerPawn hittedPawn;
@@ -14,7 +16,7 @@ public class Bullet : MonoBehaviour
             if (hittedPawn != owner)
             {
                 PlayerHealth health = hittedPawn.GetComponent<PlayerHealth>();
-                health.TakeDamage(damage);
+                health.TakeDamage(damage, ownerData);
                 Destroy(gameObject);
             }
             else
@@ -28,9 +30,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Initialize(PlayerPawn owner, float damage)
+    public void Initialize(PlayerPawn owner, PlayerData ownerData, float damage)
     {
         this.owner = owner;
+        this.ownerData = ownerData;
         this.damage = damage;
     }
 }

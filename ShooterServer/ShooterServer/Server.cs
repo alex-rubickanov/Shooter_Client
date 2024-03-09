@@ -141,6 +141,7 @@ namespace ShooterServer
 
         public void StartGame()
         {
+            canAccept = false;
             Console.WriteLine("Game started!");
             isGameStarted = true;
             StartGamePacket startGamePacket = new StartGamePacket(ServerData);

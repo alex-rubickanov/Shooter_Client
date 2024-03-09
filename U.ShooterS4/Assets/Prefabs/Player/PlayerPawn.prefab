@@ -1285,6 +1285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimatorController: {fileID: 4475600887473676696}
+  playerAiming: {fileID: 4042811978271263849}
   inputReader: {fileID: 11400000, guid: aff5c546e7b083b4c828174cb1d1e989, type: 2}
   rifleWeaponHolder: {fileID: 3525998601829363254}
   pistolWeaponHolder: {fileID: 6068498785165366864}

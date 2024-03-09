@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerClone : MonoBehaviour
 {
-    private PlayerData cloneData;
+    public PlayerData cloneData;
     
     private CloneMovement cloneMovement;
     private CloneAiming cloneAiming;
@@ -61,7 +61,9 @@ public class PlayerClone : MonoBehaviour
     private void FireBullet(FireBulletPacket packet)
     {
         if(packet.DataHolder.ID != cloneData.ID) return;
-        cloneShooting.FireBullet(packet.RecoilOffset);
+        cloneAiming.IsAiming = true;
+        cloneShooting.FireBullet(packet.RecoilOffset, cloneData);
+        
     }
 
     private void EquipWeapon(EquipWeaponPacket packet)

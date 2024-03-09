@@ -20,6 +20,10 @@ public class WeaponConfig : ScriptableObject
     public ParticleSystem muzzleFlash;
     public AudioClip gunShotSound;
     public AudioClip emptyClipSound;
+    [Space(5)]
+    public AudioClip reloadSound1;
+    public AudioClip reloadSound2;
+    public AudioClip reloadSound3;
     [Header("-----OTHER-----")]
     public AudioManagerChannel sfxChannel;
     

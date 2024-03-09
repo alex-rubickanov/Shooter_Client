@@ -16,7 +16,7 @@ MonoBehaviour:
   isAutomatic: 0
   fireRate: 0.2
   damage: 15
-  bulletSpeed: 150
+  bulletSpeed: 130
   recoil: 1
   bulletPrefab: {fileID: 8951384074760642023, guid: 13364550847c7c544bd30c74ae6f2134,
     type: 3}
@@ -28,4 +28,7 @@ MonoBehaviour:
     type: 3}
   gunShotSound: {fileID: 8300000, guid: c210e32e5908eeb4d9ebda52c4690ca2, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
+  reloadSound1: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
+  reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
+  reloadSound3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}

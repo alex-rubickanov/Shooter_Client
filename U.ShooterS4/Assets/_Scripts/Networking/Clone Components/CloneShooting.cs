@@ -46,6 +46,14 @@ public class CloneShooting : MonoBehaviour
 
                 break;
         }
+        
+        WeaponConfig weaponConfig = weapon.GetWeaponConfig();
+        if (reload1 != weaponConfig.reloadSound1)
+        {
+            reload1 = weaponConfig.reloadSound1;
+            reload2 = weaponConfig.reloadSound2;
+            reload3 = weaponConfig.reloadSound3;
+        }
 
         currentWeapon = clonedWeapon;
 

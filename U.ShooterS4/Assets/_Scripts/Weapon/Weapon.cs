@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private PlayerPawn owner;
+    protected PlayerPawn owner;
 
     [SerializeField] protected WeaponConfig weaponConfig;
     [SerializeField] protected Transform muzzleTransform;
@@ -62,13 +62,12 @@ public class Weapon : MonoBehaviour
         return true;
     }
 
-    protected void FireBullet()
+    protected virtual void FireBullet()
     {
         timer = 0.0f;
         ammo--;
         Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0,
             UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
-
 
         var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
         bullet.Initialize(owner, Client.Instance.PlayerData, weaponConfig.damage);
@@ -77,18 +76,18 @@ public class Weapon : MonoBehaviour
             ForceMode.Impulse);
 
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
+        Destroy(muzzleFlash.gameObject, 2.0f);
 
         weaponConfig.sfxChannel.RaiseEvent(weaponConfig.gunShotSound, muzzleTransform.position);
 
         if (ammo == 0) weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
 
-        OnFireBullet?.Invoke(recoilOffset);
-        
-        Destroy(muzzleFlash.gameObject, 2.0f);
+        InvokeFireBulletEvent(recoilOffset);
+
         Destroy(bullet.gameObject, 1.5f);
     }
 
-    public void FireBulletClone(Vector3 recoilOffset, PlayerData cloneData)
+    public virtual void FireBulletClone(Vector3 recoilOffset, PlayerData cloneData)
     {
         var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
         bullet.Initialize(owner, cloneData, weaponConfig.damage);
@@ -103,6 +102,11 @@ public class Weapon : MonoBehaviour
 
         Destroy(muzzleFlash.gameObject, 2.0f);
         Destroy(bullet.gameObject, 1.5f);
+    }
+
+    protected void InvokeFireBulletEvent(Vector3 recoilOffset)
+    {
+        OnFireBullet?.Invoke(recoilOffset);
     }
 
     public void StopFiring()

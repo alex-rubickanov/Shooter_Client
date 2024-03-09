@@ -12,6 +12,10 @@ public class ConnectionSceneManager : MonoBehaviour
 
     private void Start()
     {
+        if (Client.Instance.disableServerConnection)
+        {
+            gameObject.SetActive(false);
+        }
         connectButton.onClick.AddListener(OnConnectButtonClicked);
     }
 

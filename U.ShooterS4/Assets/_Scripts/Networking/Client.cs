@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour
 {
+    [SerializeField] public bool disableServerConnection = false;
+    
     public static Client Instance;
 
     private string username;
@@ -47,21 +49,11 @@ public class Client : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
-        if (arg0.buildIndex == 1)
-        {
-            Invoke(nameof(ConnectToServer), 1.0f);
-        }
-    }
 
     public void ConnectToServer(string name, string ip)
     {
+        if (disableServerConnection) return;
+        
         username = name;
         try
         {
@@ -98,6 +90,7 @@ public class Client : MonoBehaviour
 
     private void ReceiveData()
     {
+        if(disableServerConnection) return;
         if (!clientSocket.Connected || clientSocket.Available <= 0)
             return;
 
@@ -218,6 +211,7 @@ public class Client : MonoBehaviour
 
     public void SendPacket(BasePacket packet)
     {
+        if(disableServerConnection) return;
         //Debug.Log(gameObject.name + "Sending packet to server! " + packet.Type);
         clientSocket.Send(packet.Serialize());
     }

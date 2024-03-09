@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using ShooterNetwork;
 using UnityEngine;
@@ -18,6 +17,10 @@ public class PlayerManager : NetworkBehaviour
 
     private void Start()
     {
+        if (Client.Instance.disableServerConnection)
+        {
+            SimpleSpawn();
+        }
         Client.Instance.OnIDAssigned += OnIDAssigned;
         Client.Instance.OnStartGamePacketReceived += OnStartGamePacketReceived;
     }
@@ -57,5 +60,12 @@ public class PlayerManager : NetworkBehaviour
         
         PawnSpawnPacket psp = new PawnSpawnPacket(pos, Client.Instance.PlayerData);
         Client.Instance.SendPacket(psp);
+    }
+
+    public void SimpleSpawn()
+    {
+        currentPlayerPawn = Instantiate(playerPawnPrefab, spawnPoints[0].position, Quaternion.identity, transform);
+        currentPlayerPawn.SetPlayerManager(this);
+        currentPlayerPawn.GetInputReader().EnableInput();
     }
 }

@@ -1645,6 +1645,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1352744267436221653, guid: 33ae379df301dff4aa53c9546922fab7,
         type: 3}
+      propertyPath: spawnWithouthServer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1352744267436221653, guid: 33ae379df301dff4aa53c9546922fab7,
+        type: 3}
       propertyPath: spawnPoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1720,10 +1725,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9177974075579634519, guid: 33ae379df301dff4aa53c9546922fab7,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9177974075579634519, guid: 33ae379df301dff4aa53c9546922fab7,
+        type: 3}
       propertyPath: clonePrefab
       value: 
       objectReference: {fileID: -2043585511491275049, guid: a056449c5bd3d9543aea3f3ea86c2997,
         type: 3}
+    - target: {fileID: 9177974075579634519, guid: 33ae379df301dff4aa53c9546922fab7,
+        type: 3}
+      propertyPath: disableServerConnection
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

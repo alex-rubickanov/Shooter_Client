@@ -46,11 +46,18 @@ public class PlayerShooting : NetworkBehaviour
 
     private void EquipWeapon(Weapon weapon)
     {
-        if(currentWeapon != null)
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            canFire = true;
+            isReloading = false;
+        }
+
+        if (currentWeapon != null)
         {
             UnEquipWeapon();
         }
-        
+
         WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
         Weapon clonedWeapon = null;
 
@@ -69,16 +76,24 @@ public class PlayerShooting : NetworkBehaviour
                 break;
         }
 
+        WeaponConfig weaponConfig = weapon.GetWeaponConfig();
+        if (reload1 != weaponConfig.reloadSound1)
+        {
+            reload1 = weaponConfig.reloadSound1;
+            reload2 = weaponConfig.reloadSound2;
+            reload3 = weaponConfig.reloadSound3;
+        }
+
 
         currentWeapon = clonedWeapon;
 
         currentWeapon.OnFireBullet += SendFireBulletPacket;
 
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
-        
+
         SendEquipWeaponPacket(currentWeaponIndex);
     }
-    
+
     private void UnEquipWeapon()
     {
         currentWeapon.OnFireBullet -= SendFireBulletPacket;
@@ -130,7 +145,7 @@ public class PlayerShooting : NetworkBehaviour
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
 
         reloadCoroutine = StartCoroutine(Reloading());
-        
+
         SendReloadPacket();
     }
 
@@ -156,7 +171,6 @@ public class PlayerShooting : NetworkBehaviour
         }
     }
 
-    
 
     private void PlayReload1Sound()
     {
@@ -172,7 +186,7 @@ public class PlayerShooting : NetworkBehaviour
     {
         audioManagerChannel.RaiseEvent(reload3, currentWeapon.transform.position);
     }
-    
+
     private void NextWeapon()
     {
         if (currentWeaponIndex == weaponsList.weapons.Count - 1)
@@ -186,7 +200,7 @@ public class PlayerShooting : NetworkBehaviour
 
         EquipWeapon(weaponsList.weapons[currentWeaponIndex]);
     }
-    
+
     private void PreviousWeapon()
     {
         if (currentWeaponIndex == 0)
@@ -209,7 +223,7 @@ public class PlayerShooting : NetworkBehaviour
         playerAnimatorController.OnReload1 += PlayReload1Sound;
         playerAnimatorController.OnReload2 += PlayReload2Sound;
         playerAnimatorController.OnReload3 += PlayReload3Sound;
-        
+
         inputReader.OnNextWeaponEvent += NextWeapon;
         inputReader.OnPreviousWeaponEvent += PreviousWeapon;
     }
@@ -222,7 +236,7 @@ public class PlayerShooting : NetworkBehaviour
         playerAnimatorController.OnReload1 -= PlayReload1Sound;
         playerAnimatorController.OnReload2 -= PlayReload2Sound;
         playerAnimatorController.OnReload3 -= PlayReload3Sound;
-        
+
         inputReader.OnNextWeaponEvent -= NextWeapon;
         inputReader.OnPreviousWeaponEvent -= PreviousWeapon;
     }

@@ -7,6 +7,8 @@ public class PlayerManager : NetworkBehaviour
 {
     [SerializeField] private PlayerPawn playerPawnPrefab;
     [SerializeField] private float respawnTime;
+    
+    [SerializeField] private Transform[] spawnPoints;
 
     private PlayerMovement playerMovement;
     private PlayerAiming playerAiming;
@@ -45,7 +47,8 @@ public class PlayerManager : NetworkBehaviour
 
     public void SpawnPlayerPawn()
     {
-        currentPlayerPawn = Instantiate(playerPawnPrefab, transform.position, Quaternion.identity, transform);
+        int spawnPointIndex = int.Parse(Client.Instance.PlayerData.ID);
+        currentPlayerPawn = Instantiate(playerPawnPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity, transform);
         currentPlayerPawn.SetPlayerManager(this);
         currentPlayerPawn.GetInputReader().EnableInput();
 

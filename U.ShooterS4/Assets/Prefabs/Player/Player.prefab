@@ -60,7 +60,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716a2421bea9f574f8700cde3dcb82f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredName: Alex
-  clonePrefab: {fileID: 6052188132681216564, guid: 6a6695dc703b54742a3f729531b726ce,
+  clonePrefab: {fileID: -2043585511491275049, guid: a056449c5bd3d9543aea3f3ea86c2997,
     type: 3}
-  moveSendRate: 0.1

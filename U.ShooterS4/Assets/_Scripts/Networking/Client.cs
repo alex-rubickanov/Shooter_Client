@@ -4,11 +4,13 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 using ShooterNetwork;
+using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour
 {
     public static Client Instance;
-    [SerializeField] private string desiredName; // TEST
+
+    private string username;
 
     private PlayerData playerData;
     public PlayerData PlayerData => playerData;
@@ -32,6 +34,7 @@ public class Client : MonoBehaviour
 
     public event Action OnIDAssigned;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,17 +43,26 @@ public class Client : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(Instance);
         }
     }
 
     private void Start()
     {
-        ConnectToServer();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void ConnectToServer(string ip = "192.168.1.50")
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        if (arg0.buildIndex == 1)
+        {
+            Invoke(nameof(ConnectToServer), 1.0f);
+        }
+    }
+
+    public void ConnectToServer(string name, string ip)
+    {
+        username = name;
         try
         {
             Debug.Log("Connecting to server...");
@@ -78,7 +90,7 @@ public class Client : MonoBehaviour
 
     private void Update()
     {
-        if (!clientSocket.Connected)
+        if (clientSocket == null || !clientSocket.Connected)
             return;
 
         ReceiveData();
@@ -86,7 +98,7 @@ public class Client : MonoBehaviour
 
     private void ReceiveData()
     {
-        if (!clientSocket.Connected ||clientSocket.Available <= 0)
+        if (!clientSocket.Connected || clientSocket.Available <= 0)
             return;
 
         try
@@ -138,7 +150,7 @@ public class Client : MonoBehaviour
                         FireBulletPacket fbp = new FireBulletPacket().Deserialize(buffer);
                         OnFireBulletPacketReceived?.Invoke(fbp);
                         break;
-                    
+
                     case PacketType.Reload:
                         ReloadPacket rp = new ReloadPacket().Deserialize(buffer);
                         OnReloadPacketReceived?.Invoke(rp);
@@ -148,7 +160,7 @@ public class Client : MonoBehaviour
                         HitPacket hp = new HitPacket().Deserialize(buffer);
                         OnHitPacketReceived?.Invoke(hp);
                         break;
-                    
+
                     case PacketType.Death:
                         DeathPacket dp = new DeathPacket().Deserialize(buffer);
                         OnDeathPacketReceived?.Invoke(dp);
@@ -160,7 +172,7 @@ public class Client : MonoBehaviour
                         StartGamePacket sgp = new StartGamePacket().Deserialize(buffer);
                         OnStartGamePacketReceived?.Invoke(sgp);
                         break;
-                    
+
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;
@@ -181,7 +193,8 @@ public class Client : MonoBehaviour
         PawnSpawnPacket psp = new PawnSpawnPacket().Deserialize(buffer);
         if (!playerClones.ContainsKey(psp.DataHolder.ID))
         {
-            PlayerClone pc = Instantiate(clonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            Vector3 pos = new Vector3(psp.Position.X, 0, psp.Position.Y);
+            PlayerClone pc = Instantiate(clonePrefab, pos, Quaternion.identity);
             PlayerData cloneData = new PlayerData(psp.DataHolder.Name, psp.DataHolder.ID);
             pc.SetCloneData(cloneData);
             pc.gameObject.name = psp.DataHolder.Name + " ID:" + psp.DataHolder.ID;
@@ -193,7 +206,7 @@ public class Client : MonoBehaviour
     private void AssignIDFromPacket(byte[] buffer)
     {
         AssignIDPacket aidp = new AssignIDPacket().Deserialize(buffer);
-        playerData = new PlayerData(desiredName, aidp.ID);
+        playerData = new PlayerData(username, aidp.ID);
         if (playerData.ID == "0")
         {
             Debug.LogError("Player ID is 0. Possible IDs are 1-4.");

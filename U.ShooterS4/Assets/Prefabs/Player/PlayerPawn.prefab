@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909dd4f239ffa9441bb9457e48e919e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputReader: {fileID: 11400000, guid: ba07d3a2f929d6c459679e1d36d85a5e, type: 2}
+  inputReader: {fileID: 11400000, guid: aff5c546e7b083b4c828174cb1d1e989, type: 2}
   playerCamera: {fileID: 0}
   groundMask:
     serializedVersion: 2

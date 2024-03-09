@@ -13,7 +13,7 @@ public class PlayerShooting : NetworkBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
-    [SerializeField] private List<Weapon> weapons;
+    [SerializeField] private AllWeapons weaponsList;
     [SerializeField] private AudioManagerChannel audioManagerChannel;
 
     [SerializeField] public AudioClip reload1;
@@ -31,7 +31,7 @@ public class PlayerShooting : NetworkBehaviour
 
     private void Start()
     {
-        EquipWeapon(weapons[0]);
+        EquipWeapon(weaponsList.weapons[0]);
         currentWeaponIndex = 0;
     }
 
@@ -175,7 +175,7 @@ public class PlayerShooting : NetworkBehaviour
     
     private void NextWeapon()
     {
-        if (currentWeaponIndex == weapons.Count - 1)
+        if (currentWeaponIndex == weaponsList.weapons.Count - 1)
         {
             currentWeaponIndex = 0;
         }
@@ -184,21 +184,21 @@ public class PlayerShooting : NetworkBehaviour
             currentWeaponIndex++;
         }
 
-        EquipWeapon(weapons[currentWeaponIndex]);
+        EquipWeapon(weaponsList.weapons[currentWeaponIndex]);
     }
     
     private void PreviousWeapon()
     {
         if (currentWeaponIndex == 0)
         {
-            currentWeaponIndex = weapons.Count - 1;
+            currentWeaponIndex = weaponsList.weapons.Count - 1;
         }
         else
         {
             currentWeaponIndex--;
         }
 
-        EquipWeapon(weapons[currentWeaponIndex]);
+        EquipWeapon(weaponsList.weapons[currentWeaponIndex]);
     }
 
     private void OnEnable()

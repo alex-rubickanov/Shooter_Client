@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ShooterNetwork;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Vector2 = ShooterNetwork.Vector2;
 
 public class CloneShooting : MonoBehaviour
@@ -9,7 +10,7 @@ public class CloneShooting : MonoBehaviour
     [SerializeField] private CloneAnimatorController playerAnimatorController;
     [SerializeField] private Transform rifleWeaponHolder;
     [SerializeField] private Transform pistolWeaponHolder;
-    [SerializeField] private List<Weapon> weapons;
+    [SerializeField] private AllWeapons weaponsList;
     [SerializeField] private AudioManagerChannel audioManagerChannel;
 
     [SerializeField] public AudioClip reload1;
@@ -27,7 +28,7 @@ public class CloneShooting : MonoBehaviour
             Destroy(currentWeapon.gameObject);
         }
         
-        Weapon weapon = weapons[weaponID];
+        Weapon weapon = weaponsList.weapons[weaponID];
         WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
         Weapon clonedWeapon = null;
 

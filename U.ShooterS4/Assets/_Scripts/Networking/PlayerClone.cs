@@ -4,15 +4,18 @@ using UnityEngine;
 public class PlayerClone : MonoBehaviour
 {
     private PlayerData cloneData;
+    
     private CloneMovement cloneMovement;
     private CloneAiming cloneAiming;
     private CloneShooting cloneShooting;
+    private CloneHealth cloneHealth;
 
     private void Awake()
     {
         cloneMovement = GetComponent<CloneMovement>();
         cloneAiming = GetComponent<CloneAiming>();
         cloneShooting = GetComponent<CloneShooting>();
+        cloneHealth = GetComponent<CloneHealth>();
     }
 
     private void OnEnable()
@@ -22,6 +25,8 @@ public class PlayerClone : MonoBehaviour
         Client.Instance.OnEquipWeaponPacketReceived += EquipWeapon;
         Client.Instance.OnFireBulletPacketReceived += FireBullet;
         Client.Instance.OnReloadPacketReceived += Reload;
+        Client.Instance.OnHitPacketReceived += Hit;
+        Client.Instance.OnDeathPacketReceived += Death;
     }
 
     private void OnDisable()
@@ -31,8 +36,22 @@ public class PlayerClone : MonoBehaviour
         Client.Instance.OnEquipWeaponPacketReceived -= EquipWeapon;
         Client.Instance.OnFireBulletPacketReceived -= FireBullet;
         Client.Instance.OnReloadPacketReceived -= Reload;
+        Client.Instance.OnHitPacketReceived -= Hit;
+        Client.Instance.OnDeathPacketReceived -= Death;
     }
-    
+
+    private void Death(DeathPacket packet)
+    {
+        if(packet.DataHolder.ID != cloneData.ID) return;
+        cloneHealth.Die(packet.DeathSoundID);
+    }
+
+    private void Hit(HitPacket packet)
+    {
+        if(packet.DataHolder.ID != cloneData.ID) return;
+        cloneHealth.TakeDamage(packet.HitSoundID);
+    }
+
     private void Reload(ReloadPacket packet)
     {
         if(packet.DataHolder.ID != cloneData.ID) return;

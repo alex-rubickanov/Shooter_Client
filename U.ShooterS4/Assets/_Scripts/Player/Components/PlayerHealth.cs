@@ -27,9 +27,14 @@ public class PlayerHealth : NetworkBehaviour
         var particle = Instantiate(hitParticle, transform.position + new Vector3(0, 0.5f, 0) + GetRandomYVector(), transform.rotation * GetRandomYQuaternion());
         Destroy(particle.gameObject, 1.5f);
 
-        sfxAudioChannel.RaiseEvent(GetRandomHitClip(), transform.position + new Vector3(0, 5, 0));
+        int randomHitSoundIndex = GetRandomHitClipIndex();
+        
+        sfxAudioChannel.RaiseEvent(hitClips[randomHitSoundIndex], transform.position + new Vector3(0, 5, 0));
 
         currentHealth -= damage;
+        
+        SendHitPacket(randomHitSoundIndex);
+        
         if (currentHealth <= 0)
         {
             Die();
@@ -38,18 +43,27 @@ public class PlayerHealth : NetworkBehaviour
 
     private void Die()
     {
-        sfxAudioChannel.RaiseEvent(deathClips[UnityEngine.Random.Range(0, deathClips.Length)], transform.position);
+        int randomDeathSoundIndex = GetRandomDeathClipIndex();
+        sfxAudioChannel.RaiseEvent(deathClips[randomDeathSoundIndex], transform.position);
         
         ragdollController.EnableRagdoll();
         playerPawn.GetInputReader().DisableInput();
         
+        SendDeathPacket(randomDeathSoundIndex);
+        
         playerPawn.Respawn();
     }
 
-    private AudioClip GetRandomHitClip()
+    private int GetRandomHitClipIndex()
     {
         int randomIndex = UnityEngine.Random.Range(0, hitClips.Length);
-        return hitClips[randomIndex];
+        return randomIndex;
+    }
+    
+    private int GetRandomDeathClipIndex()
+    {
+        int randomIndex = UnityEngine.Random.Range(0, deathClips.Length);
+        return randomIndex;
     }
     
     private Quaternion GetRandomYQuaternion()

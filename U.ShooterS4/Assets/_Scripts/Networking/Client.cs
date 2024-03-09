@@ -23,6 +23,9 @@ public class Client : MonoBehaviour
     public event Action<EquipWeaponPacket> OnEquipWeaponPacketReceived;
     public event Action<FireBulletPacket> OnFireBulletPacketReceived;
     public event Action<ReloadPacket> OnReloadPacketReceived;
+    public event Action<HitPacket> OnHitPacketReceived;
+    public event Action<DeathPacket> OnDeathPacketReceived;
+    public event Action<StartGamePacket> OnStartGamePacketReceived;
 
 
     [SerializeField] private PlayerClone clonePrefab;
@@ -46,7 +49,7 @@ public class Client : MonoBehaviour
         ConnectToServer();
     }
 
-    public void ConnectToServer(string ip = "127.00.01")
+    public void ConnectToServer(string ip = "192.168.1.50")
     {
         try
         {
@@ -120,9 +123,6 @@ public class Client : MonoBehaviour
                         OnMovePacketReceived?.Invoke(mp);
                         break;
 
-                    case PacketType.PlayerData:
-                        break;
-
                     case PacketType.Aim:
                         AimPacket ap = new AimPacket().Deserialize(buffer);
                         OnAimPacketReceived?.Invoke(ap);
@@ -142,6 +142,23 @@ public class Client : MonoBehaviour
                     case PacketType.Reload:
                         ReloadPacket rp = new ReloadPacket().Deserialize(buffer);
                         OnReloadPacketReceived?.Invoke(rp);
+                        break;
+
+                    case PacketType.Hit:
+                        HitPacket hp = new HitPacket().Deserialize(buffer);
+                        OnHitPacketReceived?.Invoke(hp);
+                        break;
+                    
+                    case PacketType.Death:
+                        DeathPacket dp = new DeathPacket().Deserialize(buffer);
+                        OnDeathPacketReceived?.Invoke(dp);
+
+                        playerClones.Remove(dp.DataHolder.ID);
+                        break;
+
+                    case PacketType.StartGame:
+                        StartGamePacket sgp = new StartGamePacket().Deserialize(buffer);
+                        OnStartGamePacketReceived?.Invoke(sgp);
                         break;
                     
                     default:

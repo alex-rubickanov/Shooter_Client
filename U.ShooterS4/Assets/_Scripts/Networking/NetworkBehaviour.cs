@@ -39,4 +39,16 @@ public class NetworkBehaviour : MonoBehaviour
         ReloadPacket reloadPacket = new ReloadPacket(Client.Instance.PlayerData);
         Client.Instance.SendPacket(reloadPacket);
     }
+    
+    public void SendHitPacket(int hitSoundID)
+    {
+        HitPacket hitPacket = new HitPacket(hitSoundID, Client.Instance.PlayerData);
+        Client.Instance.SendPacket(hitPacket);
+    }
+    
+    public void SendDeathPacket(int deathSoundID)
+    {
+        DeathPacket deathPacket = new DeathPacket(deathSoundID, Client.Instance.PlayerData);
+        Client.Instance.SendPacket(deathPacket);
+    }
 }

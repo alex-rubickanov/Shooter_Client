@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Sever.unity
-    guid: 1805cc77d8158684ba52d3e8642d63e7
+  - enabled: 1
+    path: Assets/Scenes/Prototype/NetworkPrototype.unity
+    guid: 3f987c02fdf1183488e6f7f11eafdace
   m_configObjects: {}

@@ -17,21 +17,18 @@ public class PlayerManager : NetworkBehaviour
     private void Start()
     {
         Client.Instance.OnIDAssigned += OnIDAssigned;
+        Client.Instance.OnStartGamePacketReceived += OnStartGamePacketReceived;
+    }
+
+    private void OnStartGamePacketReceived(StartGamePacket obj)
+    {
+        SpawnPlayerPawn();
     }
 
     private void OnIDAssigned()
     {
         //SpawnPlayerPawn();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && currentPlayerPawn == null)
-        {
-            SpawnPlayerPawn();
-        }
-    }
-
 
     public void RespawnPlayerPawn()
     {
@@ -41,12 +38,12 @@ public class PlayerManager : NetworkBehaviour
     private IEnumerator RespawnWithDelay()
     {
         Destroy(currentPlayerPawn.gameObject);
-        currentPlayerPawn = null;
         yield return new WaitForSeconds(respawnTime);
+        //currentPlayerPawn = null;
         SpawnPlayerPawn();
     }
 
-    private void SpawnPlayerPawn()
+    public void SpawnPlayerPawn()
     {
         currentPlayerPawn = Instantiate(playerPawnPrefab, transform.position, Quaternion.identity, transform);
         currentPlayerPawn.SetPlayerManager(this);

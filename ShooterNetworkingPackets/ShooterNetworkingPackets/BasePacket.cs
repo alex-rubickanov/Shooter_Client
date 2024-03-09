@@ -6,14 +6,16 @@ namespace ShooterNetwork
     {
         None = 0,
         DebugLog = 1,
-        PlayerData = 2,
-        AssignID = 3,
-        PlayerPawnSpawn = 4,
-        Move = 5,
-        Aim = 6,
-        EquipWeapon = 7,
-        FireBullet = 8,
-        Reload = 9
+        AssignID = 2,
+        PlayerPawnSpawn = 3,
+        Move = 4,
+        Aim = 5,
+        EquipWeapon = 6,
+        FireBullet = 7,
+        Reload = 8,
+        Hit = 9,
+        Death = 10,
+        StartGame = 11
     }
 
     public class BasePacket

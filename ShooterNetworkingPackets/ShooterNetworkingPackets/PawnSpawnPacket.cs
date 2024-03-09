@@ -6,6 +6,7 @@ namespace ShooterNetwork
         public Vector2 Position => position; 
         public PawnSpawnPacket()
         {
+            position = new Vector2(0, 0);
         }
         
         public PawnSpawnPacket(Vector2 position, PlayerData playerData) : base(PacketType.PlayerPawnSpawn, playerData)

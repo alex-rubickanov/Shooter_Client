@@ -6,6 +6,7 @@ namespace ShooterNetwork
 
         public EquipWeaponPacket()
         {
+            WeaponID = 0;
         }
 
         public EquipWeaponPacket(int weaponID, IDataHolder dataHolder) : base(PacketType.EquipWeapon, dataHolder)

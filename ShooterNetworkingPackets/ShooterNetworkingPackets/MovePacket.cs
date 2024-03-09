@@ -11,6 +11,9 @@ namespace ShooterNetwork
 
         public MovePacket()
         {
+            position = new Vector2(0, 0);
+            velocity = new Vector2(0, 0);
+            rotationY = 0;
         }
 
         public MovePacket(Vector2 position, Vector2 velocity,float rotationY, IDataHolder dataHolder) : base(PacketType.Move, dataHolder)

@@ -7,6 +7,7 @@ namespace ShooterNetwork
         
         public FireBulletPacket()
         {
+            recoilOffset = new Vector2(0, 0);
         }
         
         public FireBulletPacket(Vector2 recoilOffset, IDataHolder dataHolder) : base(PacketType.FireBullet, dataHolder)

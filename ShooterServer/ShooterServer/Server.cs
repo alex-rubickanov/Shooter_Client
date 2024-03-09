@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using ShooterNetwork;
 
 namespace ShooterServer
@@ -19,6 +20,10 @@ namespace ShooterServer
 
         private List<PlayerData> playersData = new List<PlayerData>();
 
+        private const int PLAYERS_TO_PLAY = 2;
+
+        private bool isGameStarted = false;
+
         public Server(int port)
         {
             this.port = port;
@@ -36,6 +41,10 @@ namespace ShooterServer
                 }
 
                 TransferData();
+                if (clientsSockets.Count >= PLAYERS_TO_PLAY && !isGameStarted)
+                {
+                    StartGame();
+                }
             }
         }
 
@@ -129,6 +138,27 @@ namespace ShooterServer
         {
             AssignIDPacket assignIDPacket = new AssignIDPacket(id.ToString(), ServerData);
             clientSocket.Send(assignIDPacket.Serialize());
+        }
+
+        public void StartGame()
+        {
+            Console.WriteLine("Game started!");
+            isGameStarted = true;
+            StartGamePacket startGamePacket = new StartGamePacket(ServerData);
+            for (int i = 0; i < clientsSockets.Count; i++)
+            {
+                try
+                {
+                    clientsSockets[i].Send(startGamePacket.Serialize());
+                }
+                catch (SocketException ex)
+                {
+                    if (ex.SocketErrorCode != SocketError.WouldBlock)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
         }
     }
 }

@@ -3,15 +3,24 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private PlayerPawn owner;
+    private Rigidbody rb;
+
+    public PlayerPawn owner;
     private PlayerData ownerData;
-    private float damage;
+    public float damage;
 
     private PlayerPawn hittedPawn;
 
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] private PhysicMaterial reflectMaterial;
+
+    private void Start()
     {
-        if (other.TryGetComponent(out hittedPawn))
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.TryGetComponent(out hittedPawn))
         {
             if (hittedPawn != owner)
             {
@@ -26,7 +35,8 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            //Debug.Log("No player pawn found!");
+            Debug.Log("Bullet hit something else!" + other.transform.name);
+            Destroy(gameObject);
         }
     }
 

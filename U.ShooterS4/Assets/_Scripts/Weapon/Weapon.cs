@@ -41,7 +41,7 @@ public class Weapon : MonoBehaviour
         FireBullet();
     }
 
-    protected bool CanFire()
+    protected virtual bool CanFire()
     {
         if (ammo <= 0 && !weaponConfig.isInfinity)
         {
@@ -107,6 +107,11 @@ public class Weapon : MonoBehaviour
     protected void InvokeFireBulletEvent(Vector3 recoilOffset)
     {
         OnFireBullet?.Invoke(recoilOffset);
+    }
+
+    protected void InvokeEmptyFireBulletEvent()
+    {
+        OnFireBullet?.Invoke(Vector3.zero);
     }
 
     public void StopFiring()

@@ -35,9 +35,6 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damage;
         
         SendHitPacket(randomHitSoundIndex);
-        string message = $"{hitFrom.Name} ID:{hitFrom.ID} hit {Client.Instance.PlayerData.Name} ID:{Client.Instance.PlayerData.ID} for {damage} damage. {Client.Instance.PlayerData.Name} has {currentHealth} health left. \n";
-        Debug.Log(message);
-        SendDebugLogPacket(message);
         
         if (currentHealth <= 0)
         {

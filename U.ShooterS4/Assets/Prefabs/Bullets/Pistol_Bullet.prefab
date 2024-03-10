@@ -131,6 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c23df89cf99a945b87ee0b612d20f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  damage: 0
+  reflectMaterial: {fileID: 13400000, guid: 1f02455ad73dc5c4689084b4618f5049, type: 2}
 --- !u!136 &505604932153588661
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -146,7 +149,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

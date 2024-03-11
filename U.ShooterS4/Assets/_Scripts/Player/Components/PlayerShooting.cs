@@ -87,11 +87,22 @@ public class PlayerShooting : NetworkBehaviour
 
         currentWeapon = clonedWeapon;
 
-        currentWeapon.OnFireBullet += SendFireBulletPacket;
+        currentWeapon.OnFireBullet += OnFireBullet;
+        
+        
+        GameplayHUD.Instance.UpdateMaxAmmo(currentWeapon.GetWeaponConfig().maxAmmo);
+        GameplayHUD.Instance.SetWeaponName(currentWeapon.GetWeaponConfig().weaponName);
+        
 
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
 
         SendEquipWeaponPacket(currentWeaponIndex);
+    }
+
+    private void OnFireBullet(Vector3 recoilOffset)
+    {
+        SendFireBulletPacket(recoilOffset);
+        GameplayHUD.Instance.UpdateAmmo(currentWeapon.GetAmmo());
     }
 
     private void UnEquipWeapon()
@@ -239,6 +250,12 @@ public class PlayerShooting : NetworkBehaviour
 
         inputReader.OnNextWeaponEvent -= NextWeapon;
         inputReader.OnPreviousWeaponEvent -= PreviousWeapon;
+
+        if (currentWeapon != null)
+        {
+            currentWeapon.OnFireBullet -= OnFireBullet;
+        
+        }
     }
 
     private void OnDestroy()

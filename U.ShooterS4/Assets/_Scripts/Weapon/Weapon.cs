@@ -15,7 +15,6 @@ public class Weapon : MonoBehaviour
     protected float timer;
     protected bool shotFired = false;
 
-    protected int maxClips;
     protected int ammo;
 
     public float ReloadTime => weaponConfig.reloadTime;

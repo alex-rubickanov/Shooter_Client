@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class Client : MonoBehaviour
 {
     [SerializeField] public bool disableServerConnection = false;
+    [SerializeField] public bool showStartGameMenu = false;
     
     public static Client Instance;
 
@@ -165,6 +166,7 @@ public class Client : MonoBehaviour
                     case PacketType.StartGame:
                         StartGamePacket sgp = new StartGamePacket().Deserialize(buffer);
                         OnStartGamePacketReceived?.Invoke(sgp);
+                        GameplayHUD.Instance.Open();
                         break;
 
                     default:

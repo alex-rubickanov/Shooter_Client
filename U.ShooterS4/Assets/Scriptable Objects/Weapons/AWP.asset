@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: AWP
   isAutomatic: 0
+  FireMode: 0
   fireRate: 1
   damage: 200
+  weight: 40
   bulletSpeed: 130
   recoil: 0
   bulletPrefab: {fileID: 2717752531167666684, guid: c04c1d46944ad3843b7dcc60b9817c00,
@@ -32,3 +34,5 @@ MonoBehaviour:
   reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
   reloadSound3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  weaponUI: {fileID: 6326308053700348020, guid: cde24702228dd75499b7940e8cbec156,
+    type: 3}

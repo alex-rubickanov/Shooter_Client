@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: M249
   isAutomatic: 1
-  fireRate: 0.15
+  FireMode: 2
+  fireRate: 0.05
   damage: 35
+  weight: 50
   bulletSpeed: 120
   recoil: 10
   bulletPrefab: {fileID: 3186222026697088616, guid: 43f7098bf1d79ba4fb3905da5312f24c,
@@ -32,3 +34,4 @@ MonoBehaviour:
   reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
   reloadSound3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  weaponUI: {fileID: 870769162304414678, guid: e20fb14da2797b7409ad8996f7842552, type: 3}

@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: M4A4
   isAutomatic: 1
+  FireMode: 1
   fireRate: 0.4
   damage: 30
+  weight: 15
   bulletSpeed: 100
   recoil: 4
   bulletPrefab: {fileID: 3186222026697088616, guid: 43f7098bf1d79ba4fb3905da5312f24c,
@@ -32,3 +34,5 @@ MonoBehaviour:
   reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
   reloadSound3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  weaponUI: {fileID: 5038764805932248536, guid: 582c985101bc1bf43b4068a21e3f47e3,
+    type: 3}

@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: DoubleBarrel
   isAutomatic: 0
+  FireMode: 0
   fireRate: 0.1
   damage: 90
+  weight: 30
   bulletSpeed: 120
   recoil: 0
   bulletPrefab: {fileID: 2717752531167666684, guid: c04c1d46944ad3843b7dcc60b9817c00,
@@ -32,3 +34,5 @@ MonoBehaviour:
   reloadSound2: {fileID: 8300000, guid: 5723b369e14473e47a9b6e9728b763d9, type: 3}
   reloadSound3: {fileID: 8300000, guid: d36829db23db031459859bc4e663a35c, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  weaponUI: {fileID: 5786320481906363863, guid: ff8c26c3141af824e9c1f0bbf65c10f0,
+    type: 3}

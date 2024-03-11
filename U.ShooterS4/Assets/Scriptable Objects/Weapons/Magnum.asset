@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Magnum
   isAutomatic: 0
+  FireMode: 0
   fireRate: 0
   damage: 80
+  weight: 7
   bulletSpeed: 100
   recoil: 0.5
   bulletPrefab: {fileID: 8951384074760642023, guid: 13364550847c7c544bd30c74ae6f2134,
@@ -32,3 +34,4 @@ MonoBehaviour:
   reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
   reloadSound3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  weaponUI: {fileID: 271560242320081582, guid: 1b458683445e0284c93e800c1d32af26, type: 3}

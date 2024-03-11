@@ -6,8 +6,10 @@ public class WeaponConfig : ScriptableObject
     public string weaponName;
     [Space(5)]
     public bool isAutomatic;
+    public FireMode FireMode;
     public float fireRate;
     public float damage;
+    public int weight;
     [Range(50, 130)] public float bulletSpeed;
     public float recoil;
     [Header("-----AMMO-----")]
@@ -26,6 +28,7 @@ public class WeaponConfig : ScriptableObject
     public AudioClip reloadSound3;
     [Header("-----OTHER-----")]
     public AudioManagerChannel sfxChannel;
+    public GameObject weaponUI;
     
     private void Awake()
     {

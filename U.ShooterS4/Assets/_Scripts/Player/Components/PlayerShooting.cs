@@ -77,22 +77,19 @@ public class PlayerShooting : NetworkBehaviour
         }
 
         WeaponConfig weaponConfig = weapon.GetWeaponConfig();
-        if (reload1 != weaponConfig.reloadSound1)
-        {
-            reload1 = weaponConfig.reloadSound1;
-            reload2 = weaponConfig.reloadSound2;
-            reload3 = weaponConfig.reloadSound3;
-        }
+        reload1 = weaponConfig.reloadSound1;
+        reload2 = weaponConfig.reloadSound2;
+        reload3 = weaponConfig.reloadSound3;
 
 
         currentWeapon = clonedWeapon;
 
         currentWeapon.OnFireBullet += OnFireBullet;
-        
-        
+
+
         GameplayHUD.Instance.UpdateMaxAmmo(currentWeapon.GetWeaponConfig().maxAmmo);
         GameplayHUD.Instance.SetWeaponName(currentWeapon.GetWeaponConfig().weaponName);
-        
+
 
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
 
@@ -255,7 +252,6 @@ public class PlayerShooting : NetworkBehaviour
         if (currentWeapon != null)
         {
             currentWeapon.OnFireBullet -= OnFireBullet;
-        
         }
     }
 

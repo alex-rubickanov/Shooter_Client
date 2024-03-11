@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SVD
   m_EditorClassIdentifier: 
   weaponName: SVD
+  catalogueName: Dragunov's Masterpiece
   isAutomatic: 0
   FireMode: 0
   fireRate: 0
@@ -28,11 +29,12 @@ MonoBehaviour:
   weaponAnimationType: 1
   muzzleFlash: {fileID: 198381425572196190, guid: 07277f9efe2374047bf57bdba847e02b,
     type: 3}
-  gunShotSound: {fileID: 8300000, guid: 54f845aa1455bd14890887bb4d40f8d7, type: 3}
+  gunShotSounds:
+  - {fileID: 8300000, guid: 8c4a7c6bbc23a6f479bdf8e1dcfce0f0, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
-  reloadSound1: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
-  reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
-  reloadSound3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
+  reloadSound1: {fileID: 8300000, guid: 685d976b0c39ae841a8dee92cad8bc41, type: 3}
+  reloadSound2: {fileID: 8300000, guid: 690cf5fc686be234e9120c2fdba8313c, type: 3}
+  reloadSound3: {fileID: 8300000, guid: 22703c03a2f30744793b0d33e60c04dd, type: 3}
   sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
   weaponUI: {fileID: 6926122374515651869, guid: 336961a81fe8ef84686668eef4c6cd0c,
     type: 3}

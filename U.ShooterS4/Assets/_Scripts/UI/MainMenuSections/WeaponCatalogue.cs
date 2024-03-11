@@ -52,7 +52,7 @@ public class WeaponCatalogue : MainMenuSection
 
     private void SetWeaponWindow(WeaponConfig weaponConfig)
     {
-        weaponNameText.text = weaponConfig.weaponName;
+        weaponNameText.text = weaponConfig.catalogueName;
         fireModeText.text = "Fire Mode: " + weaponConfig.FireMode.ToString();
         fireRateText.text = "Fire Rate: " + weaponConfig.fireRate.ToString();
         damageText.text = "Damage: " + weaponConfig.damage.ToString();

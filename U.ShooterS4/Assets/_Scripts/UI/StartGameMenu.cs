@@ -30,6 +30,9 @@ public class StartGameMenu : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
+        
+        CameraManager.Instance.SetGameplayCamera();
+
     }
 
     public void Open()
@@ -40,5 +43,7 @@ public class StartGameMenu : MonoBehaviour
         connectionSection.Hide();
         weaponCatalogueSection.Hide();
         optionsSection.Hide();
+        
+        CameraManager.Instance.SetMainMenuCamera();
     }
 }

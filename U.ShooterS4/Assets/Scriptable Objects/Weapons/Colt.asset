@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Colt
   m_EditorClassIdentifier: 
   weaponName: Colt
+  catalogueName: Pistol Revolution
   isAutomatic: 0
   FireMode: 0
   fireRate: 0
@@ -28,7 +29,8 @@ MonoBehaviour:
   weaponAnimationType: 0
   muzzleFlash: {fileID: 198533653044838976, guid: b46264f9e12caed4cb53e7c2ad64aa54,
     type: 3}
-  gunShotSound: {fileID: 8300000, guid: 502ae4fea282076419fa17e99e190fa9, type: 3}
+  gunShotSounds:
+  - {fileID: 8300000, guid: 502ae4fea282076419fa17e99e190fa9, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
   reloadSound1: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
   reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}

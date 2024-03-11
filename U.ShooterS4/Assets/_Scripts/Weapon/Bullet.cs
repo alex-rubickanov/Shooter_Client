@@ -35,7 +35,6 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            Debug.Log("Bullet hit something else!" + other.transform.name);
             Destroy(gameObject);
         }
     }

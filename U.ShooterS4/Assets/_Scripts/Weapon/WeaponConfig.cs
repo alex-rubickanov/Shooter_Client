@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponConfig : ScriptableObject
 {
     public string weaponName;
+    public string catalogueName;
     [Space(5)]
     public bool isAutomatic;
     public FireMode FireMode;
@@ -20,7 +21,7 @@ public class WeaponConfig : ScriptableObject
     [Header("-----VFX AND SFX-----")]
     public WeaponAnimationType weaponAnimationType;
     public ParticleSystem muzzleFlash;
-    public AudioClip gunShotSound;
+    public AudioClip[] gunShotSounds;
     public AudioClip emptyClipSound;
     [Space(5)]
     public AudioClip reloadSound1;
@@ -33,5 +34,10 @@ public class WeaponConfig : ScriptableObject
     private void Awake()
     {
         weaponName = name;
+    }
+    
+    public AudioClip GetRandomGunShotSound()
+    {
+        return gunShotSounds[Random.Range(0, gunShotSounds.Length)];
     }
 }

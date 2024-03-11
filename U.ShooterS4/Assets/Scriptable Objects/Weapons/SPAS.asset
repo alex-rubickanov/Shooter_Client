@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SPAS
   m_EditorClassIdentifier: 
   weaponName: SPAS
+  catalogueName: Italian Door Opener
   isAutomatic: 0
   FireMode: 0
   fireRate: 0.1
@@ -28,7 +29,8 @@ MonoBehaviour:
   weaponAnimationType: 1
   muzzleFlash: {fileID: 198381425572196190, guid: 07277f9efe2374047bf57bdba847e02b,
     type: 3}
-  gunShotSound: {fileID: 8300000, guid: f4fcbe7c0d7f56f428db0e386d79fb7b, type: 3}
+  gunShotSounds:
+  - {fileID: 8300000, guid: d6e4509bd57912244ade469ec58735f9, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
   reloadSound1: {fileID: 8300000, guid: a143fd681584a1a4f8b7998ce01f1b24, type: 3}
   reloadSound2: {fileID: 8300000, guid: 5723b369e14473e47a9b6e9728b763d9, type: 3}

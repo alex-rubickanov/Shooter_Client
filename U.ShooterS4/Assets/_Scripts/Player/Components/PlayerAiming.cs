@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerAiming : NetworkBehaviour
 {
     [SerializeField] private InputReader inputReader;
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float rotateSmoothTime = 0.1f;
     [SerializeField] private float aimRotateSmoothTime = 0.05f;
@@ -13,13 +12,14 @@ public class PlayerAiming : NetworkBehaviour
     private ControlScheme controlScheme;
     private Vector3 aimDirection;
 
+    private Camera playerCamera;
 
     public bool IsAiming => isAiming;
-    
+
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        playerCamera = Camera.main;
+        playerCamera = CameraManager.Instance.GetGameplayCamera();
     }
 
     private void Update()
@@ -77,7 +77,7 @@ public class PlayerAiming : NetworkBehaviour
             transform.forward = Vector3.Lerp(transform.forward, aimDirection, aimRotateSmoothTime);
         }
     }
-    
+
     private (bool success, Vector3 position) GetMousePosition()
     {
         var ray = playerCamera.ScreenPointToRay(Input.mousePosition);
@@ -85,7 +85,7 @@ public class PlayerAiming : NetworkBehaviour
         if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
         {
             // The Raycast hit something, return with the position.
-            
+
             return (success: true, position: hitInfo.point);
         }
         else
@@ -112,7 +112,7 @@ public class PlayerAiming : NetworkBehaviour
         this.isAiming = isAiming;
         playerMovement.canRun = !isAiming;
         this.controlScheme = controlScheme;
-        
+
         SendAimPacket(isAiming);
     }
 

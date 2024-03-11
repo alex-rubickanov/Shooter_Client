@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: M4A4
   m_EditorClassIdentifier: 
   weaponName: M4A4
+  catalogueName: American Classic
   isAutomatic: 1
   FireMode: 1
   fireRate: 0.4
@@ -28,7 +29,8 @@ MonoBehaviour:
   weaponAnimationType: 1
   muzzleFlash: {fileID: 198405310834809902, guid: ab32929843ea40d48ae16ecaa85f794a,
     type: 3}
-  gunShotSound: {fileID: 8300000, guid: 7ea6993b242cecf4e8cf5c158ac3e92c, type: 3}
+  gunShotSounds:
+  - {fileID: 8300000, guid: 7ea6993b242cecf4e8cf5c158ac3e92c, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
   reloadSound1: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
   reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}

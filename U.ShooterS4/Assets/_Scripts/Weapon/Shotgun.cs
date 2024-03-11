@@ -26,7 +26,7 @@ public class Shotgun : Weapon
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
         Destroy(muzzleFlash.gameObject, 2.0f);
 
-        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.gunShotSound, muzzleTransform.position);
+        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.GetRandomGunShotSound(), muzzleTransform.position);
 
         if (ammo == 0) weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
 
@@ -48,7 +48,7 @@ public class Shotgun : Weapon
 
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
 
-        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.gunShotSound, muzzleTransform.position);
+        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.GetRandomGunShotSound(), muzzleTransform.position);
 
 
         Destroy(muzzleFlash.gameObject, 2.0f);

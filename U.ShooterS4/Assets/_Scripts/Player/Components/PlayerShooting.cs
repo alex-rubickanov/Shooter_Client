@@ -166,6 +166,7 @@ public class PlayerShooting : NetworkBehaviour
         canFire = false;
         yield return new WaitForSeconds(currentWeapon.ReloadTime);
         currentWeapon.Reload();
+        GameplayHUD.Instance.UpdateAmmo(currentWeapon.GetAmmo());
         canFire = true;
         isReloading = false;
     }

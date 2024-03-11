@@ -5,6 +5,7 @@ public class GameplayHUD : MonoBehaviour
     public static GameplayHUD Instance;
 
     [SerializeField] private WeaponUI weaponUI;
+    [SerializeField] private HealthUI healthUI;
 
     private void Awake()
     {
@@ -47,5 +48,15 @@ public class GameplayHUD : MonoBehaviour
     public void UpdateAmmo(int ammo)
     {
         weaponUI.UpdateAmmo(ammo);
+    }
+    
+    public void UpdateHealth(float health)
+    {
+        healthUI.UpdateHealth(health);
+    }
+    
+    public void SetMaxHealth(float health)
+    {
+        healthUI.SetMaxHealth(health);
     }
 }

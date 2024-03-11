@@ -21,6 +21,7 @@ public class PlayerHealth : NetworkBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        GameplayHUD.Instance.SetMaxHealth(maxHealth);
     }
 
     public void TakeDamage(float damage, PlayerData hitFrom)
@@ -35,6 +36,8 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth -= damage;
         
         SendHitPacket(randomHitSoundIndex);
+        
+        GameplayHUD.Instance.UpdateHealth(currentHealth);
         
         if (currentHealth <= 0)
         {

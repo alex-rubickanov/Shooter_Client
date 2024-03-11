@@ -59,6 +59,7 @@ public class PlayerHealth : NetworkBehaviour
         
         SendDeathPacket(int.Parse(killerData.ID), randomDeathSoundIndex);
         KillFeedManager.Instance.AddKill(killerData.Name, Client.Instance.PlayerData.Name);
+        ScoreManager.Instance.AddKill(killerData, Client.Instance.PlayerData);
         
         playerPawn.Respawn();
     }

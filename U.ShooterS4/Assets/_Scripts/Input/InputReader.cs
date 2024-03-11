@@ -17,6 +17,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     public event Action OnDashEvent;
     public event Action OnNextWeaponEvent;
     public event Action OnPreviousWeaponEvent;
+    public event Action OnOpenScoreTabEvent;
 
     private void OnEnable()
     {
@@ -98,6 +99,14 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
         if (context.phase == InputActionPhase.Performed)
         {
             OnPreviousWeaponEvent?.Invoke();
+        }
+    }
+
+    public void OnOpenScoreTab(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            OnOpenScoreTabEvent?.Invoke();
         }
     }
 

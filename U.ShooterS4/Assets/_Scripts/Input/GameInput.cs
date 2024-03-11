@@ -116,6 +116,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenScoreTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""8a6f711e-55cc-4e07-980f-18e5c23872c2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -371,6 +380,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""PreviousWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""775455a6-fed0-4e55-853c-026fd4462fb2"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""OpenScoreTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""229b95b5-85fe-49d7-9d77-d58d0e0cf492"",
+                    ""path"": ""<Gamepad>/touchpadButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""OpenScoreTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -400,6 +431,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Gameplay_Join = m_Gameplay.FindAction("Join", throwIfNotFound: true);
         m_Gameplay_NextWeapon = m_Gameplay.FindAction("NextWeapon", throwIfNotFound: true);
         m_Gameplay_PreviousWeapon = m_Gameplay.FindAction("PreviousWeapon", throwIfNotFound: true);
+        m_Gameplay_OpenScoreTab = m_Gameplay.FindAction("OpenScoreTab", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -471,6 +503,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Join;
     private readonly InputAction m_Gameplay_NextWeapon;
     private readonly InputAction m_Gameplay_PreviousWeapon;
+    private readonly InputAction m_Gameplay_OpenScoreTab;
     public struct GameplayActions
     {
         private @GameInput m_Wrapper;
@@ -485,6 +518,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         public InputAction @Join => m_Wrapper.m_Gameplay_Join;
         public InputAction @NextWeapon => m_Wrapper.m_Gameplay_NextWeapon;
         public InputAction @PreviousWeapon => m_Wrapper.m_Gameplay_PreviousWeapon;
+        public InputAction @OpenScoreTab => m_Wrapper.m_Gameplay_OpenScoreTab;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -524,6 +558,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @PreviousWeapon.started += instance.OnPreviousWeapon;
             @PreviousWeapon.performed += instance.OnPreviousWeapon;
             @PreviousWeapon.canceled += instance.OnPreviousWeapon;
+            @OpenScoreTab.started += instance.OnOpenScoreTab;
+            @OpenScoreTab.performed += instance.OnOpenScoreTab;
+            @OpenScoreTab.canceled += instance.OnOpenScoreTab;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -558,6 +595,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @PreviousWeapon.started -= instance.OnPreviousWeapon;
             @PreviousWeapon.performed -= instance.OnPreviousWeapon;
             @PreviousWeapon.canceled -= instance.OnPreviousWeapon;
+            @OpenScoreTab.started -= instance.OnOpenScoreTab;
+            @OpenScoreTab.performed -= instance.OnOpenScoreTab;
+            @OpenScoreTab.canceled -= instance.OnOpenScoreTab;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -605,5 +645,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         void OnJoin(InputAction.CallbackContext context);
         void OnNextWeapon(InputAction.CallbackContext context);
         void OnPreviousWeapon(InputAction.CallbackContext context);
+        void OnOpenScoreTab(InputAction.CallbackContext context);
     }
 }

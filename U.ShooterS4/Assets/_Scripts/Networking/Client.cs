@@ -10,7 +10,7 @@ public class Client : MonoBehaviour
 {
     [SerializeField] public bool disableServerConnection = false;
     [SerializeField] public bool showStartGameMenu = false;
-    
+
     public static Client Instance;
 
     private string username;
@@ -54,7 +54,7 @@ public class Client : MonoBehaviour
     public void ConnectToServer(string name, string ip)
     {
         if (disableServerConnection) return;
-        
+
         username = name;
         try
         {
@@ -91,7 +91,7 @@ public class Client : MonoBehaviour
 
     private void ReceiveData()
     {
-        if(disableServerConnection) return;
+        if (disableServerConnection) return;
         if (!clientSocket.Connected || clientSocket.Available <= 0)
             return;
 
@@ -167,6 +167,7 @@ public class Client : MonoBehaviour
                         StartGamePacket sgp = new StartGamePacket().Deserialize(buffer);
                         OnStartGamePacketReceived?.Invoke(sgp);
                         GameplayHUD.Instance.Open();
+                        ScoreManager.Instance.AddPlayer(playerData);
                         break;
 
                     default:
@@ -195,6 +196,8 @@ public class Client : MonoBehaviour
             pc.SetCloneData(cloneData);
             pc.gameObject.name = psp.DataHolder.Name + " ID:" + psp.DataHolder.ID;
             playerClones.Add(psp.DataHolder.ID, pc);
+            
+            ScoreManager.Instance.AddPlayer(cloneData);
         }
     }
 
@@ -213,23 +216,38 @@ public class Client : MonoBehaviour
 
     public void SendPacket(BasePacket packet)
     {
-        if(disableServerConnection) return;
+        if (disableServerConnection) return;
         //Debug.Log(gameObject.name + "Sending packet to server! " + packet.Type);
         clientSocket.Send(packet.Serialize());
     }
 
     public string GetPlayerNameByID(string id)
     {
-        if(id == playerData.ID)
+        if (id == playerData.ID)
         {
             return playerData.Name;
         }
-        
+
         if (playerClones.TryGetValue(id, out PlayerClone clone))
         {
             return clone.cloneData.Name;
         }
 
         return "id " + id;
+    }
+
+    public PlayerData GetPlayerDataByID(int packetKillerID)
+    {
+        if (packetKillerID.ToString() == playerData.ID)
+        {
+            return playerData;
+        }
+
+        if (playerClones.TryGetValue(packetKillerID.ToString(), out PlayerClone clone))
+        {
+            return clone.cloneData;
+        }
+
+        return new PlayerData();
     }
 }

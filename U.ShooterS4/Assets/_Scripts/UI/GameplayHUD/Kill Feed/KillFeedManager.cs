@@ -1,4 +1,3 @@
-using System;
 using ShooterNetwork;
 using UnityEngine;
 
@@ -40,5 +39,10 @@ public class KillFeedManager : MonoBehaviour
         {
             Destroy(messages[i].gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Client.Instance.OnDeathPacketReceived -= ReadDeathPacket;
     }
 }

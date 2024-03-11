@@ -19,7 +19,7 @@ namespace ShooterServer
 
         private List<PlayerData> playersData = new List<PlayerData>();
 
-        private const int PLAYERS_TO_PLAY = 2;
+        private const int PLAYERS_TO_PLAY = 3;
 
         private bool isGameStarted = false;
 

@@ -259,4 +259,12 @@ public class Client : MonoBehaviour
 
         return new PlayerData();
     }
+
+    public void Disconnect()
+    {
+        if (disableServerConnection) return;
+        clientSocket.Close();
+        GameplayHUD.Instance.Close();
+        StartGameMenu.Instance.Open();
+    }
 }

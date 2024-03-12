@@ -4,6 +4,8 @@ using UnityEngine;
 public class WeaponConfig : ScriptableObject
 {
     public bool isUnlocked;
+    public bool isSpecialGun;
+    public int killsToUnlock;
     public string weaponName;
     public string catalogueName;
     [Space(5)]
@@ -32,11 +34,6 @@ public class WeaponConfig : ScriptableObject
     public AudioManagerChannel sfxChannel;
     public GameObject weaponUI;
     
-    private void Awake()
-    {
-        weaponName = name;
-    }
-    
     public AudioClip GetRandomGunShotSound()
     {
         int randomIndex = Random.Range(0, gunShotSounds.Length);
@@ -45,5 +42,16 @@ public class WeaponConfig : ScriptableObject
             SurpriseManager.Instance.ShowBlueScreen();
         }
         return gunShotSounds[randomIndex];
+    }
+
+    public void Unlock()
+    {
+        if (isSpecialGun) return;
+        isUnlocked = true;
+    }
+
+    public void SpecialUnlock()
+    {
+        isUnlocked = true;
     }
 }

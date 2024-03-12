@@ -3,10 +3,13 @@ using UnityEngine;
 public class GameplayHUD : MonoBehaviour
 {
     public static GameplayHUD Instance;
-
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private WeaponUI weaponUI;
     [SerializeField] private HealthUI healthUI;
+    [SerializeField] private PauseUI pauseUI;
 
+    private bool isPause = false;
+    
     private void Awake()
     {
         Instance = this;
@@ -23,6 +26,23 @@ public class GameplayHUD : MonoBehaviour
         {
             Open();
         }
+        
+        inputReader.OnPauseEvent += TogglePause;
+        pauseUI.Close();
+    }
+
+    private void TogglePause()
+    {
+        if (isPause)
+        {
+            pauseUI.Close();
+        }
+        else
+        {
+            pauseUI.Open();
+        }
+
+        isPause = !isPause;
     }
 
     public void Open()
@@ -33,6 +53,7 @@ public class GameplayHUD : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
+        pauseUI.Close();
     }
 
     public void SetWeaponName(string weaponName)

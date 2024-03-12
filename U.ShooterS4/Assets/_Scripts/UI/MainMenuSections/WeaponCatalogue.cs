@@ -29,6 +29,8 @@ public class WeaponCatalogue : MainMenuSection
     [SerializeField] private TextMeshProUGUI pickedWeapon1;
     [SerializeField] private TextMeshProUGUI pickedWeapon2;
 
+    [SerializeField] private GameObject congratsMessage;
+    [SerializeField] private TextMeshProUGUI killsToUnlockText;
 
     private new void Start()
     {
@@ -82,28 +84,33 @@ public class WeaponCatalogue : MainMenuSection
 
     private void SetWeaponWindow(Weapon weapon)
     {
-        WeaponConfig weaponConfig = weapon.GetWeaponConfig();
+        congratsMessage.SetActive(false);
 
-        if (!weaponConfig.isUnlocked)
+        currentWeapon = weapon.GetWeaponConfig();
+
+        CheckIfUnlocked(weapon.GetWeaponConfig());
+
+        if (!currentWeapon.isUnlocked)
         {
-            ShowHidedVersion(weaponConfig.name);
+            ShowHidedVersion(currentWeapon.weaponName);
             return;
         }
 
-        weaponNameText.text = weaponConfig.catalogueName;
-        fireModeText.text = "Fire Mode: " + weaponConfig.FireMode.ToString();
-        fireRateText.text = "Fire Rate: " + weaponConfig.fireRate.ToString();
-        damageText.text = "Damage: " + weaponConfig.damage.ToString();
-        bulletSpeedText.text = "Bullet Speed: " + weaponConfig.bulletSpeed.ToString();
-        weightText.text = "Weight: " + weaponConfig.weight.ToString();
-        recoilText.text = "Recoil: " + weaponConfig.recoil.ToString();
-        clipSizeText.text = "Clip Size: " + weaponConfig.maxAmmo.ToString();
-        reloadTimeText.text = "Reload Time: " + weaponConfig.reloadTime.ToString() + " seconds";
+        killsToUnlockText.gameObject.SetActive(false);
+        weaponNameText.text = currentWeapon.catalogueName;
+        fireModeText.text = "Fire Mode: " + currentWeapon.FireMode.ToString();
+        fireRateText.text = "Fire Rate: " + currentWeapon.fireRate.ToString();
+        damageText.text = "Damage: " + currentWeapon.damage.ToString();
+        bulletSpeedText.text = "Bullet Speed: " + currentWeapon.bulletSpeed.ToString();
+        weightText.text = "Weight: " + currentWeapon.weight.ToString();
+        recoilText.text = "Recoil: " + currentWeapon.recoil.ToString();
+        clipSizeText.text = "Clip Size: " + currentWeapon.maxAmmo.ToString();
+        reloadTimeText.text = "Reload Time: " + currentWeapon.reloadTime.ToString() + " seconds";
 
         if (weaponHolder.childCount > 0)
             Destroy(weaponHolder.GetChild(0).gameObject);
 
-        Instantiate(weaponConfig.weaponUI, weaponHolder);
+        Instantiate(currentWeapon.weaponUI, weaponHolder);
 
         if (pickedWeapons.weapons.Contains(weapon))
             pickButton.interactable = false;
@@ -120,6 +127,25 @@ public class WeaponCatalogue : MainMenuSection
                 hiddenName[i] = name[i];
             else
                 hiddenName[i] = '?';
+        }
+
+        killsToUnlockText.gameObject.SetActive(true);
+
+        if (currentWeapon.isSpecialGun)
+        {
+            if (currentWeapon.weaponName == "AWP")
+            {
+                killsToUnlockText.text = "Kill Mustafa!";
+            }
+            else if (currentWeapon.weaponName == "Rave")
+            {
+                killsToUnlockText.text = "Kill Alex!";
+            }
+        }
+        else
+        {
+            killsToUnlockText.text = "Kills to unlock: " +
+                                     (currentWeapon.killsToUnlock - PlayerStatsManager.Instance.GetKills());
         }
 
         weaponNameText.text = new string(hiddenName);
@@ -156,6 +182,16 @@ public class WeaponCatalogue : MainMenuSection
         else
         {
             pickedWeapon2.text = "Second Weapon: " + "None";
+        }
+    }
+
+    private void CheckIfUnlocked(WeaponConfig weapon)
+    {
+        if (weapon.isUnlocked) return;
+        if (PlayerStatsManager.Instance.GetKills() >= weapon.killsToUnlock)
+        {
+            congratsMessage.SetActive(true);
+            weapon.Unlock();
         }
     }
 }

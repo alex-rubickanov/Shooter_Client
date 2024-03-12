@@ -38,11 +38,11 @@ public class WeaponConfig : ScriptableObject
     
     public AudioClip GetRandomGunShotSound()
     {
-        // int randomIndex = Random.Range(0, gunShotSounds.Length);
-        // if (randomIndex == 1)
-        // {
-        //     SurpriseManager.Instance.ShowBlueScreen();
-        // }
+        int randomIndex = Random.Range(0, gunShotSounds.Length);
+        if (randomIndex == 1)
+        {
+            SurpriseManager.Instance.ShowBlueScreen();
+        }
         return gunShotSounds[0];
     }
 }

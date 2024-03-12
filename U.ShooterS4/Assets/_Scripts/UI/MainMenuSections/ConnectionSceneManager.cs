@@ -29,7 +29,8 @@ public class ConnectionSceneManager : MainMenuSection
         {
             Client.Instance.ConnectToServer(nameInputField.text, ipInputField.text);
         }
-
-        StartGameMenu.Instance.Close();
+        
+        Hide();
+        StartGameMenu.Instance.OpenWaitingRoom();
     }
 }

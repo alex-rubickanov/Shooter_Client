@@ -167,6 +167,7 @@ public class Client : MonoBehaviour
                         StartGamePacket sgp = new StartGamePacket().Deserialize(buffer);
                         OnStartGamePacketReceived?.Invoke(sgp);
                         GameplayHUD.Instance.Open();
+                        StartGameMenu.Instance.Close();
                         ScoreManager.Instance.AddPlayer(playerData);
                         break;
 

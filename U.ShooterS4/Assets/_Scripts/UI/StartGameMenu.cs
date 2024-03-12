@@ -9,6 +9,7 @@ public class StartGameMenu : MonoBehaviour
     [SerializeField] private MainMenuSection connectionSection;
     [SerializeField] private MainMenuSection weaponCatalogueSection;
     [SerializeField] private MainMenuSection optionsSection;
+    [SerializeField] private MainMenuSection waitingRoom;
 
     private void Awake()
     {
@@ -43,7 +44,13 @@ public class StartGameMenu : MonoBehaviour
         connectionSection.Hide();
         weaponCatalogueSection.Hide();
         optionsSection.Hide();
+        waitingRoom.Hide();
         
         CameraManager.Instance.SetMainMenuCamera();
+    }
+
+    public void OpenWaitingRoom()
+    {
+        waitingRoom.Show();
     }
 }

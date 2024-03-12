@@ -28,15 +28,24 @@ public class PlayerShooting : NetworkBehaviour
     private Coroutine reloadCoroutine;
 
     public bool IsFiring => isFiring;
+    private bool hasWeapon;
 
     private void Start()
     {
+        if (weaponsList.weapons.Count < 1)
+        {
+            hasWeapon = false;
+            return;
+        }
+
+        hasWeapon = true;
         EquipWeapon(weaponsList.weapons[0]);
         currentWeaponIndex = 0;
     }
 
     private void Update()
     {
+        if(!hasWeapon) return;
         if (isFiring)
         {
             Shoot();

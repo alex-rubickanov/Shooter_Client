@@ -1,10 +1,12 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ConnectionSceneManager : MainMenuSection
 {
+    [SerializeField] private AllWeapons pickedWeapons;
+    [SerializeField] private GameObject noWeaponMessage;
+    
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private TMP_InputField ipInputField;
 
@@ -37,5 +39,22 @@ public class ConnectionSceneManager : MainMenuSection
         }
 
         Hide();
+    }
+
+    private void OnEnable()
+    {
+        CheckWeapon();
+    }
+
+    private void CheckWeapon()
+    {
+        if (pickedWeapons.weapons.Count < 1)
+        {
+            noWeaponMessage.SetActive(true);
+        }
+        else
+        {
+            noWeaponMessage.SetActive(false);
+        }
     }
 }

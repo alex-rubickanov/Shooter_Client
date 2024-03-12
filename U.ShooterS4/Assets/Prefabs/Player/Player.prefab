@@ -82,4 +82,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d823d7f26ff0b47a62e2d975a7427b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputReader: {fileID: 0}
   scoreUI: {fileID: 0}

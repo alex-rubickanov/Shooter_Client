@@ -188,6 +188,15 @@ public class WeaponCatalogue : MainMenuSection
     private void CheckIfUnlocked(WeaponConfig weapon)
     {
         if (weapon.isUnlocked) return;
+
+        if (weapon.isSpecialGun)
+        {
+            if (weapon.weaponName == "AWP" && PlayerStatsManager.Instance.KilledMustafa)
+                weapon.SpecialUnlock();
+            else if (weapon.weaponName == "Rave" && PlayerStatsManager.Instance.KilledAlex)
+                weapon.SpecialUnlock();
+        }
+
         if (PlayerStatsManager.Instance.GetKills() >= weapon.killsToUnlock)
         {
             congratsMessage.SetActive(true);

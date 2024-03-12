@@ -5,6 +5,12 @@ using System.Collections.Generic;
 
 public class PlayerAnimatorController : MonoBehaviour
 {
+    [SerializeField] private AudioManagerChannel sfxChannel;
+    [SerializeField] private AudioClip unknownMusic;
+    [SerializeField] private AudioClip macarenaMusic;
+    [SerializeField] private AudioClip waveMusic;
+    [SerializeField] private AudioClip snakeMusic;
+    
     [SerializeField] protected RuntimeAnimatorController pistolAnimatorController;
     [SerializeField] protected RuntimeAnimatorController rifleAnimatorController;
     [SerializeField] protected RuntimeAnimatorController danceAnimatorController;
@@ -99,6 +105,24 @@ public class PlayerAnimatorController : MonoBehaviour
     public void PlayDance(int danceIndex)
     {
         if (isDancing) return;
+        switch (danceIndex)
+        {
+            case 1:
+                sfxChannel.RaiseEvent(unknownMusic, transform.position);
+                break;
+            case 2:
+                sfxChannel.RaiseEvent(macarenaMusic, transform.position);
+                break;
+            case 3:
+                sfxChannel.RaiseEvent(waveMusic, transform.position);
+                break;
+            case 4:
+                sfxChannel.RaiseEvent(snakeMusic, transform.position);
+                break;
+            default:
+                sfxChannel.RaiseEvent(waveMusic, transform.position);
+                break;
+        }
         OnDanceStart?.Invoke(danceIndex);
         isDancing = true;
         cachedController = animator.runtimeAnimatorController;

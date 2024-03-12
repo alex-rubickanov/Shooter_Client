@@ -24,6 +24,13 @@ public class PlayerManager : NetworkBehaviour
 
         Client.Instance.OnIDAssigned += OnIDAssigned;
         Client.Instance.OnStartGamePacketReceived += OnStartGamePacketReceived;
+        Client.Instance.OnDisconnect += OnDisconnect;
+    }
+
+    private void OnDisconnect()
+    {
+        Destroy(currentPlayerPawn.gameObject);
+        currentPlayerPawn = null;
     }
 
     private void OnStartGamePacketReceived(StartGamePacket obj)

@@ -1,0 +1,18 @@
+{
+    "name": "StrelyalkaEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:aea3520256680844987f3c2b8ef45b43"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

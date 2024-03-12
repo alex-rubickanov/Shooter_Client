@@ -1249,7 +1249,7 @@ MonoBehaviour:
   moveSmoothTime: 0.1
   dashForce: 40
   dashTime: 0.05
-  dashReload: 0
+  dashReload: 3
   audioManagerChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0,
     type: 2}
   dashAudioClip: {fileID: 8300000, guid: 8e7c6792b9f3626439fc589389bb33a1, type: 3}
@@ -3127,6 +3127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e0e8a16f62a024f9141f43dc1e7e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  unknownMusic: {fileID: 8300000, guid: 4c45d7bb0a5239a4fbe0324708e513d8, type: 3}
+  macarenaMusic: {fileID: 8300000, guid: 8ca23ef0c29796d4a9e9ad2e8c87e2d4, type: 3}
+  waveMusic: {fileID: 8300000, guid: cf8d83f2ca1e75d448ba468029d585b7, type: 3}
+  snakeMusic: {fileID: 8300000, guid: 2d82659b5f2451947b9c25b3a9dcf802, type: 3}
   pistolAnimatorController: {fileID: 9100000, guid: 14bb9ff447c82ea4eaa7bf51adcc21c8,
     type: 2}
   rifleAnimatorController: {fileID: 9100000, guid: 6e6c3d0d7069482478834a3b642ea6c8,

@@ -31,11 +31,14 @@ public class Client : MonoBehaviour
     public event Action<DeathPacket> OnDeathPacketReceived;
     public event Action<StartGamePacket> OnStartGamePacketReceived;
     public event Action<DancePacket> OnDancePacketReceived;
+    public event Action OnDisconnect;
 
 
     [SerializeField] private PlayerClone clonePrefab;
 
     public event Action OnIDAssigned;
+
+    private bool isConnected;
 
 
     private void Awake()
@@ -79,8 +82,9 @@ public class Client : MonoBehaviour
 
             return;
         }
-        
+
         Debug.Log($"Connected to server!  {clientSocket.LocalEndPoint.ToString()}");
+        isConnected = true;
         StartGameMenu.Instance.ShowMessageWaitingRoom("Connected.\n Waiting for other players...");
     }
 
@@ -95,6 +99,7 @@ public class Client : MonoBehaviour
     private void ReceiveData()
     {
         if (disableServerConnection) return;
+        if (!isConnected) return;
         if (!clientSocket.Connected || clientSocket.Available <= 0)
             return;
 
@@ -178,7 +183,7 @@ public class Client : MonoBehaviour
                         DancePacket dancePacket = new DancePacket().Deserialize(buffer);
                         OnDancePacketReceived?.Invoke(dancePacket);
                         break;
-                    
+
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;
@@ -205,7 +210,7 @@ public class Client : MonoBehaviour
             pc.SetCloneData(cloneData);
             pc.gameObject.name = psp.DataHolder.Name + " ID:" + psp.DataHolder.ID;
             playerClones.Add(psp.DataHolder.ID, pc);
-            
+
             ScoreManager.Instance.AddPlayer(cloneData);
         }
     }
@@ -225,7 +230,7 @@ public class Client : MonoBehaviour
 
     public void SendPacket(BasePacket packet)
     {
-        if (disableServerConnection) return;
+        if (disableServerConnection || !isConnected) return;
         //Debug.Log(gameObject.name + "Sending packet to server! " + packet.Type);
         clientSocket.Send(packet.Serialize());
     }
@@ -263,8 +268,10 @@ public class Client : MonoBehaviour
     public void Disconnect()
     {
         if (disableServerConnection) return;
+        isConnected = false;
         clientSocket.Close();
         GameplayHUD.Instance.Close();
         StartGameMenu.Instance.Open();
+        OnDisconnect?.Invoke();
     }
 }

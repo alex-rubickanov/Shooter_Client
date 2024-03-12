@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59aaea11328019d4ea18df53e4a2a1cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 4
   weaponConfig: {fileID: 11400000, guid: 29fdeb80e9850ac47aedcb6ce9716256, type: 2}
   muzzleTransform: {fileID: 8566190342336013464}
 --- !u!1 &6410125592946807005

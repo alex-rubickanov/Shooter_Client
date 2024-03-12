@@ -93,7 +93,7 @@ public class PlayerShooting : NetworkBehaviour
 
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
 
-        SendEquipWeaponPacket(currentWeaponIndex);
+        SendEquipWeaponPacket(currentWeapon.ID);
     }
 
     private void OnFireBullet(Vector3 recoilOffset)

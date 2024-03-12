@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapons/Weapon Config", fileName = "New Weapon Config")]
 public class WeaponConfig : ScriptableObject
 {
+    public bool isUnlocked;
     public string weaponName;
     public string catalogueName;
     [Space(5)]

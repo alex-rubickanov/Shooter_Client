@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using ShooterNetwork;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Vector2 = ShooterNetwork.Vector2;
 
 public class CloneShooting : MonoBehaviour
@@ -21,14 +19,17 @@ public class CloneShooting : MonoBehaviour
     private int currentWeaponIndex;
     private Coroutine reloadCoroutine;
 
+
     public void EquipWeapon(int weaponID)
     {
-        if(currentWeapon != null)
+        if (currentWeapon != null)
         {
             Destroy(currentWeapon.gameObject);
         }
-        
-        Weapon weapon = weaponsList.weapons[weaponID];
+
+        Weapon weapon = FindPickedWeapon(weaponID);
+
+
         WeaponAnimationType weaponAnimationType = weapon.GetWeaponType();
         Weapon clonedWeapon = null;
 
@@ -46,7 +47,7 @@ public class CloneShooting : MonoBehaviour
 
                 break;
         }
-        
+
         WeaponConfig weaponConfig = weapon.GetWeaponConfig();
         if (reload1 != weaponConfig.reloadSound1)
         {
@@ -58,6 +59,21 @@ public class CloneShooting : MonoBehaviour
         currentWeapon = clonedWeapon;
 
         playerAnimatorController.SetAnimatorController(weaponAnimationType);
+    }
+
+    private Weapon FindPickedWeapon(int ID)
+    {
+        Weapon pickedWeapon = null;
+        foreach (var weapon in weaponsList.weapons)
+        {
+            if (weapon.ID == ID)
+            {
+                pickedWeapon = weapon;
+                return pickedWeapon;
+            }
+        }
+
+        return null;
     }
 
     public void FireBullet(Vector2 recoilOffset, PlayerData cloneData)

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
   m_Name: AK-47
   m_EditorClassIdentifier: 
+  isUnlocked: 1
   weaponName: AK-47
   catalogueName: Russian Classic
   isAutomatic: 1

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc7896ff3604e541a6b666c4d2f68c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 8
   weaponConfig: {fileID: 11400000, guid: 7badbcd46b6f37a4382ff55adf707eba, type: 2}
   muzzleTransform: {fileID: 8566190342336013464}
   bulletsInBurst: 3

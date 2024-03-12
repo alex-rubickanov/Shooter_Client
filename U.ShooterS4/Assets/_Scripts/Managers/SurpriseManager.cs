@@ -22,10 +22,8 @@ public class SurpriseManager : MonoBehaviour
     
     private IEnumerator ShowEffect(GameObject effect)
     {
-        Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(effectTime);
         effect.SetActive(true);
-        Time.timeScale = 1;
         yield return new WaitForSeconds(effectTime);
         effect.SetActive(false);
         audioListener.enabled = true;

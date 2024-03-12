@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 using ShooterNetwork;
-using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour
 {
@@ -68,17 +67,20 @@ public class Client : MonoBehaviour
             if (ex.SocketErrorCode == SocketError.ConnectionRefused)
             {
                 Debug.LogError("Server is not running!");
+                StartGameMenu.Instance.ShowMessageWaitingRoom("Server is not running!");
             }
             else
             {
                 Debug.LogError("Error while connecting to server!");
                 Debug.LogError(ex.Message);
+                StartGameMenu.Instance.ShowMessageWaitingRoom("Error while connecting to server! \n " + ex.Message);
             }
 
             return;
         }
-
+        
         Debug.Log($"Connected to server!  {clientSocket.LocalEndPoint.ToString()}");
+        StartGameMenu.Instance.ShowMessageWaitingRoom("Connected.\n Waiting for other players...");
     }
 
     private void Update()

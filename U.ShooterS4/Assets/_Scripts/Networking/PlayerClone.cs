@@ -9,6 +9,7 @@ public class PlayerClone : MonoBehaviour
     private CloneAiming cloneAiming;
     private CloneShooting cloneShooting;
     private CloneHealth cloneHealth;
+    [SerializeField] private CloneAnimatorController cloneAnimatorController;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class PlayerClone : MonoBehaviour
         Client.Instance.OnReloadPacketReceived += Reload;
         Client.Instance.OnHitPacketReceived += Hit;
         Client.Instance.OnDeathPacketReceived += Death;
+        Client.Instance.OnDancePacketReceived += Dance;
     }
 
     private void OnDisable()
@@ -38,6 +40,13 @@ public class PlayerClone : MonoBehaviour
         Client.Instance.OnReloadPacketReceived -= Reload;
         Client.Instance.OnHitPacketReceived -= Hit;
         Client.Instance.OnDeathPacketReceived -= Death;
+        Client.Instance.OnDancePacketReceived -= Dance;
+    }
+
+    private void Dance(DancePacket packet)
+    {
+        if(packet.DataHolder.ID != cloneData.ID) return;
+        cloneAnimatorController.PlayDance(packet.DanceID);
     }
 
     private void Death(DeathPacket packet)

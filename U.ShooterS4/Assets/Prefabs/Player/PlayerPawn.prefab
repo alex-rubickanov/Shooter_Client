@@ -1189,6 +1189,7 @@ GameObject:
   - component: {fileID: 4042811978271263849}
   - component: {fileID: 8358370106551713221}
   - component: {fileID: 6391125164910342426}
+  - component: {fileID: 42735856137312535}
   - component: {fileID: 2420669899916954861}
   - component: {fileID: 6617896866311101577}
   m_Layer: 7
@@ -1266,7 +1267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: aff5c546e7b083b4c828174cb1d1e989, type: 2}
-  playerCamera: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 55
@@ -1332,6 +1332,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f675c376eb1303f40acab802899e97c7, type: 3}
   - {fileID: 8300000, guid: f78023e6b8c1a744b9bb5410cb2d8839, type: 3}
   sfxAudioChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+--- !u!114 &42735856137312535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3597585435975272471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 553a62c2545ac26478dc65834a0afbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimatorController: {fileID: 4475600887473676696}
+  inputReader: {fileID: 11400000, guid: aff5c546e7b083b4c828174cb1d1e989, type: 2}
 --- !u!54 &2420669899916954861
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3090,7 +3104,7 @@ Animator:
   m_GameObject: {fileID: 8536926586985719469}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4191f9f8b4355eb4ab4910bf66e793df, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6e6c3d0d7069482478834a3b642ea6c8, type: 2}
+  m_Controller: {fileID: 9100000, guid: f7727416a9c846a4bb7f9fe6acbe0664, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3116,6 +3130,8 @@ MonoBehaviour:
   pistolAnimatorController: {fileID: 9100000, guid: 14bb9ff447c82ea4eaa7bf51adcc21c8,
     type: 2}
   rifleAnimatorController: {fileID: 9100000, guid: 6e6c3d0d7069482478834a3b642ea6c8,
+    type: 2}
+  danceAnimatorController: {fileID: 9100000, guid: f7727416a9c846a4bb7f9fe6acbe0664,
     type: 2}
   playerMovement: {fileID: 1359640216993544110}
   playerAiming: {fileID: 4042811978271263849}

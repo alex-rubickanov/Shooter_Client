@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private float sfxVolume;
+    [SerializeField] private FloatReference sfxVolume;
     [SerializeField] private AudioManagerChannel sfxChannel;
 
     private void Start()
@@ -13,6 +13,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip audioClip, Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(audioClip, position, sfxVolume);
+        AudioSource.PlayClipAtPoint(audioClip, position, sfxVolume.Value);
     }
 }

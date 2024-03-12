@@ -123,13 +123,13 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
         }
     }
 
-    public void DisableInput()
+    public void DisableGameplayInput()
     {
-        gameInput.Disable();
+        gameInput.Gameplay.Disable();
     }
 
-    public void EnableInput()
+    public void EnableGameplayInput()
     {
-        gameInput.Enable();
+        gameInput.Gameplay.Enable();
     }
 }

@@ -1227,6 +1227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b8f90736d33bc41ba1b2dbe2f869e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloneAnimatorController: {fileID: 7436193917779733032}
 --- !u!114 &3566076690984326215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3104,6 +3105,8 @@ MonoBehaviour:
   pistolAnimatorController: {fileID: 9100000, guid: 14bb9ff447c82ea4eaa7bf51adcc21c8,
     type: 2}
   rifleAnimatorController: {fileID: 9100000, guid: 6e6c3d0d7069482478834a3b642ea6c8,
+    type: 2}
+  danceAnimatorController: {fileID: 9100000, guid: f7727416a9c846a4bb7f9fe6acbe0664,
     type: 2}
   playerMovement: {fileID: 0}
   playerAiming: {fileID: 0}

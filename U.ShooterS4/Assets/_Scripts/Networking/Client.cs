@@ -30,6 +30,7 @@ public class Client : MonoBehaviour
     public event Action<HitPacket> OnHitPacketReceived;
     public event Action<DeathPacket> OnDeathPacketReceived;
     public event Action<StartGamePacket> OnStartGamePacketReceived;
+    public event Action<DancePacket> OnDancePacketReceived;
 
 
     [SerializeField] private PlayerClone clonePrefab;
@@ -173,6 +174,11 @@ public class Client : MonoBehaviour
                         ScoreManager.Instance.AddPlayer(playerData);
                         break;
 
+                    case PacketType.Dance:
+                        DancePacket dancePacket = new DancePacket().Deserialize(buffer);
+                        OnDancePacketReceived?.Invoke(dancePacket);
+                        break;
+                    
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;

@@ -16,6 +16,7 @@ public class CloneAnimatorController : PlayerAnimatorController
 
     protected override void AimAnimating()
     {
+        if(isDancing) return;
         bool isAiming = cloneAiming.IsAiming;
         animator.SetBool(IsAiming, isAiming);
     }

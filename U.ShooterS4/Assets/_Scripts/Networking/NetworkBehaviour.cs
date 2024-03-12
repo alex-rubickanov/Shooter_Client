@@ -51,4 +51,10 @@ public class NetworkBehaviour : MonoBehaviour
         DeathPacket deathPacket = new DeathPacket(killerID, deathSoundID, Client.Instance.PlayerData);
         Client.Instance.SendPacket(deathPacket);
     }
+
+    public void SendDancePacket(int danceID)
+    {
+        DancePacket dancePacket = new DancePacket(danceID, Client.Instance.PlayerData);
+        Client.Instance.SendPacket(dancePacket);
+    }
 }

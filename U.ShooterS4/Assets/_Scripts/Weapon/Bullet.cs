@@ -3,20 +3,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody rb;
-
     public PlayerPawn owner;
-    private PlayerData ownerData;
+    protected PlayerData ownerData;
     public float damage;
 
-    private PlayerPawn hittedPawn;
-
-    [SerializeField] private PhysicMaterial reflectMaterial;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    protected PlayerPawn hittedPawn;
 
     private void OnCollisionEnter(Collision other)
     {

@@ -1,10 +1,13 @@
 using UnityEngine;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerAnimatorController : MonoBehaviour
 {
     [SerializeField] protected RuntimeAnimatorController pistolAnimatorController;
     [SerializeField] protected RuntimeAnimatorController rifleAnimatorController;
+    [SerializeField] protected RuntimeAnimatorController danceAnimatorController;
     
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAiming playerAiming;
@@ -26,6 +29,13 @@ public class PlayerAnimatorController : MonoBehaviour
     public event Action OnReload2;
     public event Action OnReload3;
 
+    protected RuntimeAnimatorController cachedController;
+
+    protected bool isDancing = false;
+
+    public event Action<int> OnDanceStart;
+    public event Action OnDanceEnd;
+
     protected void Awake()
     {
         animator = GetComponent<Animator>();
@@ -42,12 +52,14 @@ public class PlayerAnimatorController : MonoBehaviour
 
     protected void SimpleMoveAnimating()
     {
+        if(isDancing) return;
         float maxSpeed = PlayerConstants.MAX_SPEED;
         animator.SetFloat(VelocityMagnitude, movementVelocity.magnitude / maxSpeed);
     }
 
     protected virtual void AimAnimating()
     {
+        if (isDancing) return;
         bool isAiming = playerAiming.IsAiming;
         bool isFiring = playerShooting.IsFiring;
         animator.SetBool(IsAiming, isAiming);
@@ -56,6 +68,7 @@ public class PlayerAnimatorController : MonoBehaviour
 
     protected void AimMoveAnimating()
     {
+        if (isDancing) return;
         movementVelocity = transform.InverseTransformDirection(movementVelocity);
 
         animator.SetFloat(VelocityX, movementVelocity.x);
@@ -82,10 +95,40 @@ public class PlayerAnimatorController : MonoBehaviour
                 break;
         }
     }
+    
+    public void PlayDance(int danceIndex)
+    {
+        if (isDancing) return;
+        OnDanceStart?.Invoke(danceIndex);
+        isDancing = true;
+        cachedController = animator.runtimeAnimatorController;
+        animator.runtimeAnimatorController = danceAnimatorController;
+        animator.SetTrigger(danceIndex.ToString());
+    }
 
     public void OnReloadAnimationEnd()
     {
         animator.SetLayerWeight(1, 0);
+    }
+
+    public void OnDanceAnimationEnd()
+    {
+        isDancing = false;
+        OnDanceEnd?.Invoke();
+        if (cachedController != null)
+        {
+            animator.runtimeAnimatorController = cachedController;
+        }
+    }
+
+    public void InvokeOnDanceStart(int index)
+    {
+        OnDanceStart?.Invoke(index);
+    }
+    
+    public void InvokeOnDanceEnd()
+    {
+        OnDanceEnd?.Invoke();
     }
 
     public void Reload1()

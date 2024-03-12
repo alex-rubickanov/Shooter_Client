@@ -6,7 +6,7 @@ public class PlayerManager : NetworkBehaviour
 {
     [SerializeField] private PlayerPawn playerPawnPrefab;
     [SerializeField] private float respawnTime;
-    
+
     [SerializeField] private Transform[] spawnPoints;
 
     private PlayerMovement playerMovement;
@@ -21,6 +21,7 @@ public class PlayerManager : NetworkBehaviour
         {
             SimpleSpawn();
         }
+
         Client.Instance.OnIDAssigned += OnIDAssigned;
         Client.Instance.OnStartGamePacketReceived += OnStartGamePacketReceived;
     }
@@ -50,14 +51,20 @@ public class PlayerManager : NetworkBehaviour
 
     public void SpawnPlayerPawn()
     {
+        if (currentPlayerPawn != null)
+        {
+            Destroy(currentPlayerPawn.gameObject);
+        }
+
         int spawnPointIndex = int.Parse(Client.Instance.PlayerData.ID);
-        currentPlayerPawn = Instantiate(playerPawnPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity, transform);
+        currentPlayerPawn = Instantiate(playerPawnPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity,
+            transform);
         currentPlayerPawn.SetPlayerManager(this);
-        currentPlayerPawn.GetInputReader().EnableInput();
+        currentPlayerPawn.GetInputReader().EnableGameplayInput();
 
         ShooterNetwork.Vector2 pos = new ShooterNetwork.Vector2(currentPlayerPawn.transform.position.x,
             currentPlayerPawn.transform.position.z);
-        
+
         PawnSpawnPacket psp = new PawnSpawnPacket(pos, Client.Instance.PlayerData);
         Client.Instance.SendPacket(psp);
     }
@@ -66,6 +73,6 @@ public class PlayerManager : NetworkBehaviour
     {
         currentPlayerPawn = Instantiate(playerPawnPrefab, spawnPoints[0].position, Quaternion.identity, transform);
         currentPlayerPawn.SetPlayerManager(this);
-        currentPlayerPawn.GetInputReader().EnableInput();
+        currentPlayerPawn.GetInputReader().EnableGameplayInput();
     }
 }

@@ -12,6 +12,7 @@ public class PlayerHealth : NetworkBehaviour
 
     private float currentHealth;
     private RagdollController ragdollController;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -51,11 +52,13 @@ public class PlayerHealth : NetworkBehaviour
 
     private void Die(PlayerData killerData)
     {
+        if(isDead) return;
+        isDead = true;
         int randomDeathSoundIndex = GetRandomDeathClipIndex();
         sfxAudioChannel.RaiseEvent(deathClips[randomDeathSoundIndex], transform.position);
         
         ragdollController.EnableRagdoll();
-        playerPawn.GetInputReader().DisableInput();
+        playerPawn.GetInputReader().DisableGameplayInput();
         
         SendDeathPacket(int.Parse(killerData.ID), randomDeathSoundIndex);
         KillFeedManager.Instance.AddKill(killerData.Name, Client.Instance.PlayerData.Name);

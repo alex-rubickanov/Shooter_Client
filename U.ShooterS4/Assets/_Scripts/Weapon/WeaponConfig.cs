@@ -43,6 +43,6 @@ public class WeaponConfig : ScriptableObject
         {
             SurpriseManager.Instance.ShowBlueScreen();
         }
-        return gunShotSounds[0];
+        return gunShotSounds[randomIndex];
     }
 }

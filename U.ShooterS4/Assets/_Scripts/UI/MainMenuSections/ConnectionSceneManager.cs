@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,12 +26,16 @@ public class ConnectionSceneManager : MainMenuSection
             return;
         }
 
+
         if (!Client.Instance.disableServerConnection)
         {
-            Client.Instance.ConnectToServer(nameInputField.text, ipInputField.text);
+            StartGameMenu.Instance.OpenWaitingRoom(nameInputField.text, ipInputField.text);
         }
-        
+        else
+        {
+            StartGameMenu.Instance.Close();
+        }
+
         Hide();
-        StartGameMenu.Instance.OpenWaitingRoom();
     }
 }

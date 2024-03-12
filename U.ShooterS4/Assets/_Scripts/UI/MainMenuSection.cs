@@ -5,9 +5,9 @@ public class MainMenuSection : MonoBehaviour
 {
     [SerializeField] private MainMenu mainMenu;
     [Header("Buttons")]
-    [SerializeField] private Button backButton;
+    [SerializeField] protected Button backButton;
 
-    protected void Start()
+    protected virtual void Start()
     {
         backButton.onClick.AddListener(OnBackButtonClicked);
     }

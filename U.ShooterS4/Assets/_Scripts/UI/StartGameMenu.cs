@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class StartGameMenu : MonoBehaviour
@@ -9,7 +10,7 @@ public class StartGameMenu : MonoBehaviour
     [SerializeField] private MainMenuSection connectionSection;
     [SerializeField] private MainMenuSection weaponCatalogueSection;
     [SerializeField] private MainMenuSection optionsSection;
-    [SerializeField] private MainMenuSection waitingRoom;
+    [SerializeField] private WaitingRoom waitingRoom;
 
     private void Awake()
     {
@@ -49,8 +50,20 @@ public class StartGameMenu : MonoBehaviour
         CameraManager.Instance.SetMainMenuCamera();
     }
 
-    public void OpenWaitingRoom()
+    public void OpenWaitingRoom(string name, string ip)
     {
         waitingRoom.Show();
+        StartCoroutine(OpenWaitingRoomCoroutine(name, ip));
+    }
+    
+    private IEnumerator OpenWaitingRoomCoroutine(string name, string ip)
+    {
+        yield return new WaitForSeconds(1.0f);
+        Client.Instance.ConnectToServer(name, ip);
+    }
+
+    public void ShowMessageWaitingRoom(string errorMessage)
+    {
+        waitingRoom.ShowError(errorMessage);
     }
 }

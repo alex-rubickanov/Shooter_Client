@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "Input/Input Reader", fileName = "Input Reader")]
-public class InputReader : ScriptableObject, GameInput.IGameplayActions
+public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInput.IUIActions
 {
     [SerializeField] private ControlScheme controlScheme;
 
@@ -18,14 +18,19 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     public event Action OnNextWeaponEvent;
     public event Action OnPreviousWeaponEvent;
     public event Action OnOpenScoreTabEvent;
+    public event Action OnPauseEvent;
 
     private void OnEnable()
     {
         if (gameInput == null)
         {
             gameInput = new GameInput();
+
             gameInput.Gameplay.SetCallbacks(this);
             gameInput.Gameplay.Enable();
+
+            gameInput.UI.SetCallbacks(this);
+            gameInput.UI.Enable();
         }
     }
 
@@ -102,6 +107,14 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
         }
     }
 
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            OnPauseEvent?.Invoke();
+        }
+    }
+
     public void OnOpenScoreTab(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -119,5 +132,4 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     {
         gameInput.Enable();
     }
-
 }

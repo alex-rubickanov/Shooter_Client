@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -7,7 +8,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Camera gameplayCamera;
     [SerializeField] private Camera mainMenuCamera;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
     }
@@ -15,6 +16,11 @@ public class CameraManager : MonoBehaviour
     public Camera GetGameplayCamera()
     {
         return gameplayCamera;
+    }
+
+    public Camera GetMainMenuCamera()
+    {
+        return mainMenuCamera;
     }
 
     public void SetGameplayCamera()

@@ -1,35 +1,26 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class RotateableWeapon : MonoBehaviour
 {
-    [SerializeField] private InputAction pressed, axis;
-    [SerializeField] private float speed;
+    [SerializeField] private float PCRotationSpeed = 10.0f;
+    private Camera cam;
 
-    Coroutine rotationCoroutine;
-
-    private Vector2 rotation;
-    
-    private void Awake()
+    private void Start()
     {
-        pressed.Enable();
-        axis.Enable();
-
-        pressed.performed += _ => { rotationCoroutine = StartCoroutine(Rotate()); };
-        pressed.canceled += _ => { StopCoroutine(rotationCoroutine); };
-        axis.performed += context => { rotation = context.ReadValue<Vector2>(); }; 
+        cam = CameraManager.Instance.GetMainMenuCamera();
     }
 
-    private IEnumerator Rotate()
+    private void OnMouseDrag()
     {
-        while (true)
-        {
-            transform.Rotate(Vector3.up, rotation.x * speed, Space.World);
-            transform.Rotate(Vector3.right, rotation.y * speed, Space.World);
-            yield return null;
-        }
+        float rotX = Input.GetAxis("Mouse X") * PCRotationSpeed;
+        float rotY = Input.GetAxis("Mouse Y") * PCRotationSpeed;
+
+        Vector3 right = Vector3.Cross(cam.transform.up, transform.position - cam.transform.position);
+        Vector3 up = Vector3.Cross(transform.position - cam.transform.position, right);
+        var rotation = transform.rotation;
+        rotation = Quaternion.AngleAxis(-rotX, up) * rotation;
+        rotation = Quaternion.AngleAxis(rotY, right) * rotation;
+        transform.rotation = rotation;
     }
 }

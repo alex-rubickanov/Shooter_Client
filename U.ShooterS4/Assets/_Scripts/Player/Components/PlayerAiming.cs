@@ -22,7 +22,7 @@ public class PlayerAiming : NetworkBehaviour
         playerCamera = CameraManager.Instance.GetGameplayCamera();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isAiming)
         {

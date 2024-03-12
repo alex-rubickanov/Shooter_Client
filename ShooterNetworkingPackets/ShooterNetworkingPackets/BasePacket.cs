@@ -15,7 +15,8 @@ namespace ShooterNetwork
         Reload = 8,
         Hit = 9,
         Death = 10,
-        StartGame = 11
+        StartGame = 11,
+        Dance = 12
     }
 
     public class BasePacket

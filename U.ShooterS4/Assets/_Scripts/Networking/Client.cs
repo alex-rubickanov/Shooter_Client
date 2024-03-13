@@ -101,12 +101,9 @@ public class Client : MonoBehaviour
         if (disableServerConnection) return;
         try
         {
-            
             if (!clientSocket.Connected || clientSocket.Available <= 0)
                 return;
-            
-            if (!clientSocket.Connected || clientSocket.Available <= 0)
-                return;
+
             byte[] buffer = new byte[clientSocket.Available];
             clientSocket.Receive(buffer);
             BasePacket.Reset();
@@ -271,6 +268,12 @@ public class Client : MonoBehaviour
     public void Disconnect()
     {
         if (disableServerConnection) return;
+        foreach (var clone in playerClones)
+        {
+            Destroy(clone.Value.gameObject);
+            playerClones.Remove(clone.Key);
+        }
+
         isConnected = false;
         clientSocket.Close();
         GameplayHUD.Instance.Close();

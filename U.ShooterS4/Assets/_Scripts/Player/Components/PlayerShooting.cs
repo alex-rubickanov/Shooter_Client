@@ -156,7 +156,7 @@ public class PlayerShooting : NetworkBehaviour
 
     private void Reload()
     {
-        if (currentWeapon == null) return;
+        if (currentWeapon == null || weaponsList.weapons.Count == 1) return;
         if (isReloading || currentWeapon.IsAmmoFull()) return;
 
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());

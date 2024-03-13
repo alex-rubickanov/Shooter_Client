@@ -64,7 +64,7 @@ public class PlayerManager : NetworkBehaviour
         }
 
         int spawnPointIndex = int.Parse(Client.Instance.PlayerData.ID);
-        currentPlayerPawn = Instantiate(playerPawnPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity,
+        currentPlayerPawn = Instantiate(playerPawnPrefab, spawnPoints[spawnPointIndex - 1].position, Quaternion.identity,
             transform);
         currentPlayerPawn.SetPlayerManager(this);
         currentPlayerPawn.GetInputReader().EnableGameplayInput();

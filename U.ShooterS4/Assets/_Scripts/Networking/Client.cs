@@ -99,12 +99,14 @@ public class Client : MonoBehaviour
     private void ReceiveData()
     {
         if (disableServerConnection) return;
-        if (!isConnected) return;
-        if (!clientSocket.Connected || clientSocket.Available <= 0)
-            return;
-
         try
         {
+            
+            if (!clientSocket.Connected || clientSocket.Available <= 0)
+                return;
+            
+            if (!clientSocket.Connected || clientSocket.Available <= 0)
+                return;
             byte[] buffer = new byte[clientSocket.Available];
             clientSocket.Receive(buffer);
             BasePacket.Reset();
@@ -194,6 +196,7 @@ public class Client : MonoBehaviour
         {
             if (ex.SocketErrorCode != SocketError.WouldBlock)
             {
+                Debug.LogError(ex.SocketErrorCode);
                 Debug.Log(ex.Message);
             }
         }

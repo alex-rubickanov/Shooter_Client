@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapons/Weapon Config", fileName = "New Weapon Config")]
 public class WeaponConfig : ScriptableObject
 {
+    [SerializeField] private int weaponID;
+    public int ID => weaponID;
+
     public bool isUnlocked;
     public bool isSpecialGun;
     public int killsToUnlock;

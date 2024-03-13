@@ -66,7 +66,7 @@ public class CloneShooting : MonoBehaviour
         Weapon pickedWeapon = null;
         foreach (var weapon in weaponsList.weapons)
         {
-            if (weapon.ID == ID)
+            if (weapon.GetWeaponConfig().ID == ID)
             {
                 pickedWeapon = weapon;
                 return pickedWeapon;

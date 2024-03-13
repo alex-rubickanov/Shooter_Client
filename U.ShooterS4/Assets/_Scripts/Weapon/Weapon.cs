@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public int ID;
-    
     protected PlayerPawn owner;
 
     [SerializeField] protected WeaponConfig weaponConfig;

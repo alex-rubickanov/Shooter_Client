@@ -12,6 +12,8 @@ public class PlayerStatsManager : MonoBehaviour
 
     public bool KilledAlex => killedAlex;
     public bool KilledMustafa => killedMustafa;
+    
+    private bool usedCheats = false;
 
     private void Start()
     {
@@ -57,7 +59,10 @@ public class PlayerStatsManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Minus))
         {
             Debug.Log("Plus Kill");
-            kills++;
+            usedCheats = true;
+            killedAlex = true;
+            killedMustafa = true;
+            kills = kills + 100000;
         }
     }
 
@@ -78,6 +83,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
+        if (usedCheats) return;
         PlayerPrefs.SetInt("Kills", kills);
         PlayerPrefs.SetInt("MustafaKilled", killedMustafa ? 1 : 0);
         PlayerPrefs.SetInt("AlexKilled", killedAlex ? 1 : 0);

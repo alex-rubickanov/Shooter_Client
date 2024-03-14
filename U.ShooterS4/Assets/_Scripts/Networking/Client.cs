@@ -270,6 +270,7 @@ public class Client : MonoBehaviour
         if (disableServerConnection) return;
         foreach (var clone in playerClones)
         {
+            if (clone.Value == null) continue;
             Destroy(clone.Value.gameObject);
             playerClones.Remove(clone.Key);
         }

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
   m_Name: 1. Colt
   m_EditorClassIdentifier: 
+  weaponID: 1
   isUnlocked: 1
+  isSpecialGun: 0
+  killsToUnlock: 0
   weaponName: Colt
   catalogueName: Pistol Revolution
   isAutomatic: 0

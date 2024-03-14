@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
   m_Name: 5. MP4
   m_EditorClassIdentifier: 
-  isUnlocked: 0
+  weaponID: 5
+  isUnlocked: 1
   isSpecialGun: 0
   killsToUnlock: 50
   weaponName: MP4

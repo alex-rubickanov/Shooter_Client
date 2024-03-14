@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
   m_Name: 10. Barett M82
   m_EditorClassIdentifier: 
-  isUnlocked: 0
+  weaponID: 10
+  isUnlocked: 1
   isSpecialGun: 0
   killsToUnlock: 150
   weaponName: Barett M82

@@ -45,7 +45,7 @@ public class PlayerShooting : NetworkBehaviour
 
     private void Update()
     {
-        if(!hasWeapon) return;
+        if (!hasWeapon) return;
         if (isFiring)
         {
             Shoot();
@@ -156,7 +156,7 @@ public class PlayerShooting : NetworkBehaviour
 
     private void Reload()
     {
-        if (currentWeapon == null || weaponsList.weapons.Count == 1) return;
+        if (currentWeapon == null) return;
         if (isReloading || currentWeapon.IsAmmoFull()) return;
 
         playerAnimatorController.PlayReloadAnimation(currentWeapon.GetReloadTime());
@@ -207,6 +207,8 @@ public class PlayerShooting : NetworkBehaviour
 
     private void NextWeapon()
     {
+        if (isReloading || weaponsList.weapons.Count <= 1) return;
+
         if (currentWeaponIndex == weaponsList.weapons.Count - 1)
         {
             currentWeaponIndex = 0;
@@ -221,6 +223,8 @@ public class PlayerShooting : NetworkBehaviour
 
     private void PreviousWeapon()
     {
+        if (isReloading || weaponsList.weapons.Count <= 1) return;
+
         if (currentWeaponIndex == 0)
         {
             currentWeaponIndex = weaponsList.weapons.Count - 1;

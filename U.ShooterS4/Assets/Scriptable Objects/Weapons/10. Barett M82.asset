@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 10. Barett M82
   m_EditorClassIdentifier: 
   weaponID: 10
-  isUnlocked: 1
+  isUnlocked: 0
   isSpecialGun: 0
   killsToUnlock: 150
   weaponName: Barett M82

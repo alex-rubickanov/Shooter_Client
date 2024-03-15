@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 14. SVD
   m_EditorClassIdentifier: 
   weaponID: 14
-  isUnlocked: 1
+  isUnlocked: 0
   isSpecialGun: 0
   killsToUnlock: 666
   weaponName: SVD

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3. Glock
   m_EditorClassIdentifier: 
   weaponID: 3
-  isUnlocked: 1
+  isUnlocked: 0
   isSpecialGun: 0
   killsToUnlock: 15
   weaponName: Glock

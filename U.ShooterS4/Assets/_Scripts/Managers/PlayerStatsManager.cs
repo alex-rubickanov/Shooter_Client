@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerStatsManager : MonoBehaviour
 {
     public static PlayerStatsManager Instance;
+    [SerializeField] private AllWeapons allWeapons;
 
     [SerializeField] private int kills;
     private bool killedAlex;
@@ -92,9 +93,16 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void Clear()
     {
+        foreach (var weapon in allWeapons.weapons)
+        {
+            if (weapon.GetWeaponConfig().ID != 1)
+            {
+                weapon.GetWeaponConfig().isUnlocked = false;
+            }
+        }
         kills = 0;
         killedAlex = false;
         killedMustafa = false;
-        PlayerPrefs.DeleteKey("Kills");
+        PlayerPrefs.DeleteAll();
     }
 }

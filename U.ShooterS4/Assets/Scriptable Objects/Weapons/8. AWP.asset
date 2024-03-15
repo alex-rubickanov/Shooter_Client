@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 8. AWP
   m_EditorClassIdentifier: 
   weaponID: 8
-  isUnlocked: 1
+  isUnlocked: 0
   isSpecialGun: 1
   killsToUnlock: 99999999
   weaponName: AWP

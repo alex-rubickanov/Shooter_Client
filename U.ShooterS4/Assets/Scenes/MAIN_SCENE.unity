@@ -2395,6 +2395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9d2e34206bcb64a94283cce1211a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allWeapons: {fileID: 11400000, guid: 26c8457dc8a98424d8df064ffe720e84, type: 2}
   kills: 0
 --- !u!1 &549404032
 GameObject:

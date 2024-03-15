@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 5. MP4
   m_EditorClassIdentifier: 
   weaponID: 5
-  isUnlocked: 1
+  isUnlocked: 0
   isSpecialGun: 0
   killsToUnlock: 50
   weaponName: MP4

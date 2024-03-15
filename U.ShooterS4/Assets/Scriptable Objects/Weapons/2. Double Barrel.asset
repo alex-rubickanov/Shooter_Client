@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2. Double Barrel
   m_EditorClassIdentifier: 
   weaponID: 2
-  isUnlocked: 1
+  isUnlocked: 0
   isSpecialGun: 0
   killsToUnlock: 8
   weaponName: Double Barrel

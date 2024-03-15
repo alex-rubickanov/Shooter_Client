@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 11. SPAS
   m_EditorClassIdentifier: 
   weaponID: 11
-  isUnlocked: 1
+  isUnlocked: 0
   isSpecialGun: 0
   killsToUnlock: 200
   weaponName: SPAS

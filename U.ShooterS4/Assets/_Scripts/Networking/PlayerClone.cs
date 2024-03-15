@@ -46,19 +46,19 @@ public class PlayerClone : MonoBehaviour
     private void Dance(DancePacket packet)
     {
         if(packet.DataHolder.ID != cloneData.ID) return;
-        cloneAnimatorController.PlayDance(packet.DanceID);
+        cloneAnimatorController.PlayDance(int.Parse(packet.DanceID));
     }
 
     private void Death(DeathPacket packet)
     {
         if(packet.DataHolder.ID != cloneData.ID) return;
-        cloneHealth.Die(packet.DeathSoundID);
+        cloneHealth.Die(int.Parse(packet.DeathSoundID));
     }
 
     private void Hit(HitPacket packet)
     {
         if(packet.DataHolder.ID != cloneData.ID) return;
-        cloneHealth.TakeDamage(packet.HitSoundID);
+        cloneHealth.TakeDamage(int.Parse(packet.HitSoundID));
     }
 
     private void Reload(ReloadPacket packet)
@@ -78,7 +78,7 @@ public class PlayerClone : MonoBehaviour
     private void EquipWeapon(EquipWeaponPacket packet)
     {
         if(packet.DataHolder.ID != cloneData.ID) return;
-        cloneShooting.EquipWeapon(packet.WeaponID);
+        cloneShooting.EquipWeapon(int.Parse(packet.WeaponID));
     }
 
     private void AimClone(AimPacket packet)

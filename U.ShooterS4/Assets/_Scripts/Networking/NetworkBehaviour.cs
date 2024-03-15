@@ -24,7 +24,7 @@ public class NetworkBehaviour : MonoBehaviour
     
     public void SendEquipWeaponPacket(int weaponID)
     {
-        EquipWeaponPacket equipWeaponPacket = new EquipWeaponPacket(weaponID, Client.Instance.PlayerData);
+        EquipWeaponPacket equipWeaponPacket = new EquipWeaponPacket(weaponID.ToString(), Client.Instance.PlayerData);
         Client.Instance.SendPacket(equipWeaponPacket);
     }
     
@@ -42,19 +42,19 @@ public class NetworkBehaviour : MonoBehaviour
     
     public void SendHitPacket(int hitSoundID)
     {
-        HitPacket hitPacket = new HitPacket(hitSoundID, Client.Instance.PlayerData);
+        HitPacket hitPacket = new HitPacket(hitSoundID.ToString(), Client.Instance.PlayerData);
         Client.Instance.SendPacket(hitPacket);
     }
     
     public void SendDeathPacket(int killerID, int deathSoundID)
     {
-        DeathPacket deathPacket = new DeathPacket(killerID, deathSoundID, Client.Instance.PlayerData);
+        DeathPacket deathPacket = new DeathPacket(killerID.ToString(), deathSoundID.ToString(), Client.Instance.PlayerData);
         Client.Instance.SendPacket(deathPacket);
     }
 
     public void SendDancePacket(int danceID)
     {
-        DancePacket dancePacket = new DancePacket(danceID, Client.Instance.PlayerData);
+        DancePacket dancePacket = new DancePacket(danceID.ToString(), Client.Instance.PlayerData);
         Client.Instance.SendPacket(dancePacket);
     }
 }

@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour
 
     private void ReadDeathPacket(DeathPacket packet)
     {
-        PlayerData killerData = Client.Instance.GetPlayerDataByID(packet.KillerID);
+        PlayerData killerData = Client.Instance.GetPlayerDataByID(int.Parse(packet.KillerID));
         PlayerData victimData = (PlayerData)packet.DataHolder;
         
         AddKill(killerData, victimData);

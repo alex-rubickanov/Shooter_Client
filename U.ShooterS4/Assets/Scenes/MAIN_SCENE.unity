@@ -5309,6 +5309,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8121301006367389164, guid: a2d006df7b76c064094fcf30f65d8c64,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.98
+      objectReference: {fileID: 0}
     - target: {fileID: 8187189728309708328, guid: a2d006df7b76c064094fcf30f65d8c64,
         type: 3}
       propertyPath: m_CastShadows
@@ -5978,12 +5983,12 @@ PrefabInstance:
     - target: {fileID: 9177974075579634519, guid: 33ae379df301dff4aa53c9546922fab7,
         type: 3}
       propertyPath: showStartGameMenu
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9177974075579634519, guid: 33ae379df301dff4aa53c9546922fab7,
         type: 3}
       propertyPath: disableServerConnection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

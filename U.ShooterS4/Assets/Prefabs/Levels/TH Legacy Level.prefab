@@ -1734,7 +1734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4526385614203383342}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: TH Legacy Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

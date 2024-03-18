@@ -1,21 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance;
-    
-    [SerializeField] private Camera gameplayCamera;
+
     [SerializeField] private Camera mainMenuCamera;
+
+    public Camera GameplayCamera;
 
     private void Awake()
     {
         Instance = this;
-    }
-    
-    public Camera GetGameplayCamera()
-    {
-        return gameplayCamera;
     }
 
     public Camera GetMainMenuCamera()
@@ -25,13 +22,17 @@ public class CameraManager : MonoBehaviour
 
     public void SetGameplayCamera()
     {
-        gameplayCamera.gameObject.SetActive(true);
+        GameplayCamera.gameObject.SetActive(true);
         mainMenuCamera.gameObject.SetActive(false);
     }
-    
+
     public void SetMainMenuCamera()
     {
-        gameplayCamera.gameObject.SetActive(false);
+        if (GameplayCamera != null)
+        {
+            GameplayCamera.gameObject.SetActive(false);
+        }
+
         mainMenuCamera.gameObject.SetActive(true);
     }
 }

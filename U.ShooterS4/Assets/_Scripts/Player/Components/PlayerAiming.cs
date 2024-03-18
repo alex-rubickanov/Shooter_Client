@@ -19,7 +19,7 @@ public class PlayerAiming : NetworkBehaviour
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        playerCamera = CameraManager.Instance.GetGameplayCamera();
+        playerCamera = CameraManager.Instance.GameplayCamera;
     }
 
     private void FixedUpdate()

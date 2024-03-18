@@ -172,10 +172,12 @@ public class Client : MonoBehaviour
 
                     case PacketType.StartGame:
                         StartGamePacket sgp = new StartGamePacket().Deserialize(buffer);
-                        OnStartGamePacketReceived?.Invoke(sgp);
+                        Debug.Log(sgp.LevelID);
+                        LevelManager.Instance.LoadLevel(int.Parse(sgp.LevelID));
                         GameplayHUD.Instance.Open();
                         StartGameMenu.Instance.Close();
                         ScoreManager.Instance.AddPlayer(playerData);
+                        OnStartGamePacketReceived?.Invoke(sgp);
                         break;
 
                     case PacketType.Dance:
@@ -204,7 +206,7 @@ public class Client : MonoBehaviour
         PawnSpawnPacket psp = new PawnSpawnPacket().Deserialize(buffer);
         if (!playerClones.ContainsKey(psp.DataHolder.ID))
         {
-            Vector3 pos = new Vector3(psp.Position.X, 0, psp.Position.Y);
+            Vector3 pos = new Vector3(psp.Position.X, psp.PositionY, psp.Position.Y);
             PlayerClone pc = Instantiate(clonePrefab, pos, Quaternion.identity);
             PlayerData cloneData = new PlayerData(psp.DataHolder.Name, psp.DataHolder.ID);
             pc.SetCloneData(cloneData);

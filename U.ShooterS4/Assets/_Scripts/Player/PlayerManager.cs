@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using ShooterNetwork;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class PlayerManager : NetworkBehaviour
     [SerializeField] private PlayerPawn playerPawnPrefab;
     [SerializeField] private float respawnTime;
 
-    [SerializeField] private Transform[] spawnPoints;
+    private List<Transform> spawnPoints;
 
     private PlayerMovement playerMovement;
     private PlayerAiming playerAiming;
@@ -35,6 +36,7 @@ public class PlayerManager : NetworkBehaviour
 
     private void OnStartGamePacketReceived(StartGamePacket obj)
     {
+        spawnPoints = LevelManager.Instance.CurrentLevel.SpawnPoints;
         SpawnPlayerPawn();
     }
 
@@ -72,7 +74,7 @@ public class PlayerManager : NetworkBehaviour
         ShooterNetwork.Vector2 pos = new ShooterNetwork.Vector2(currentPlayerPawn.transform.position.x,
             currentPlayerPawn.transform.position.z);
 
-        PawnSpawnPacket psp = new PawnSpawnPacket(pos, Client.Instance.PlayerData);
+        PawnSpawnPacket psp = new PawnSpawnPacket(pos, currentPlayerPawn.transform.position.y, Client.Instance.PlayerData);
         Client.Instance.SendPacket(psp);
     }
 

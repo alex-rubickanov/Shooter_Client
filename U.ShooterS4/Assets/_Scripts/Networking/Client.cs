@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
@@ -270,11 +271,10 @@ public class Client : MonoBehaviour
     public void Disconnect()
     {
         if (disableServerConnection) return;
-        foreach (var clone in playerClones)
+        for (int i = 0; i < playerClones.Count; i++)
         {
-            if (clone.Value == null) continue;
-            Destroy(clone.Value.gameObject);
-            playerClones.Remove(clone.Key);
+            Destroy(playerClones.ElementAt(i).Value.gameObject);
+            playerClones.Remove(playerClones.ElementAt(i).Key);
         }
 
         isConnected = false;

@@ -65,7 +65,6 @@ Library: E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burs
 --linker-options=PdbAltPath="Strelyalka_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burst
---debug=LineOnly
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Library\Burst
 --output=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -139,7 +138,6 @@ Library: E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burs
 --linker-options=PdbAltPath="Strelyalka_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burst
---debug=LineOnly
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Library\Burst
 --output=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -211,7 +209,6 @@ Library: E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burs
 --linker-options=PdbAltPath="Strelyalka_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burst
---debug=LineOnly
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Library\Burst
 --output=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
@@ -289,7 +286,6 @@ Library: E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burs
 --linker-options=PdbAltPath="Strelyalka_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\Burst
---debug=LineOnly
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
 --decode-folder=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Library\Burst
 --output=E:\ComplexProjects\Shooter_Studio4\Shooter_Client\U.ShooterS4\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated

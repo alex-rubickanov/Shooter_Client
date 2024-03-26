@@ -186,6 +186,12 @@ public class Client : MonoBehaviour
                         OnDancePacketReceived?.Invoke(dancePacket);
                         break;
 
+                    case PacketType.Disconnection:
+                        DisconnectionPacket disconnectionPacket = new DisconnectionPacket().Deserialize(buffer);
+                        Destroy(playerClones[disconnectionPacket.DataHolder.ID].gameObject);
+                        playerClones.Remove(disconnectionPacket.DataHolder.ID);
+                        break;
+
                     default:
                         Debug.LogWarning($"{gameObject.name}" + " received an unknown packet");
                         break;
@@ -235,7 +241,23 @@ public class Client : MonoBehaviour
     {
         if (disableServerConnection || !isConnected) return;
         //Debug.Log(gameObject.name + "Sending packet to server! " + packet.Type);
-        clientSocket.Send(packet.Serialize());
+        try
+        {
+            clientSocket.Send(packet.Serialize());
+        }
+        catch (SocketException ex)
+        {
+            if(ex.SocketErrorCode == SocketError.ConnectionReset)
+            {
+                Debug.LogError("Server is not running!");
+                Disconnect();
+            }
+            else
+            {
+                Debug.LogError("Error while sending packet to server!");
+                Debug.LogError(ex.Message);
+            }
+        }
     }
 
     public string GetPlayerNameByID(string id)
@@ -282,5 +304,8 @@ public class Client : MonoBehaviour
         GameplayHUD.Instance.Close();
         StartGameMenu.Instance.Open();
         OnDisconnect?.Invoke();
+
+        DisconnectionPacket dp = new DisconnectionPacket(playerData);
+        SendPacket(dp);
     }
 }

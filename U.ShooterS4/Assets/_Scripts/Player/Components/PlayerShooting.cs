@@ -221,14 +221,16 @@ public class PlayerShooting : NetworkBehaviour
             currentWeaponIndex++;
         }
 
-        if (isAmmoCached)
-        {
-            currentWeapon.SetAmmo(cachedAmmoValue);
-        }
-
+        int cache = cachedAmmoValue;
         cachedAmmoValue = currentWeapon.GetAmmo();
 
         EquipWeapon(weaponsList.weapons[currentWeaponIndex]);
+
+        if (isAmmoCached)
+        {
+            currentWeapon.SetAmmo(cache);
+            GameplayHUD.Instance.UpdateAmmo(currentWeapon.GetAmmo());
+        }
 
         isAmmoCached = true;
     }

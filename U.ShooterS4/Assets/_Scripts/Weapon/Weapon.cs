@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
 
     public event Action<Vector3> OnFireBullet;
 
-    protected void Start()
+    protected void Awake()
     {
         ammo = weaponConfig.maxAmmo;
         timer = weaponConfig.fireRate;

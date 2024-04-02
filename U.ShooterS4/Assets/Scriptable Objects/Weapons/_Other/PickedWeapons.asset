@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8603ee8303f0aaa45ad512f57d60be18, type: 3}
   m_Name: PickedWeapons
   m_EditorClassIdentifier: 
-  weapons: []
+  weapons:
+  - {fileID: 1899969182242678734, guid: 0f65d7cd773d6cc40ade82618dc621e5, type: 3}
+  - {fileID: 338975399392313748, guid: c90915155ad64724da7dff3af8314d53, type: 3}

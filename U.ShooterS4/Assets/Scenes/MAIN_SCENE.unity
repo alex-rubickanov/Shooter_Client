@@ -4198,7 +4198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allWeapons: {fileID: 11400000, guid: 26c8457dc8a98424d8df064ffe720e84, type: 2}
-  kills: 0
 --- !u!1 &549404032
 GameObject:
   m_ObjectHideFlags: 0
@@ -9785,6 +9784,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1352744267436221653, guid: 33ae379df301dff4aa53c9546922fab7,
         type: 3}
+      propertyPath: testSpawnPoint
+      value: 
+      objectReference: {fileID: 1449454560}
+    - target: {fileID: 1352744267436221653, guid: 33ae379df301dff4aa53c9546922fab7,
+        type: 3}
       propertyPath: spawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1449454560}
@@ -9867,12 +9871,12 @@ PrefabInstance:
     - target: {fileID: 9177974075579634519, guid: 33ae379df301dff4aa53c9546922fab7,
         type: 3}
       propertyPath: showStartGameMenu
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9177974075579634519, guid: 33ae379df301dff4aa53c9546922fab7,
         type: 3}
       propertyPath: disableServerConnection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

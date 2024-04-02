@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
@@ -29,6 +30,8 @@ public class PlayerShooting : NetworkBehaviour
 
     public bool IsFiring => isFiring;
     private bool hasWeapon;
+    private int cachedAmmoValue;
+    private bool isAmmoCached;
 
     private void Start()
     {
@@ -205,7 +208,7 @@ public class PlayerShooting : NetworkBehaviour
         audioManagerChannel.RaiseEvent(reload3, currentWeapon.transform.position);
     }
 
-    private void NextWeapon()
+    private void WeaponChange()
     {
         if (isReloading || weaponsList.weapons.Count <= 1) return;
 
@@ -218,23 +221,16 @@ public class PlayerShooting : NetworkBehaviour
             currentWeaponIndex++;
         }
 
-        EquipWeapon(weaponsList.weapons[currentWeaponIndex]);
-    }
-
-    private void PreviousWeapon()
-    {
-        if (isReloading || weaponsList.weapons.Count <= 1) return;
-
-        if (currentWeaponIndex == 0)
+        if (isAmmoCached)
         {
-            currentWeaponIndex = weaponsList.weapons.Count - 1;
-        }
-        else
-        {
-            currentWeaponIndex--;
+            currentWeapon.SetAmmo(cachedAmmoValue);
         }
 
+        cachedAmmoValue = currentWeapon.GetAmmo();
+
         EquipWeapon(weaponsList.weapons[currentWeaponIndex]);
+
+        isAmmoCached = true;
     }
 
     private void OnEnable()
@@ -246,8 +242,7 @@ public class PlayerShooting : NetworkBehaviour
         playerAnimatorController.OnReload2 += PlayReload2Sound;
         playerAnimatorController.OnReload3 += PlayReload3Sound;
 
-        inputReader.OnNextWeaponEvent += NextWeapon;
-        inputReader.OnPreviousWeaponEvent += PreviousWeapon;
+        inputReader.OnWeaponChangeEvent += WeaponChange;
     }
 
     private void OnDisable()
@@ -259,8 +254,7 @@ public class PlayerShooting : NetworkBehaviour
         playerAnimatorController.OnReload2 -= PlayReload2Sound;
         playerAnimatorController.OnReload3 -= PlayReload3Sound;
 
-        inputReader.OnNextWeaponEvent -= NextWeapon;
-        inputReader.OnPreviousWeaponEvent -= PreviousWeapon;
+        inputReader.OnWeaponChangeEvent -= WeaponChange;
 
         if (currentWeapon != null)
         {

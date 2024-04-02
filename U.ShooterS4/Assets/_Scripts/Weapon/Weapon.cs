@@ -133,6 +133,11 @@ public class Weapon : MonoBehaviour
         return ammo;
     }
 
+    public void SetAmmo(int ammo)
+    {
+        this.ammo = ammo;
+    }
+
     public WeaponAnimationType GetWeaponType()
     {
         return weaponConfig.weaponAnimationType;

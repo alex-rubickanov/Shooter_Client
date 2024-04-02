@@ -15,8 +15,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     public event Action<bool> OnFireEvent;
     public event Action OnReloadEvent;
     public event Action OnDashEvent;
-    public event Action OnNextWeaponEvent;
-    public event Action OnPreviousWeaponEvent;
+    public event Action OnWeaponChangeEvent;
     public event Action OnOpenScoreTabEvent;
     public event Action OnPauseEvent;
 
@@ -91,19 +90,11 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions, GameInp
     {
     }
 
-    public void OnNextWeapon(InputAction.CallbackContext context)
+    public void OnChangeWeapon(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            OnNextWeaponEvent?.Invoke();
-        }
-    }
-
-    public void OnPreviousWeapon(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            OnPreviousWeaponEvent?.Invoke();
+            OnWeaponChangeEvent?.Invoke();
         }
     }
 

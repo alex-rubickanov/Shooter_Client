@@ -7,7 +7,7 @@ public class PlayerStatsManager : MonoBehaviour
     public static PlayerStatsManager Instance;
     [SerializeField] private AllWeapons allWeapons;
 
-    [SerializeField] private int kills;
+    private int kills;
     private bool killedAlex;
     private bool killedMustafa;
 

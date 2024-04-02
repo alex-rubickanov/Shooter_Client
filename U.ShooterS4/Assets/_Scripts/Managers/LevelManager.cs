@@ -20,6 +20,11 @@ public class LevelManager : MonoBehaviour
         {
             level.gameObject.SetActive(false);
         }
+
+        if (Client.Instance.disableServerConnection)
+        {
+            LoadLevel(0);
+        }
     }
 
     public void LoadLevel(int index)

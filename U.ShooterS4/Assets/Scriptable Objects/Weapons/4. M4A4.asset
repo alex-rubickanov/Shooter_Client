@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
+  m_Name: 4. M4A4
+  m_EditorClassIdentifier: 
+  weaponID: 4
+  isUnlocked: 0
+  isSpecialGun: 0
+  killsToUnlock: 30
+  weaponName: M4A4
+  catalogueName: American Classic
+  isAutomatic: 1
+  FireMode: 1
+  fireRate: 0.4
+  damage: 30
+  weight: 15
+  bulletSpeed: 100
+  recoil: 4
+  bulletPrefab: {fileID: 3186222026697088616, guid: 43f7098bf1d79ba4fb3905da5312f24c,
+    type: 3}
+  isInfinity: 0
+  maxAmmo: 30
+  reloadTime: 3
+  weaponAnimationType: 1
+  muzzleFlash: {fileID: 198405310834809902, guid: ab32929843ea40d48ae16ecaa85f794a,
+    type: 3}
+  gunShotSounds:
+  - {fileID: 8300000, guid: 7ea6993b242cecf4e8cf5c158ac3e92c, type: 3}
+  emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
+  reloadSound1: {fileID: 8300000, guid: e67fd51564f1ce1408c1ce82d395c15c, type: 3}
+  reloadSound2: {fileID: 8300000, guid: a64a6e1b14a5d9049bcfdadb8d5de56d, type: 3}
+  reloadSound3: {fileID: 8300000, guid: 61b9df2d4de8ae54a88f912543489e8e, type: 3}
+  sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  weaponUI: {fileID: 5038764805932248536, guid: 582c985101bc1bf43b4068a21e3f47e3,
+    type: 3}

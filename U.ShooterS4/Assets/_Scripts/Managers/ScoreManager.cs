@@ -39,6 +39,10 @@ public class ScoreManager : MonoBehaviour
         PlayerScore victim = playerScores[victimData];
         
         killer.Kills++;
+        if (killerData.ID == Client.Instance.PlayerData.ID)
+        {
+            GoogleDataSerialization.Kills++;
+        }
         victim.Deaths++;
         
         scoreUI.UpdateScore(killerData);

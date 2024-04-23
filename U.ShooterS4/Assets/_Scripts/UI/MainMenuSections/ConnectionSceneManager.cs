@@ -6,7 +6,7 @@ public class ConnectionSceneManager : MainMenuSection
 {
     [SerializeField] private AllWeapons pickedWeapons;
     [SerializeField] private GameObject noWeaponMessage;
-    
+
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private TMP_InputField ipInputField;
 
@@ -37,7 +37,9 @@ public class ConnectionSceneManager : MainMenuSection
         {
             StartGameMenu.Instance.Close();
         }
-
+        
+        GoogleDataSerialization.Kills = 0;
+        
         Hide();
     }
 

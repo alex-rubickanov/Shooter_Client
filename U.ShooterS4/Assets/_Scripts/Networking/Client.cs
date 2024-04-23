@@ -304,7 +304,9 @@ public class Client : MonoBehaviour
         GameplayHUD.Instance.Close();
         StartGameMenu.Instance.Open();
         OnDisconnect?.Invoke();
-
+        
+        GoogleDataSerialization.Instance.SendData();
+        
         DisconnectionPacket dp = new DisconnectionPacket(playerData);
         SendPacket(dp);
     }

@@ -23,10 +23,15 @@ public class Weapon : MonoBehaviour
 
     protected void Awake()
     {
-        ammo = weaponConfig.maxAmmo;
-        timer = weaponConfig.fireRate;
+        AssignWeaponStats();
 
         owner = GetComponentInParent<PlayerPawn>();
+    }
+
+    private void AssignWeaponStats()
+    {
+        ammo = weaponConfig.maxAmmo;
+        timer = weaponConfig.fireRate;
     }
 
     protected void Update()
@@ -63,27 +68,69 @@ public class Weapon : MonoBehaviour
 
     protected virtual void FireBullet()
     {
-        timer = 0.0f;
-        ammo--;
-        Vector3 recoilOffset = new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0,
-            UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
+        ResetTimer();
+        DicreaseAmmo();
+        Vector3 recoilOffset = CalculateRecoil();
 
-        var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
-        bullet.Initialize(owner, Client.Instance.PlayerData, weaponConfig.damage);
+        var bullet = CreateBullet();
 
-        bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset,
-            ForceMode.Impulse);
+        ImpulseBullet(bullet, recoilOffset);
 
-        var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
-        Destroy(muzzleFlash.gameObject, 2.0f);
+        HandleFlash();
 
-        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.GetRandomGunShotSound(), muzzleTransform.position);
+        PlayShotSound();
 
-        if (ammo == 0) weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
+        if (ammo == 0) PlayNoAmmoSound();
 
         InvokeFireBulletEvent(recoilOffset);
 
         Destroy(bullet.gameObject, 1.5f);
+    }
+
+    private void HandleFlash()
+    {
+        var muzzleFlash = InvokeMuzzleFlash();
+        Destroy(muzzleFlash.gameObject, 2.0f);
+    }
+
+    private void ImpulseBullet(Bullet bullet, Vector3 recoilOffset)
+    {
+        bullet.GetComponent<Rigidbody>().AddForce(muzzleTransform.forward * weaponConfig.bulletSpeed + recoilOffset,
+            ForceMode.Impulse);
+    }
+
+    private Bullet CreateBullet()
+    {
+        var bullet = Instantiate(weaponConfig.bulletPrefab, muzzleTransform.position, Quaternion.identity);
+        bullet.Initialize(owner, Client.Instance.PlayerData, weaponConfig.damage);
+        return bullet;
+    }
+
+    private Vector3 CalculateRecoil()
+    {
+        return new Vector3(UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil), 0,
+            UnityEngine.Random.Range(-weaponConfig.recoil, weaponConfig.recoil));
+    }
+
+    private void DicreaseAmmo()
+    {
+        ammo--;
+    }
+
+    private void ResetTimer()
+    {
+        timer = 0.0f;
+    }
+
+    private void PlayNoAmmoSound()
+    {
+        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.emptyClipSound, muzzleTransform.position);
+    }
+
+    private ParticleSystem InvokeMuzzleFlash()
+    {
+        var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
+        return muzzleFlash;
     }
 
     public virtual void FireBulletClone(Vector3 recoilOffset, PlayerData cloneData)
@@ -96,11 +143,15 @@ public class Weapon : MonoBehaviour
 
         var muzzleFlash = Instantiate(weaponConfig.muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
 
-        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.GetRandomGunShotSound(), muzzleTransform.position);
-
+        PlayShotSound();
 
         Destroy(muzzleFlash.gameObject, 2.0f);
         Destroy(bullet.gameObject, 1.5f);
+    }
+
+    protected virtual void PlayShotSound()
+    {
+        weaponConfig.sfxChannel.RaiseEvent(weaponConfig.GetRandomGunShotSound(), muzzleTransform.position);
     }
 
     protected void InvokeFireBulletEvent(Vector3 recoilOffset)
@@ -113,7 +164,7 @@ public class Weapon : MonoBehaviour
         OnFireBullet?.Invoke(Vector3.zero);
     }
 
-    public void StopFiring()
+    public virtual void StopFiring()
     {
         shotFired = false;
     }

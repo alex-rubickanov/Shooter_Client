@@ -10,4 +10,9 @@ public class AudioManagerChannel : ScriptableObject
     {
         OnEventRaised?.Invoke(audioClip, position);
     }
+
+    public void CancelEvent()
+    {
+        
+    }
 }

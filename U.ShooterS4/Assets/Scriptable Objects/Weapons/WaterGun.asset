@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170beaf5038fbeb4aa4dadc3fd58262f, type: 3}
+  m_Name: WaterGun
+  m_EditorClassIdentifier: 
+  weaponID: 666
+  isUnlocked: 0
+  isSpecialGun: 0
+  killsToUnlock: 666
+  weaponName: SVD
+  catalogueName: Dragunov's Masterpiece
+  isAutomatic: 1
+  FireMode: 2
+  fireRate: 0.1
+  damage: 200
+  weight: 35
+  bulletSpeed: 130
+  recoil: 0
+  bulletPrefab: {fileID: 2717752531167666684, guid: 80a126a2863965944a9f55aa1d4c2894,
+    type: 3}
+  isInfinity: 0
+  maxAmmo: 1000
+  reloadTime: 2
+  weaponAnimationType: 1
+  muzzleFlash: {fileID: 198381425572196190, guid: 07277f9efe2374047bf57bdba847e02b,
+    type: 3}
+  gunShotSounds:
+  - {fileID: 8300000, guid: 8c4a7c6bbc23a6f479bdf8e1dcfce0f0, type: 3}
+  emptyClipSound: {fileID: 8300000, guid: 43371acbd0f91ed4c9fb0df59395f992, type: 3}
+  reloadSound1: {fileID: 8300000, guid: 685d976b0c39ae841a8dee92cad8bc41, type: 3}
+  reloadSound2: {fileID: 8300000, guid: 690cf5fc686be234e9120c2fdba8313c, type: 3}
+  reloadSound3: {fileID: 8300000, guid: 22703c03a2f30744793b0d33e60c04dd, type: 3}
+  sfxChannel: {fileID: 11400000, guid: 9cce53a2475756d4dae94c3b7e0f4cc0, type: 2}
+  weaponUI: {fileID: 6926122374515651869, guid: 336961a81fe8ef84686668eef4c6cd0c,
+    type: 3}

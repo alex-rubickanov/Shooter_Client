@@ -565,8 +565,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Welcome.
 
-    Enter your stupid name and server''s IP (do you even know
-    what is that?)'
+    Enter your name and server''s IP (do you even know what
+    is that?)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 31e4f23a2f7adfd45b7e474627e50d69, type: 2}
   m_sharedMaterial: {fileID: -5135921887061898761, guid: 31e4f23a2f7adfd45b7e474627e50d69,
@@ -10126,6 +10126,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.000001, y: 0, z: 5.000001}
   m_Center: {x: -2.5000005, y: 0, z: 2.500002}
+--- !u!1 &1095378547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1095378549}
+  - component: {fileID: 1095378548}
+  m_Layer: 0
+  m_Name: Google
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1095378548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095378547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226e3167369354240a97417d80e7fe49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickedWeapons: {fileID: 11400000, guid: 477e1a589271af040af84d99986a8e64, type: 2}
+--- !u!4 &1095378549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095378547}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.150276, y: 20.922737, z: -25.417734}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1113642762
 GameObject:
   m_ObjectHideFlags: 0
@@ -14467,7 +14512,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Idiot
+  m_text: Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 31e4f23a2f7adfd45b7e474627e50d69, type: 2}
   m_sharedMaterial: {fileID: -5135921887061898761, guid: 31e4f23a2f7adfd45b7e474627e50d69,
@@ -17509,6 +17554,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -228.64
       objectReference: {fileID: 0}
+    - target: {fileID: 4507606684559972907, guid: ca4d943709392af49839f7a70e0eb1e3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 38.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507606684559972907, guid: ca4d943709392af49839f7a70e0eb1e3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -294.49
+      objectReference: {fileID: 0}
     - target: {fileID: 4888555164032154900, guid: ca4d943709392af49839f7a70e0eb1e3,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -17593,6 +17648,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.069996
+      objectReference: {fileID: 0}
+    - target: {fileID: 6829424227121146391, guid: ca4d943709392af49839f7a70e0eb1e3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.44
       objectReference: {fileID: 0}
     - target: {fileID: 6835488197710603453, guid: ca4d943709392af49839f7a70e0eb1e3,
         type: 3}
@@ -23004,3 +23064,4 @@ SceneRoots:
   - {fileID: 1257313755}
   - {fileID: 575298979}
   - {fileID: 4167395152072495325}
+  - {fileID: 1095378549}
